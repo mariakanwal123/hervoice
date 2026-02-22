@@ -127,6 +127,8 @@ section{padding:80px 5%}
 .modal-body li{font-size:.93rem;line-height:1.75;color:var(--text);margin-bottom:.5rem}
 .modal-body strong{color:var(--dark);font-weight:600}
 .modal-body blockquote{border-left:3px solid var(--rose);padding:.8rem 1.2rem;background:var(--rose-pale);border-radius:0 12px 12px 0;margin:1.2rem 0;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--mid)}
+.modal-body img{width:100%;border-radius:14px;margin:1.5rem 0;object-fit:cover;height:320px;box-shadow:0 8px 30px rgba(26,10,15,.15)}
+.modal-body .img-caption{text-align:center;font-size:.78rem;color:var(--text-muted);margin-top:-1rem;margin-bottom:1.5rem;letter-spacing:.04em}
 
 .infographic{background:linear-gradient(135deg,var(--rose-pale),#FFF5F7);border:1px solid var(--rose-light);border-radius:16px;padding:1.8rem;margin:2rem 0}
 .infographic-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--rose);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
@@ -135,13 +137,6 @@ section{padding:80px 5%}
 .infographic-stat{text-align:center;background:white;border-radius:12px;padding:1rem;box-shadow:0 2px 10px rgba(200,64,90,.08)}
 .infographic-stat .num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--rose)}
 .infographic-stat .lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;line-height:1.3}
-
-.takeaways{background:linear-gradient(135deg,#FFF8E8,#FFFBF0);border:1px solid var(--gold-light);border-left:4px solid var(--gold);border-radius:0 16px 16px 0;padding:1.5rem 1.8rem;margin:2rem 0}
-.takeaways-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
-.takeaways-title::before{content:'✨'}
-.takeaways ul{list-style:none;margin:0}
-.takeaways li{padding:.4rem 0 .4rem 1.4rem;position:relative;font-size:.91rem;color:var(--text)}
-.takeaways li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
 
 .faq{margin:2rem 0}
 .faq-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--dark);font-weight:700;margin-bottom:1rem}
@@ -153,10 +148,15 @@ section{padding:80px 5%}
 .faq-a.open{max-height:400px;padding-bottom:1rem}
 .faq-q.open .faq-icon{transform:rotate(45deg)}
 
+.takeaways{background:linear-gradient(135deg,#FFF8E8,#FFFBF0);border:1px solid var(--gold-light);border-left:4px solid var(--gold);border-radius:0 16px 16px 0;padding:1.5rem 1.8rem;margin:2rem 0}
+.takeaways-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.takeaways-title::before{content:'✨'}
+.takeaways ul{list-style:none;margin:0}
+.takeaways li{padding:.4rem 0 .4rem 1.4rem;position:relative;font-size:.91rem;color:var(--text)}
+.takeaways li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
 .conclusion{background:linear-gradient(135deg,var(--mid),var(--rose));color:white;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center}
 .conclusion-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.8rem}
 .conclusion p{font-size:.94rem;opacity:.92;line-height:1.75}
-
 .author-cta{display:flex;align-items:center;gap:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin:2rem 0}
 .author-cta-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:1.4rem;font-weight:700;box-shadow:0 4px 16px rgba(200,64,90,.3)}
 .author-cta-info h4{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark)}
@@ -393,7 +393,6 @@ body.admin-mode .admin-mode-bar { display: block; }
 }
 .edit-close-x:hover { background: #DA3633; color: white; }
 
-/* Storage save indicator */
 .save-indicator {
   position: fixed;
   bottom: 60px;
@@ -441,7 +440,6 @@ body.admin-mode .admin-mode-bar { display: block; }
   <span class="bar-exit" onclick="deactivateAdminMode()">✕ Exit Admin Mode</span>
 </div>
 
-<!-- Save indicator toast -->
 <div class="save-indicator" id="saveIndicator">✓ Changes saved</div>
 
 <div class="edit-modal-overlay" id="editModalOverlay" onclick="handleEditOverlayClick(event)">
@@ -591,14 +589,10 @@ body.admin-mode .admin-mode-bar { display: block; }
           <textarea id="newExcerpt" placeholder="2-3 sentence summary shown on the blog card..." style="min-height:80px"></textarea>
           <div class="admin-code-area">
             <p>📝 Full Blog Content (HTML supported — use &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;blockquote&gt; tags):</p>
-            <textarea id="newContent" placeholder="Paste your full blog HTML here. The system auto-adds infographic, takeaways, conclusion, FAQs, and author CTA."></textarea>
+            <textarea id="newContent" placeholder="Paste your full blog HTML here. The system auto-adds infographic and author CTA."></textarea>
           </div>
           <label>Infographic Stats (Number|Label — one per line)</label>
           <textarea id="newStats" placeholder="72%|Women in workforce&#10;45M|Businesses owned&#10;3x|More productive&#10;$1.8T|Economic impact" style="min-height:80px"></textarea>
-          <label>Key Takeaways (one per line)</label>
-          <textarea id="newTakeaways" placeholder="First key takeaway&#10;Second key takeaway&#10;Third key takeaway" style="min-height:80px"></textarea>
-          <label>Conclusion Paragraph</label>
-          <textarea id="newConclusion" placeholder="2-3 sentence conclusion..." style="min-height:70px"></textarea>
           <label>FAQs (Question||Answer — one per line)</label>
           <textarea id="newFaqs" placeholder="What is the main topic?||This blog explores...&#10;Why does this matter?||Because..." style="min-height:100px"></textarea>
           <button class="publish-btn" onclick="publishBlog()">🚀 Publish Blog Post</button>
@@ -618,26 +612,26 @@ body.admin-mode .admin-mode-bar { display: block; }
       <button class="edit-btn" onclick="editContactCard(0)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
       <div class="cc-icon">✉️</div>
       <h4>Email Us</h4>
-      <a href="mailto:medrankseo@gmail.com">medrankseo@gmail.com</a>
+      <a href="/cdn-cgi/l/email-protection#e68b83829487888d958389a6818b878f8ac885898b"><span class="__cf_email__" data-cfemail="9ff2fafbedfef1f4ecfaf0dff8f2fef6f3b1fcf0f2">[email&#160;protected]</span></a>
       <p>For blog submissions, collaborations &amp; inquiries</p>
     </div>
     <div class="contact-card">
       <button class="edit-btn" onclick="editContactCard(1)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
       <div class="cc-icon">✍️</div>
       <h4>Write For Us</h4>
-      <a href="mailto:medrankseo@gmail.com?subject=Write For HerVoice">Submit Your Story</a>
+      <a href="/cdn-cgi/l/email-protection#cfa2aaabbdaea1a4bcaaa08fa8a2aea6a3e1aca0a2f0bcbaada5aaacbbf298bda6bbaaef89a0bdef87aabd99a0a6acaa">Submit Your Story</a>
       <p>Share your voice — we publish women's stories</p>
     </div>
     <div class="contact-card">
       <button class="edit-btn" onclick="editContactCard(2)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
       <div class="cc-icon">🤝</div>
       <h4>Collaborate</h4>
-      <a href="mailto:medrankseo@gmail.com?subject=Partnership Inquiry">Partner With Us</a>
+      <a href="/cdn-cgi/l/email-protection#91fcf4f5e3f0fffae2f4fed1f6fcf0f8fdbff2fefcaee2e4f3fbf4f2e5acc1f0e3e5fff4e3e2f9f8e1b1d8ffe0e4f8e3e8">Partner With Us</a>
       <p>Brands, NGOs &amp; organizations — let's work together</p>
     </div>
   </div>
   <div style="margin-top:2.5rem">
-    <a href="mailto:medrankseo@gmail.com" class="hero-btn" style="background:var(--rose);color:white;box-shadow:0 8px 30px rgba(200,64,90,.3)">
+    <a href="/cdn-cgi/l/email-protection#6b060e0f190a0500180e042b0c060a020745080406" class="hero-btn" style="background:var(--rose);color:white;box-shadow:0 8px 30px rgba(200,64,90,.3)">
       📬 Send a Message to Maria Kanwal
     </a>
   </div>
@@ -691,15 +685,15 @@ body.admin-mode .admin-mode-bar { display: block; }
       <h5>About</h5>
       <ul>
         <li><a href="#">Our Mission</a></li>
-        <li><a href="mailto:medrankseo@gmail.com?subject=Write For HerVoice">Write For Us</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#aec3cbcadccfc0c5ddcbc1eec9c3cfc7c280cdc1c391dddbccc4cbcdda93f9dcc7dacb8ee8c1dc8ee6cbdcf8c1c7cdcb">Write For Us</a></li>
         <li><a href="#">Privacy Policy</a></li>
-        <li><a href="mailto:medrankseo@gmail.com">Advertise</a></li>
+        <li><a href="/cdn-cgi/l/email-protection#c7aaa2a3b5a6a9acb4a2a887a0aaa6aeabe9a4a8aa">Advertise</a></li>
       </ul>
     </div>
   </div>
   <div class="footer-bottom">
-    <span>© 2026 HerVoice · Made with 🌹 by <a href="mailto:medrankseo@gmail.com">Maria Kanwal</a> · All rights reserved</span>
-    <span style="color:rgba(255,255,255,.4)">Contact: <a href="mailto:medrankseo@gmail.com">medrankseo@gmail.com</a></span>
+    <span>© 2026 HerVoice · Made with 🌹 by <a href="/cdn-cgi/l/email-protection#a6cbc3c2d4c7c8cdd5c3c9e6c1cbc7cfca88c5c9cb">Maria Kanwal</a> · All rights reserved</span>
+    <span style="color:rgba(255,255,255,.4)">Contact: <a href="/cdn-cgi/l/email-protection#c1aca4a5b3a0afaab2a4ae81a6aca0a8adefa2aeac"><span class="__cf_email__" data-cfemail="cba6aeafb9aaa5a0b8aea48baca6aaa2a7e5a8a4a6">[email&#160;protected]</span></a></span>
   </div>
 </footer>
 
@@ -720,52 +714,15 @@ body.admin-mode .admin-mode-bar { display: block; }
   </div>
 </div>
 
+
 <script>
-// ============================================================
-// STORAGE KEY & PERSISTENCE HELPERS
-// ============================================================
-const STORAGE_KEY = 'hervoice_blogs_v1';
-
-function saveBlogsToStorage() {
-  try {
-    localStorage.setItem(STORAGE_KEY, JSON.stringify(blogs));
-    showSaveIndicator();
-  } catch(e) {
-    console.warn('Could not save to localStorage:', e);
-  }
-}
-
-function loadBlogsFromStorage() {
-  try {
-    const saved = localStorage.getItem(STORAGE_KEY);
-    if (saved) {
-      const parsed = JSON.parse(saved);
-      if (Array.isArray(parsed) && parsed.length > 0) {
-        return parsed;
-      }
-    }
-  } catch(e) {
-    console.warn('Could not load from localStorage:', e);
-  }
-  return null;
-}
-
-function showSaveIndicator() {
-  const el = document.getElementById('saveIndicator');
-  el.classList.add('show');
-  setTimeout(() => el.classList.remove('show'), 2000);
-}
-
-// ============================================================
-// BLOG DATA — Default 15 blogs (used only on first load)
-// ============================================================
 const defaultBlogs = [
   {
     id:1, cat:"Leadership", emoji:"👑", readTime:"11 min read",
     title:"Breaking the Glass Ceiling: Women in Leadership in 2026",
     excerpt:"From boardrooms to parliaments, women are reshaping the landscape of power and influence. Discover how modern women leaders are rewriting every rule of leadership as we know it.",
     date:"Feb 28, 2026",
-    content:`<p>The metaphor of the "glass ceiling" has long defined the invisible barrier women face when climbing the corporate and political ladder. Yet in 2026, those ceilings are not just cracking — in many sectors, they are shattering completely. Women today are not simply entering leadership roles; they are fundamentally transforming what leadership looks, sounds, and feels like. The change is seismic, and it is accelerating.</p><h2>The Current State of Women in Leadership</h2><p>According to the World Economic Forum's 2025 Global Gender Gap Report, women now hold approximately 30% of senior leadership positions globally — a significant rise from just 17% a decade ago. While there is still a substantial road ahead, the trajectory is unmistakably upward. In Scandinavia, female representation on corporate boards has crossed 40%, largely due to bold legislation requiring gender parity. Germany, France, and Norway have all passed mandatory board diversity laws that are proving highly effective.</p><p>In politics, 2025 saw a record number of women elected to national parliaments across Africa, Latin America, and Southeast Asia. Countries like Rwanda continue to lead with over 61% female parliamentary representation — a global model that others are beginning to study and replicate. Iceland became the first country in 2025 to close its overall gender gap entirely, a historic milestone that signals what is possible with sustained political will.</p><blockquote>"Leadership is not about being in charge. It's about taking care of those in your charge." — Simon Sinek. Women have embodied this ethos for generations — and the world is finally recognizing it.</blockquote><h2>What Makes Women Exceptional Leaders?</h2><p>Research consistently and overwhelmingly shows that organizations with gender-diverse leadership outperform their peers on virtually every metric. A landmark McKinsey study found that companies in the top quartile for gender diversity are 25% more likely to achieve above-average profitability. Women leaders consistently bring collaborative decision-making, empathetic management, long-term strategic thinking, and a heightened awareness of stakeholder impact — traits increasingly recognized as essential in today's volatile, uncertain business environment.</p><h2>The Structural Barriers That Remain</h2><p>Despite the progress, significant structural barriers persist. The "double bind" dilemma — where women are penalized for being too assertive yet dismissed for being too gentle — continues to create impossible standards for female leaders. Unconscious bias in hiring and promotion processes means equally qualified women are often overlooked for leadership roles.</p>`,
+    content:`<p>The metaphor of the "glass ceiling" has long defined the invisible barrier women face when climbing the corporate and political ladder. Yet in 2026, those ceilings are not just cracking — in many sectors, they are shattering completely. Women today are not simply entering leadership roles; they are fundamentally transforming what leadership looks, sounds, and feels like.</p><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&auto=format&fit=crop&q=80" alt="Women in leadership" /><p class="img-caption">Women leaders in 2026 are redefining what power looks like.</p><h2>The Current State of Women in Leadership</h2><p>According to the World Economic Forum's 2025 Global Gender Gap Report, women now hold approximately 30% of senior leadership positions globally — a significant rise from just 17% a decade ago. In Scandinavia, female representation on corporate boards has crossed 40%, largely due to bold legislation requiring gender parity. Germany, France, and Norway have all passed mandatory board diversity laws that are proving highly effective.</p><p>In politics, 2025 saw a record number of women elected to national parliaments across Africa, Latin America, and Southeast Asia. Countries like Rwanda continue to lead with over 61% female parliamentary representation — a global model that others are beginning to study and replicate.</p><blockquote>"Leadership is not about being in charge. It's about taking care of those in your charge." — Women have embodied this ethos for generations, and the world is finally recognizing it.</blockquote><h2>What Makes Women Exceptional Leaders?</h2><p>Research consistently shows that organizations with gender-diverse leadership outperform their peers on virtually every metric. A landmark McKinsey study found that companies in the top quartile for gender diversity are 25% more likely to achieve above-average profitability. Women leaders consistently bring collaborative decision-making, empathetic management, long-term strategic thinking, and a heightened awareness of stakeholder impact.</p><h2>The Structural Barriers That Remain</h2><p>Despite the progress, significant structural barriers persist. The "double bind" dilemma — where women are penalized for being too assertive yet dismissed for being too gentle — continues to create impossible standards for female leaders. Unconscious bias in hiring and promotion processes means equally qualified women are often overlooked.</p><img src="https://images.unsplash.com/photo-1521737604893-d14cc237f11d?w=900&auto=format&fit=crop&q=80" alt="Women in a boardroom meeting" /><p class="img-caption">Diverse leadership teams outperform their peers on every measurable metric.</p><h2>Building the Pipeline of Future Leaders</h2><p>The most forward-thinking organizations in 2026 are not just hiring women into leadership — they are building systems that develop and retain them. Mentorship programs, sponsorship initiatives, transparent promotion criteria, and pay equity audits are becoming standard practice. The organizations that get this right will have an immense competitive advantage in the decade ahead.</p>`,
     stats:[["30%","Hold Leadership Roles (2026)"],["25%","Higher Profit with Gender Diversity"],["61%","Rwanda Parliament Female"],["Iceland","Closed Its Gender Gap"]],
     takeaways:["Women in leadership deliver measurably better organizational outcomes across all sectors","The double bind and unconscious bias remain the most pervasive daily barriers","Sponsorship — not just mentorship — is the single most powerful career accelerant for women","Intersectional diversity creates the most innovative and resilient leadership teams","The business case for gender-equal leadership is now empirical, not theoretical"],
     conclusion:"Women in leadership are no longer the exception — they are rapidly becoming the expectation. As we celebrate International Women's Day 2026, let us commit not just to celebrating women who have risen, but to actively clearing the path for every woman still climbing. The future of leadership is diverse, empathetic, and unstoppably powerful.",
@@ -776,7 +733,7 @@ const defaultBlogs = [
     title:"Holistic Women's Health in 2026: Body, Mind & Soul in Complete Harmony",
     excerpt:"Modern women are reclaiming their health journey — moving far beyond symptom management toward true holistic wellness. Here is your complete, science-backed guide for 2026 and beyond.",
     date:"Feb 25, 2026",
-    content:`<p>Women's health has historically been an afterthought in medical research, with many foundational studies conducted primarily on male subjects. The consequences of this research gap have been profound — misdiagnosed conditions, undertreated pain, and health guidelines calibrated for the wrong body. In 2026, the tide is turning decisively.</p><h2>Understanding the Female Body's Unique Rhythms</h2><p>The female endocrine system is a masterpiece of biological complexity. From menarche to menopause and every cycle in between, women's bodies undergo rhythmic hormonal shifts that affect everything from mood, energy, and creativity to digestion, immune function, pain sensitivity.</p><h2>Mental Health: Breaking the Silence</h2><p>Women are twice as likely as men to be diagnosed with anxiety and depression. Far from reflecting weakness, this statistic reveals the cumulative weight of the unique stressors women carry: hormonal variability, disproportionate emotional labor, greater exposure to interpersonal violence, systemic economic disadvantage.</p><h2>Nutrition for Women at Every Life Stage</h2><p>Nutritional needs shift dramatically across a woman's lifespan, and the generic nutritional advice dispensed to "adults" often fails women entirely. In your 20s, iron, folate, and calcium are critical. In your 30s, magnesium, B vitamins, and adaptogens support the stress of peak career and family-building years.</p>`,
+    content:`<p>Women's health has historically been an afterthought in medical research, with many foundational studies conducted primarily on male subjects. In 2026, the tide is turning decisively. Women are reclaiming their health narratives — demanding research that reflects their biology, care that honors their full complexity.</p><img src="https://images.unsplash.com/photo-1544027993-37dbfe43562a?w=900&auto=format&fit=crop&q=80" alt="Woman practicing yoga outdoors" /><p class="img-caption">Holistic wellness integrates physical movement, mental clarity, and emotional wellbeing.</p><h2>Understanding the Female Body's Unique Rhythms</h2><p>The female endocrine system is a masterpiece of biological complexity. From menarche to menopause and every cycle in between, women's bodies undergo rhythmic hormonal shifts that affect everything from mood, energy, and creativity to digestion, immune function, and pain sensitivity. Understanding these rhythms — not fighting them — is the foundation of genuine women's health.</p><h2>Mental Health: Breaking the Silence</h2><p>Women are twice as likely as men to be diagnosed with anxiety and depression. Far from reflecting weakness, this statistic reveals the cumulative weight of the unique stressors women carry: hormonal variability, disproportionate emotional labor, greater exposure to interpersonal violence, systemic economic disadvantage.</p><blockquote>Mental health is not separate from physical health. For women, they are inseparably woven together — and must be treated as one.</blockquote><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=900&auto=format&fit=crop&q=80" alt="Woman meditating peacefully" /><p class="img-caption">Mindfulness practices reduce cortisol and build long-term emotional resilience.</p><h2>Nutrition for Women at Every Life Stage</h2><p>Nutritional needs shift dramatically across a woman's lifespan. The generic nutritional advice dispensed to "adults" often fails women entirely. In your 20s, iron, folate, and calcium are critical. In your 30s, magnesium, B vitamins, and adaptogens support the stress of peak career and family-building years. Perimenopause and menopause require entirely different nutritional strategies.</p><h2>Movement as Medicine</h2><p>Exercise is one of the most powerful medicines available to women at every life stage. Weight-bearing exercise protects bone density. Strength training supports hormonal balance. Cardiovascular movement protects heart health — the leading cause of death among women, yet persistently under-diagnosed. In 2026, women are reclaiming their relationship with movement — not as punishment, but as profound self-care.</p>`,
     stats:[["2x","Higher Anxiety Diagnosis Rate"],["1 in 5","Women Experience PPD"],["60%","Improvement with Cycle Syncing"],["80%","Under-diagnosed in Chronic Pain"]],
     takeaways:["Your hormonal cycles are vital signs — learning to read them unlocks profound health insights","Mental health care is physical health care — the mind-body connection is inseparable","Nutritional needs change dramatically at every life stage — generic advice often fails women","Preventive care is the most powerful medicine available, and increasingly accessible in 2026","Advocate loudly and specifically for healthcare that centers and understands women's experience"],
     conclusion:"Women's health is not a niche topic — it is a fundamental pillar of societal wellbeing. When women are truly healthy — physically, mentally, and spiritually — families, communities, and economies flourish. This Women's Day 2026, let the most significant gift you give yourself be the unwavering commitment to your own holistic wellness.",
@@ -787,7 +744,7 @@ const defaultBlogs = [
     title:"Financial Freedom for Women in 2026: Your Complete Wealth-Building Guide",
     excerpt:"Building real wealth, negotiating your worth, and achieving genuine financial independence — this is the comprehensive guide women have needed and never been given. Until now.",
     date:"Feb 22, 2026",
-    content:`<p>Money is power, and for too long, women have been systematically kept at the margins of financial conversations, financial education, and financial systems. The gender pay gap is well-documented, but the gender wealth gap — which is far larger and more consequential — rarely makes headlines.</p><h2>Understanding the Full Scope of the Gender Wealth Gap</h2><p>It is not just about the pay gap. The gender wealth gap is a compound disadvantage composed of multiple interlocking factors. Women earn less, invest less, receive less inheritance, and carry more unpaid economic labor.</p><h2>The Art and Science of Salary Negotiation</h2><p>Research consistently shows that women negotiate their salaries less frequently than men, and when they do, they often face social backlash. Yet research by Carnegie Mellon economists demonstrates that a single successful salary negotiation can be worth between $500,000 and $1.5 million over the course of a 40-year career.</p><h2>Investing: Closing the Investment Gap</h2><p>Women invest less than men — not because they lack the means or intelligence, but because financial services have historically been designed for, marketed to, and staffed by men. Yet when women do invest, Fidelity's research shows they outperform male investors by an average of 0.4% annually.</p>`,
+    content:`<p>Money is power, and for too long, women have been systematically kept at the margins of financial conversations, financial education, and financial systems. The gender pay gap is well-documented, but the gender wealth gap — which is far larger and more consequential — rarely makes headlines.</p><img src="https://images.unsplash.com/photo-1554224155-6726b3ff858f?w=900&auto=format&fit=crop&q=80" alt="Woman reviewing financial documents" /><p class="img-caption">Financial literacy is the foundation of every woman's independence and security.</p><h2>Understanding the Full Scope of the Gender Wealth Gap</h2><p>It is not just about the pay gap. The gender wealth gap is a compound disadvantage composed of multiple interlocking factors. Women earn less, invest less, receive less inheritance, and carry more unpaid economic labor. For women of color, these disparities are even more pronounced. Understanding the full geometry of this inequality is the first step to dismantling it.</p><h2>The Art and Science of Salary Negotiation</h2><p>Research consistently shows that women negotiate their salaries less frequently than men, and when they do, they often face social backlash. Yet research by Carnegie Mellon economists demonstrates that a single successful salary negotiation can be worth between $500,000 and $1.5 million over the course of a 40-year career. Negotiating is not optional — it is essential.</p><blockquote>Every negotiation you skip is money you leave permanently on the table. The confidence to ask is a skill, and like every skill, it is learned through practice.</blockquote><img src="https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=900&auto=format&fit=crop&q=80" alt="Woman working on financial planning" /><p class="img-caption">Women who invest consistently outperform male investors — the key is simply to start.</p><h2>Investing: Closing the Investment Gap</h2><p>Women invest less than men — not because they lack the means or intelligence, but because financial services have historically been designed for, marketed to, and staffed by men. Yet when women do invest, Fidelity's research shows they outperform male investors by an average of 0.4% annually. The investment gap is a behavior gap, not a capability gap.</p><h2>Building Multiple Income Streams</h2><p>In 2026, relying on a single employer for your entire income is a financial risk most women can no longer afford. Consulting, freelance expertise, digital products, rental income, and dividend investing are all streams that financially savvy women are layering into their portfolios. Economic resilience requires diversification.</p>`,
     stats:[["$1.5M","Value of 1 Career Negotiation"],["0.4%","Women Outperform Men Investing"],["42%","US Businesses Women-Owned"],["68¢","Wealth Per Male Dollar"]],
     takeaways:["The gender wealth gap is far larger and more dangerous than the pay gap alone","Negotiating your salary even once can be worth over a million dollars in lifetime value","Women are demonstrably better investors than men — the only barrier is starting","Multiple income streams are the financial resilience strategy for 2026 and beyond","Financial literacy is not just practical — it is the most powerful act of feminist self-determination"],
     conclusion:"Financial freedom is not a luxury reserved for the privileged — it is a fundamental necessity for every woman's autonomy, safety, and dignity. The tools, information, and communities to achieve it are more accessible in 2026 than at any point in history. Your only job is to begin.",
@@ -798,7 +755,7 @@ const defaultBlogs = [
     title:"The Self-Love Revolution: Reclaiming Your Worth in a World Designed to Diminish It",
     excerpt:"In a world that profits from your insecurity, radical self-love is the most revolutionary act you can commit. Here is how to begin — and sustain — a genuine self-love practice in 2026.",
     date:"Feb 20, 2026",
-    content:`<p>We live in a culture that generates trillions of dollars by making women feel insufficient. Not young enough, not thin enough, not beautiful enough, not successful enough. The beauty, diet, fashion, and self-help industries are all, in different ways, predicated on the monetization of female insecurity. Against this backdrop, choosing to love yourself is a political act of the highest order.</p><h2>What Genuine Self-Love Actually Means</h2><p>Self-love is persistently misunderstood as narcissism or complacency. In reality, it means holding yourself with the same unconditional compassion you would instinctively offer your dearest friend — especially on your worst days.</p><h2>Dismantling Comparison Culture</h2><p>In 2026, social media comparison culture has reached a critical mass. We scroll through algorithmically curated highlight reels and unconsciously benchmark our unedited reality against them. The resulting deficit of self-worth is not accidental; it is engineered.</p>`,
+    content:`<p>We live in a culture that generates trillions of dollars by making women feel insufficient. Not young enough, not thin enough, not beautiful enough, not successful enough. Against this backdrop, choosing to love yourself is a political act of the highest order.</p><img src="https://images.unsplash.com/photo-1499209974431-9dddcece7f88?w=900&auto=format&fit=crop&q=80" alt="Woman in empowered stance at sunrise" /><p class="img-caption">Radical self-love begins with the decision to choose yourself — every single day.</p><h2>What Genuine Self-Love Actually Means</h2><p>Self-love is persistently misunderstood as narcissism or complacency. In reality, it means holding yourself with the same unconditional compassion you would instinctively offer your dearest friend — especially on your worst days. It means attending to your needs without apology and releasing the obligation to shrink yourself for others' comfort.</p><h2>Dismantling Comparison Culture</h2><p>In 2026, social media comparison culture has reached a critical mass. We scroll through algorithmically curated highlight reels and unconsciously benchmark our unedited reality against them. The resulting deficit of self-worth is not accidental; it is engineered. Digital literacy — understanding how and why these systems are designed — is now a self-love skill.</p><blockquote>You are not behind. You are not less than. You are on your own irreplaceable timeline, writing a story no one else could write.</blockquote><img src="https://images.unsplash.com/photo-1573496359142-b8d87734a5a2?w=900&auto=format&fit=crop&q=80" alt="Woman journaling and reflecting" /><p class="img-caption">Journaling is one of the most evidence-backed practices for building self-awareness and self-compassion.</p><h2>The Practice of Boundaries as Self-Respect</h2><p>Boundaries are not punishment — they are the most loving thing you can offer yourself and the people around you. Every time you say no to something that depletes you, you are saying yes to something that restores you. Building this practice takes time and courage, but it is the architecture of a life that feels genuinely yours.</p>`,
     stats:[["$800B","Beauty Industry Profiting from Insecurity"],["91%","Women Report Body Dissatisfaction"],["3x","More Resilient with Self-Compassion Practice"],["60%","Mood Improvement via Gratitude Practice"]],
     takeaways:["Choosing self-love in a culture of manufactured insecurity is a radical political act","Self-compassion — not self-criticism — is the proven psychological pathway to growth","Comparison culture is algorithmically engineered — awareness and conscious curation are your defenses","Body neutrality is a more accessible starting point than body positivity for many women","Boundaries are not walls — they are the architecture of healthy, mutual relationships"],
     conclusion:"The self-love revolution is not about becoming permanently happy or endlessly confident. It is about choosing yourself — again and again — especially when the world tells you you are not enough. You are enough. You always have been.",
@@ -809,10 +766,10 @@ const defaultBlogs = [
     title:"The Growth Mindset: How Women in 2026 Are Completely Rewriting Their Stories",
     excerpt:"What separates women who thrive from those who merely endure? More than talent, more than privilege — it is the story they tell themselves. Here is how to rewrite yours.",
     date:"Feb 18, 2026",
-    content:`<p>The growth mindset — the scientifically validated belief that abilities, intelligence, and character can be developed through dedication, strategy, and learning — has transformed education, business psychology, and personal development since Stanford psychologist Carol Dweck introduced the concept.</p><h2>Fixed vs. Growth Mindset</h2><p>A fixed mindset sounds deceptively like objective observation. "I'm just not naturally analytical." "I'm not a born leader." These statements feel like honest self-assessment, but they are actually beliefs installed by external sources.</p><h2>Imposter Syndrome: The Most Expensive Self-Deception</h2><p>Imposter syndrome — the persistent conviction that you are a fraud who will soon be exposed — affects an estimated 70% of high achievers. Women experience it more chronically and with greater career-limiting consequences than men.</p>`,
+    content:`<p>The growth mindset — the scientifically validated belief that abilities, intelligence, and character can be developed through dedication and learning — has transformed education, business psychology, and personal development since Stanford psychologist Carol Dweck introduced the concept. For women in 2026, it is perhaps the most powerful reframe available.</p><img src="https://images.unsplash.com/photo-1456513080510-7bf3a84b82f8?w=900&auto=format&fit=crop&q=80" alt="Woman reading and learning" /><p class="img-caption">The decision to keep learning is the foundation of every growth mindset.</p><h2>Fixed vs. Growth Mindset</h2><p>A fixed mindset sounds deceptively like objective observation. "I'm just not naturally analytical." "I'm not a born leader." These statements feel like honest self-assessment, but they are actually beliefs installed by external sources — teachers, parents, a culture that told girls what they were and were not capable of before they had the chance to discover otherwise.</p><h2>Imposter Syndrome: The Most Expensive Self-Deception</h2><p>Imposter syndrome — the persistent conviction that you are a fraud who will soon be exposed — affects an estimated 70% of high achievers. Women experience it more chronically and with greater career-limiting consequences than men. The antidote is not confidence; it is evidence. Keep a record of your wins, your impact, your growth. The truth defeats the imposter every time.</p><blockquote>You are not a fraud. You are a person who has not yet given themselves permission to own their own capability. That is a very solvable problem.</blockquote><img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&auto=format&fit=crop&q=80" alt="Women collaborating and learning together" /><p class="img-caption">Community and peer support multiply the power of a growth mindset exponentially.</p><h2>Building Resilience as a Practiced Skill</h2><p>Resilience is not a personality trait you either have or don't. It is a practice — built through reflection after difficulty, community during hardship, and the deliberate decision to extract learning from every setback. Women who thrive in 2026 are not those who have avoided failure; they are those who have gotten very good at using it.</p>`,
     stats:[["70%","Experience Imposter Syndrome"],["40%","More Achievement with Growth Mindset"],["3x","Resilience with Peer Support"],["90%","Can Shift Fixed to Growth Mindset"]],
     takeaways:["Mindset is the most powerful variable in human performance — and it is entirely changeable","Imposter syndrome is widely experienced, perfectly normalized, and eminently overcomeable","Adding the word 'yet' to your self-talk is a small change with enormous psychological power","Resilience is a practiced skill, not an innate personality trait","Your story is yours to rewrite — the pen is always in your hand"],
-    conclusion:"The growth mindset is a scientifically documented commitment to human possibility. When women stop asking 'Am I good enough?' and begin asking 'How do I grow?', the entire trajectory of their lives changes. Choose your growth story.",
+    conclusion:"The growth mindset is a scientifically documented commitment to human possibility. When women stop asking 'Am I good enough?' and begin asking 'How do I grow?', the entire trajectory of their lives changes. Choose your growth story — and choose it again every single day.",
     faqs:[["Growth mindset vs positive thinking?","A growth mindset is the evidence-based belief that abilities are developed through effort — not a denial of difficulty."],["Why do women experience imposter syndrome more?","Due to being the only woman in rooms, stereotype threat, attribution of success to luck, and lower rates of explicit positive reinforcement."],["How long to develop a growth mindset?","Neuroscience suggests 8-16 weeks of consistent practice can measurably restructure cognitive patterns."],["Best books on growth mindset for women?","'Mindset' by Carol Dweck, 'Dare to Lead' by Brené Brown, 'Untamed' by Glennon Doyle."],["How to build resilience after a setback?","Give yourself permission to feel the loss. Seek support. Then ask: 'What is this teaching me?' Then act."]]
   },
   {
@@ -820,10 +777,10 @@ const defaultBlogs = [
     title:"Women Entrepreneurs in 2026: Building Empires on Their Own Terms",
     excerpt:"From kitchen tables to global markets, women entrepreneurs are defying every statistical odd and systemic barrier. Here is how they are doing it — and how you can join them.",
     date:"Feb 16, 2026",
-    content:`<p>The face of entrepreneurship is transforming at an extraordinary rate. Once the near-exclusive domain of men with access to venture capital, the entrepreneurial landscape is being permanently reshaped by women who are building powerful, profitable, and purpose-driven companies.</p><h2>The Scale of Women's Entrepreneurship in 2026</h2><p>Women own approximately 42% of all businesses in the United States — more than 13 million enterprises generating over $2 trillion in annual revenue. And yet, despite these staggering numbers, women receive only 2-3% of venture capital funding.</p>`,
+    content:`<p>The face of entrepreneurship is transforming at an extraordinary rate. Once the near-exclusive domain of men with access to venture capital, the entrepreneurial landscape is being permanently reshaped by women who are building powerful, profitable, and purpose-driven companies — often despite receiving a tiny fraction of available funding.</p><img src="https://images.unsplash.com/photo-1551836022-d5d88e9218df?w=900&auto=format&fit=crop&q=80" alt="Woman entrepreneur working confidently" /><p class="img-caption">Women entrepreneurs in 2026 are building with purpose, resilience, and unstoppable momentum.</p><h2>The Scale of Women's Entrepreneurship in 2026</h2><p>Women own approximately 42% of all businesses in the United States — more than 13 million enterprises generating over $2 trillion in annual revenue. And yet, despite these staggering numbers, women receive only 2-3% of venture capital funding. The mismatch between impact and investment is one of the greatest market inefficiencies of our time.</p><h2>Alternative Funding Ecosystems</h2><p>Faced with structural exclusion from traditional VC, women entrepreneurs have built their own funding ecosystems. Crowdfunding platforms, women-focused angel networks, SBA loans, community development financial institutions, and revenue-based financing are all providing alternatives. Organizations like iFundWomen, the Tory Burch Foundation, and the Amber Grant are specifically designed to close the capital gap.</p><blockquote>You don't need permission to build. You need clarity of vision, the courage to begin, and the community to sustain you through what comes next.</blockquote><img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&auto=format&fit=crop&q=80" alt="Women in business collaboration" /><p class="img-caption">Community and peer networks are among the most powerful assets women entrepreneurs build.</p><h2>The Purpose-Profit Integration</h2><p>What distinguishes many women-led enterprises is the integration of profit and purpose. Women entrepreneurs are statistically more likely to build companies that address social and environmental challenges alongside financial returns. In 2026, this approach is not just ethically compelling — it is increasingly commercially advantageous as consumers increasingly choose values-aligned brands.</p>`,
     stats:[["42%","US Businesses Women-Owned"],["$2T","Annual Revenue Generated"],["2-3%","VC Funding Women Receive"],["3x","Higher Revenue per Dollar Invested"]],
-    takeaways:["Women-owned businesses generate massive economic value while receiving almost none of institutional investment","The alternative funding ecosystem for women is multiplying rapidly","Women build businesses that integrate profit and purpose","Your credibility gap is real but closeable through brand, proof, and radical visibility","The world needs businesses built by women who understand underserved needs"],
-    conclusion:"Women entrepreneurs are not waiting for permission — they are creating their own economies on their own terms. In 2026, the barriers are real but the support ecosystem is unprecedented. Take one concrete step toward your entrepreneurial dream today.",
+    takeaways:["Women-owned businesses generate massive economic value while receiving almost none of institutional investment","The alternative funding ecosystem for women is multiplying rapidly","Women build businesses that integrate profit and purpose at higher rates than male founders","Your credibility gap is real but closeable through brand, proof, and radical visibility","The world needs businesses built by women who understand underserved needs"],
+    conclusion:"Women entrepreneurs are not waiting for permission — they are creating their own economies on their own terms. In 2026, the barriers are real but the support ecosystem is unprecedented. Take one concrete step toward your entrepreneurial dream today — and then take another tomorrow.",
     faqs:[["First step to starting a business?","Validate your idea with at least 10-15 real potential customers before building anything."],["Funding options for women entrepreneurs?","SBA Women's Business Centers, Amber Grant, Tory Burch Foundation, iFundWomen crowdfunding."],["Do I need a formal business plan?","A one-page business model canvas is sufficient to begin and often more practical."],["How to build credibility as a female founder?","Publish thought leadership content, collect testimonials, seek media coverage, build a personal brand."],["Best communities for women entrepreneurs?","Female Founder Collective, WBENC, Female Founder World, She Builds, SCORE."]]
   },
   {
@@ -831,10 +788,10 @@ const defaultBlogs = [
     title:"Women's Mental Health in 2026: Your Complete Guide to Inner Peace",
     excerpt:"In a world that demands women be everything to everyone simultaneously, protecting your mental health is not a luxury — it is a non-negotiable act of self-preservation and radical courage.",
     date:"Feb 14, 2026",
-    content:`<p>The global mental health crisis is real, and women are disproportionately at its center. Anxiety, depression, burnout, complex trauma, and perinatal mood disorders all affect women at higher rates than men.</p><h2>The Distinctive Mental Health Landscape for Women</h2><p>Women experience higher rates of anxiety disorders, major depressive disorder, PTSD, and eating disorders. These patterns reflect the accumulated psychological weight of gender-based discrimination, disproportionate emotional labor, and greater lifetime exposure to interpersonal violence.</p>`,
+    content:`<p>The global mental health crisis is real, and women are disproportionately at its center. Anxiety, depression, burnout, complex trauma, and perinatal mood disorders all affect women at higher rates than men. In 2026, the conversation has shifted — from shame to science, from silence to solidarity.</p><img src="https://images.unsplash.com/photo-1506126613408-eca07ce68773?w=900&auto=format&fit=crop&q=80" alt="Woman in peaceful meditation outdoors" /><p class="img-caption">Inner peace is not a destination — it is a daily practice built from small, consistent choices.</p><h2>The Distinctive Mental Health Landscape for Women</h2><p>Women experience higher rates of anxiety disorders, major depressive disorder, PTSD, and eating disorders. These patterns reflect the accumulated psychological weight of gender-based discrimination, disproportionate emotional labor, and greater lifetime exposure to interpersonal violence. Understanding these structural causes — rather than internalizing them as personal weakness — is itself a therapeutic act.</p><h2>The Mind-Body Connection</h2><p>Women's mental health cannot be separated from their physical experience. Hormonal fluctuations across the menstrual cycle, pregnancy, postpartum, perimenopause, and menopause all directly affect mood, cognition, and emotional resilience. The most effective mental health approaches in 2026 honor this biological reality rather than treating it as irrelevant context.</p><blockquote>Seeking help is not a sign of weakness. It is the wisest, bravest thing you can do — for yourself, and for everyone whose life yours touches.</blockquote><img src="https://images.unsplash.com/photo-1529156069898-49953e39b3ac?w=900&auto=format&fit=crop&q=80" alt="Women supporting each other" /><p class="img-caption">Social connection and community are among the most powerful protective factors for women's mental health.</p><h2>Digital Mental Health Tools in 2026</h2><p>Telehealth platforms, AI-assisted therapy apps, and digital crisis support have expanded access to mental health care dramatically. For women in rural areas, underserved communities, or those who face cost barriers, these tools are genuinely life-changing. While they do not replace human therapeutic relationships, they fill critical gaps and provide support between sessions.</p>`,
     stats:[["1 in 3","Women Experience GBV Globally"],["20%","New Mothers Experience PPD"],["2x","Women's Anxiety Rate vs Men"],["35%","Improvement with Exercise Treatment"]],
     takeaways:["Women's mental health challenges are systemic realities, not personal weaknesses","Postpartum depression is a medical condition — seeking treatment is an act of courage, not failure","Regular exercise is as effective as antidepressants for mild to moderate depression","Boundaries are not the end of relationships — they are the beginning of honest ones","In 2026, telehealth and digital therapy have made mental health support more accessible than ever"],
-    conclusion:"Your mental health is not a luxury to be attended to when everything else is handled — it is the infrastructure upon which your entire life rests. In 2026, more support is available than at any previous moment in history. You do not have to carry everything alone.",
+    conclusion:"Your mental health is not a luxury to be attended to when everything else is handled — it is the infrastructure upon which your entire life rests. In 2026, more support is available than at any previous moment in history. You do not have to carry everything alone. Reach out. Ask for help. You deserve it.",
     faqs:[["Warning signs of burnout?","Persistent exhaustion, emotional detachment, reduced performance, physical symptoms, loss of meaning."],["How to find a therapist who understands women?","Psychology Today's directory allows filtering by specialty including women's issues and trauma."],["Baby blues vs postpartum depression?","Baby blues last up to 2 weeks and resolve naturally. PPD persists beyond 2 weeks and requires treatment."],["Is burnout a real condition?","WHO officially classified burnout as an occupational phenomenon in 2019."],["Most important thing for mental health today?","Contact one person you trust and tell them honestly how you are really doing."]]
   },
   {
@@ -842,10 +799,10 @@ const defaultBlogs = [
     title:"Navigating the Modern Workplace in 2026: A Woman's Complete Survival and Thrival Guide",
     excerpt:"From microaggressions to sponsorship, from pay audits to promotion strategies — this is everything they never taught you about succeeding powerfully in the modern professional world.",
     date:"Feb 12, 2026",
-    content:`<p>The modern workplace in 2026 has evolved significantly — but it has not evolved equally for everyone. Women navigate a professional landscape that still carries embedded remnants of exclusion, even as every corporate website now displays diversity statements.</p><h2>Microaggressions: Naming, Documenting, and Addressing</h2><p>Microaggressions are the subtle, often unconscious expressions of bias that accumulate into significant psychological damage over time. Being interrupted consistently in meetings. Having your ideas credited to a male colleague. Being called "honey" or "sweetie."</p>`,
+    content:`<p>The modern workplace in 2026 has evolved significantly — but it has not evolved equally for everyone. Women navigate a professional landscape that still carries embedded remnants of exclusion, even as every corporate website now displays diversity statements. Knowing the terrain is the first step to navigating it with strategy and power.</p><img src="https://images.unsplash.com/photo-1600880292203-757bb62b4baf?w=900&auto=format&fit=crop&q=80" alt="Professional woman presenting confidently" /><p class="img-caption">Visibility and competence together — neither alone is sufficient for advancement in 2026.</p><h2>Microaggressions: Naming, Documenting, and Addressing</h2><p>Microaggressions are the subtle, often unconscious expressions of bias that accumulate into significant psychological damage over time. Being interrupted consistently in meetings. Having your ideas credited to a male colleague. Being called "honey" or "sweetie" by a senior colleague. These experiences are real, cumulative, and worth naming. Documentation — dates, specific language, context — is your most powerful professional protection.</p><h2>The Sponsorship Gap</h2><p>Women are over-mentored and under-sponsored. Mentors provide guidance; sponsors use their own capital to advocate for you in rooms where decisions are made. Research shows that the sponsorship gap is one of the primary drivers of the leadership gap. Identifying and cultivating sponsors — and being willing to advocate for others in turn — is one of the highest-leverage career investments a woman can make.</p><blockquote>Your competence got you in the room. Your visibility will get you promoted. Your network will sustain your career through every storm.</blockquote><img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?w=900&auto=format&fit=crop&q=80" alt="Diverse team collaborating at work" /><p class="img-caption">Strategic relationship-building is not networking — it is the career infrastructure that everything else depends on.</p><h2>Negotiating in 2026</h2><p>Women who negotiate their compensation earn significantly more over their careers than those who accept the first offer. In 2026, salary transparency legislation in many jurisdictions makes it easier than ever to know your market value. Use this information. Research compensation ranges, prepare your case with specific evidence of your impact, and make the ask — calmly, clearly, and without apology.</p>`,
     stats:[["64%","Women Experience Workplace Microaggressions"],["87%","Promotions Linked to Strong Networks"],["3x","Impact of Visibility on Advancement"],["45%","Women Less Likely to Negotiate"]],
-    takeaways:["Microaggressions are real, cumulative, and worth naming — documentation is your professional protection","Your network is your most valuable professional asset — invest in it seriously","Visibility and competence both matter — neither alone is sufficient for advancement","Know your workplace rights and HR policies thoroughly before you ever need to invoke them","Seek sponsors who advocate for you in high-stakes rooms, not just mentors who advise from the sidelines"],
-    conclusion:"The workplace in 2026 may not be a level playing field, but it is one you can navigate with increasing strategy, power, and community. You do not have to accept the rules as they are — but you do need to understand them completely in order to change them effectively.",
+    takeaways:["Microaggressions are real, cumulative, and worth naming — documentation is your professional protection","Your network is your most valuable professional asset — invest in it seriously and consistently","Visibility and competence both matter — neither alone is sufficient for advancement","Know your workplace rights and HR policies thoroughly before you ever need to invoke them","Seek sponsors who advocate for you in high-stakes rooms, not just mentors who advise from the sidelines"],
+    conclusion:"The workplace in 2026 may not be a level playing field, but it is one you can navigate with increasing strategy, power, and community. You do not have to accept the rules as they are — but you do need to understand them completely in order to change them effectively. Know the game. Play it well. Then rewrite it.",
     faqs:[["What to do if I experience workplace discrimination?","Document everything in writing with dates, times, specific language. Report to HR in writing and keep a copy."],["How to network effectively as an introvert?","Focus on depth over breadth. One genuine connection is worth twenty superficial exchanges."],["Most effective promotion strategy?","Have an explicit conversation with your manager about precisely what is required for the next level."],["How to handle being interrupted in meetings?","Keep speaking calmly and finish your point. If chronic, name it one-on-one with your manager."],["Role of personal branding in 2026?","An active, authoritative LinkedIn presence translates directly into professional opportunity."]]
   },
   {
@@ -853,10 +810,10 @@ const defaultBlogs = [
     title:"Women Who Changed History — And the Women of 2026 Who Are Doing It Again",
     excerpt:"From Marie Curie to Malala, history's most transformative women acted from conviction, not comfort. Their stories are your permission slip, your roadmap, and your fuel.",
     date:"Feb 10, 2026",
-    content:`<p>History has a persistent and damaging habit of erasing women. The textbooks of the world are overwhelmingly populated with the names of men while the women who worked alongside them have been rendered invisible. But the work of recovering women's history is accelerating in 2026.</p><h2>Marie Curie: Science Without Apology</h2><p>Marie Curie remains the only person in all of human history to have won Nobel Prizes in two different scientific disciplines — physics in 1903 and chemistry in 1911. She accomplished this while navigating relentless institutional sexism.</p><h2>Malala Yousafzai: The Voice That Came Back Stronger</h2><p>In October 2012, a Taliban gunman shot 15-year-old Malala in the head for advocating publicly for girls' education. She survived. And then she became louder, more visible, and more powerful. In 2014, at the age of 17, she became the youngest person in history to receive the Nobel Peace Prize.</p>`,
+    content:`<p>History has a persistent and damaging habit of erasing women. The textbooks of the world are overwhelmingly populated with the names of men while the women who worked alongside them have been rendered invisible. But the work of recovering women's history is accelerating in 2026 — and what it reveals is extraordinary.</p><img src="https://images.unsplash.com/photo-1481627834876-b7833e8f5570?w=900&auto=format&fit=crop&q=80" alt="Old books and library representing women's history" /><p class="img-caption">The archives of history are full of women whose names we are only now learning to read.</p><h2>Marie Curie: Science Without Apology</h2><p>Marie Curie remains the only person in all of human history to have won Nobel Prizes in two different scientific disciplines — physics in 1903 and chemistry in 1911. She accomplished this while navigating relentless institutional sexism, working in a shed because universities refused her a laboratory. Her notebooks are still too radioactive to touch without protective gear. Her legacy radiates still.</p><h2>Malala Yousafzai: The Voice That Came Back Stronger</h2><p>In October 2012, a Taliban gunman shot 15-year-old Malala in the head for advocating publicly for girls' education. She survived. And then she became louder, more visible, and more powerful. In 2014, at the age of 17, she became the youngest person in history to receive the Nobel Peace Prize.</p><blockquote>One child, one teacher, one book, one pen can change the world. — Malala Yousafzai</blockquote><img src="https://images.unsplash.com/photo-1508214751196-bcfd4ca60f91?w=900&auto=format&fit=crop&q=80" alt="Modern empowered woman looking forward" /><p class="img-caption">The women of 2026 carry history forward — in boardrooms, laboratories, communities, and everywhere in between.</p><h2>The Women of 2026 Rewriting the Rules</h2><p>In 2026, women in climate science, AI ethics, grassroots organizing, political leadership, and entrepreneurship are doing what history's greatest women always did: acting from conviction rather than waiting for permission. They are not exceptional anomalies — they are the continuation of an unbroken thread of women who refused to accept the world as they found it and chose instead to remake it.</p>`,
     stats:[["2","Marie Curie Nobel Prizes"],["17","Malala's Age at Nobel Prize"],["381","Days Montgomery Boycott Lasted"],["51M","Trees from Wangari's Movement"]],
     takeaways:["History's most transformative women acted from conviction, not from comfort or perfect conditions","Individual courage embedded in collective organization becomes genuinely unstoppable","Education is the most radical and durable tool for women's liberation anywhere in the world","Environmental and gender justice are the same movement — always have been","Every woman who tells her story makes it slightly easier for the next woman to tell hers"],
-    conclusion:"These women did not wait for safety, permission, or the world to be ready. They acted from the conviction that what they knew to be right was worth more than what they knew to be comfortable. Their legacy lives in every moment you choose courage over comfort.",
+    conclusion:"These women did not wait for safety, permission, or the world to be ready. They acted from the conviction that what they knew to be right was worth more than what they knew to be comfortable. Their legacy lives in every moment you choose courage over comfort — and their story continues through you.",
     faqs:[["Who was the first woman to win a Nobel Prize?","Marie Curie won the Nobel Prize in Physics in 1903 — the first Nobel Prize ever awarded to a woman."],["What is the Malala Fund's work in 2026?","Advocating for 12 years of free, quality education for every girl globally, with programs in Pakistan, Afghanistan, Nigeria, Ethiopia, and Brazil."],["What made Rosa Parks historically significant?","Her deliberately strategic act catalyzed the Montgomery Bus Boycott — 381 days of organized action resulting in the Supreme Court ruling bus segregation unconstitutional."],["How did the Green Belt Movement change Kenya?","It created economic income for rural women, built community organizing capacity, challenged government corruption, and gave rural women a political voice."],["Most impactful women trailblazers of 2026?","Gitanjali Rao, Hindou Oumarou Ibrahim, Ngozi Okonjo-Iweala, Leymah Gbowee, and thousands of women running for local office for the first time."]]
   },
   {
@@ -864,7 +821,18 @@ const defaultBlogs = [
     title:"The Transformative Power of No: How Boundaries Rebuild Women's Lives in 2026",
     excerpt:"Two letters. One syllable. The most underused word in most women's vocabularies. Here is exactly how learning to say 'no' — with clarity, grace, and firmness — transforms everything.",
     date:"Feb 8, 2026",
-    content:`<p>The word "no" contains exactly two letters and one syllable. And yet for millions of women around the world, saying it — clearly, without an attached apology, explanation, or guilt-offering — is one of the most psychologically difficult things they ever do. This is not a character flaw. It is the predictable outcome of lifetimes of socialization.</p><h2>Why "No" Carries the Weight of a Thousand Fears</h2><p>From early childhood, girls receive disproportionate rewards for helpfulness, agreeableness, and emotional attunement to others' needs. Boys who assert themselves are called "natural leaders"; girls who assert themselves are called "bossy" or "difficult."</p>`,
+    content:`<p>The word "no" contains exactly two letters and one syllable. And yet for millions of women, saying it — clearly, without an attached apology or guilt — is one of the most psychologically difficult things they ever do. This is not a character flaw. It is the predictable outcome of lifetimes of socialization that trained girls to be agreeable, accommodating, and endlessly available to others' needs at the expense of their own.</p>
+<img src="https://images.unsplash.com/photo-1434030216411-0b793f4b4173?w=900&auto=format&fit=crop&q=80" alt="Woman sitting peacefully, setting boundaries" /><p class="img-caption">Boundaries are not walls — they are the architecture of a life that feels genuinely yours.</p>
+<h2>Why "No" Carries the Weight of a Thousand Fears</h2>
+<p>From early childhood, girls receive disproportionate rewards for helpfulness, agreeableness, and emotional attunement to others' needs. Boys who assert themselves are called "natural leaders"; girls who assert themselves are called "bossy" or "difficult." By adulthood, many women have internalized the belief that their value is contingent on their availability — that saying no risks the loss of love, approval, or belonging. This fear is not irrational. But it is disproportionate to the actual consequences of boundary-setting in most relationships.</p>
+<h2>Boundaries Protect Relationships — They Don't End Them</h2>
+<p>One of the most damaging myths about boundaries is that they damage relationships. In reality, the opposite is true. Relationships built on one person's chronic self-suppression are not genuine relationships — they are performances of accommodation. When women begin setting honest limits, some relationships do change — because they were never relationships between equals. The ones that survive are deeper, more honest, and more sustaining than what came before.</p>
+<blockquote>"No" is a complete sentence. It requires no justification, no elaborate explanation, no apology. It is a statement of self-respect — and those who truly respect you will hear it as such.</blockquote>
+<img src="https://images.unsplash.com/photo-1559839734-2b71ea197ec2?w=900&auto=format&fit=crop&q=80" alt="Woman walking confidently outdoors" /><p class="img-caption">Every "no" to what doesn't serve you is a "yes" to the life you actually want to live.</p>
+<h2>Practical Boundary-Setting for Women in 2026</h2>
+<p>Boundaries are not dramatic ultimatums. They are calm, clear statements about what you will and won't accept — followed by consistent action. Start small: one boundary per week, stated simply and without excessive explanation. Notice the discomfort. Notice that it passes. Notice that the world doesn't end. With practice, what once felt impossible becomes your new baseline of self-respect.</p>
+<h2>Digital Boundaries: The New Frontier</h2>
+<p>In 2026, the boundary crisis extends into digital life. Women report feeling pressure to be constantly available across multiple platforms — professionally, socially, and within families. Establishing clear digital boundaries — defined working hours, response time expectations, social media limits — is now as essential as any physical or emotional boundary. Your attention is a finite resource. Protect it accordingly.</p>`,
     stats:[["78%","Women Describe Being Chronically Over-committed"],["67%","Burnout Linked to Poor Boundaries"],["3x","Relationship Quality Improves with Boundaries"],["90%","Feel Relief After Saying No Once"]],
     takeaways:["'No' is a grammatically complete sentence — it requires neither explanation nor apology","The fear of 'no' is almost always disproportionate to the actual consequences","Boundaries protect relationships — they don't end them","Every 'yes' you don't mean is a 'no' to your own life, time, energy, and self-respect","The discomfort of saying no diminishes with practice — the regret of not saying it does not"],
     conclusion:"Every time you say no to what doesn't serve you, you are saying yes to the life you actually want to live. Your time, energy, and attention are the most precious resources you will ever possess. Guard them with the same ferocity you bring to everything else you love.",
@@ -875,10 +843,21 @@ const defaultBlogs = [
     title:"Women in Politics 2026: How Female Leadership Is Literally Reshaping Nations",
     excerpt:"When women lead nations, the data reveals remarkable differences in policy outcomes, governance quality, and social progress. This is not opinion — it is rigorous, reproducible evidence.",
     date:"Feb 6, 2026",
-    content:`<p>The political arena has historically been the most resistant to women's full participation. Yet wherever women have broken through — into parliaments, presidencies, and policy-making bodies — the effects on governance quality, policy priorities, and social outcomes have been measurable and documented.</p><h2>The Numbers in 2026</h2><p>As of 2026, women hold approximately 28-30% of parliamentary seats worldwide — a meaningful increase from the 12% recorded in 1997, but still less than one-third of the decision-making power in national legislatures.</p>`,
+    content:`<p>The political arena has historically been the most resistant to women's full participation. Yet wherever women have broken through — into parliaments, presidencies, and policy-making bodies — the effects on governance quality, policy priorities, and social outcomes have been measurable and profoundly documented.</p>
+<img src="https://images.unsplash.com/photo-1529390079861-591de354faf5?w=900&auto=format&fit=crop&q=80" alt="Women in professional leadership discussing policy" /><p class="img-caption">When women enter political spaces, the policy agenda shifts toward healthcare, education, and equity.</p>
+<h2>The Numbers in 2026</h2>
+<p>As of 2026, women hold approximately 28-30% of parliamentary seats worldwide — a meaningful increase from the 12% recorded in 1997, but still less than one-third of the decision-making power in national legislatures. Twenty-four women serve as heads of state or government globally — a historic high that nonetheless represents only 12% of all national leaders. The trajectory is upward, but the pace is insufficient.</p>
+<h2>What the Data Says About Female Leadership</h2>
+<p>Research across multiple countries consistently shows that female political leaders prioritize different policy areas than their male counterparts. Healthcare access, education funding, environmental legislation, and anti-corruption measures receive significantly more legislative attention in parliaments with higher female representation. Countries led by women during the COVID-19 pandemic performed measurably better across nearly every health outcome indicator.</p>
+<blockquote>Democracy is structurally incomplete without the full and equal participation of women. It is not a diversity goal — it is a democratic requirement.</blockquote>
+<img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&auto=format&fit=crop&q=80" alt="Women marching for political representation" /><p class="img-caption">Organized advocacy has driven every major expansion of women's political participation in history.</p>
+<h2>The Barriers That Remain</h2>
+<p>The barriers to women's political participation in 2026 are substantial and in some regions intensifying. Organized online harassment campaigns specifically targeting female politicians have reached epidemic levels. Funding gaps systematically disadvantage women candidates. Cultural expectations of leadership — still predominantly coded as masculine in most societies — create additional friction that male candidates simply don't face. Overcoming these barriers requires both structural reform and determined individual courage.</p>
+<h2>How to Engage Politically in 2026</h2>
+<p>Political engagement for women does not require running for office — though the world desperately needs more women who will. It means voting in every election at every level. It means donating early to women candidates. It means calling out misogynistic coverage. It means having the difficult conversations in your own community, family, and workplace. Every woman who engages politically makes the terrain slightly less hostile for the next.</p>`,
     stats:[["28-30%","Parliamentary Seats Held by Women 2026"],["24","Women Heads of State Globally"],["40%","Less Corruption with Female Leadership"],["1997","Women Held Just 12% of Seats"]],
     takeaways:["Female political leadership produces measurably better governance outcomes on multiple dimensions","Representation is not symbolic — it directly determines what policies get prioritized","Organized harassment and funding gaps are the most critical and intentional barriers","Quotas, while politically contested, are the fastest proven mechanism for rapid representation increase","Every woman who runs for office makes it incrementally easier for the next"],
-    conclusion:"Democracy is structurally incomplete without women's full and equal participation. The evidence that female leadership improves governance outcomes is no longer debatable. In 2026, political engagement is not optional for any woman who cares about the future she will live in.",
+    conclusion:"Democracy is structurally incomplete without women's full and equal participation. The evidence that female leadership improves governance outcomes is no longer debatable. In 2026, political engagement is not optional for any woman who cares about the future she will live in. Vote, advocate, run, support — and refuse to accept a democracy that speaks for only half its people.",
     faqs:[["What percentage of world leaders are women in 2026?","Approximately 24 women serve as heads of state globally — roughly 12% of all national leaders."],["Do women actually govern differently?","Yes — research consistently shows women politicians prioritize health, education, and anti-corruption at higher rates."],["What is a gender quota?","Gender quotas reserve a percentage of legislative seats for women and are the fastest proven mechanism for increasing female representation."],["Which country has highest female parliamentary representation?","Rwanda leads with over 61% female parliamentary representation."],["How to support women in politics without running?","Donate early, volunteer, vote deliberately, call out misogynistic coverage, encourage qualified women in your network to run."]]
   },
   {
@@ -886,10 +865,21 @@ const defaultBlogs = [
     title:"Women and Nutrition in 2026: The Science of Fueling Your Body at Every Stage",
     excerpt:"From your 20s to your 70s and every hormonal transition in between, your nutritional needs change dramatically. Here is the science-backed guide to fueling yourself for lifelong vitality.",
     date:"Feb 4, 2026",
-    content:`<p>For most of the history of nutrition science, the default research subject was a 70-kilogram adult male. The resulting dietary guidelines — applied wholesale to women — have systematically failed to account for the dramatic hormonal variability and unique metabolic characteristics of female physiology. In 2026, that is beginning to change.</p><h2>The Foundational Nutrients Most Women Are Deficient In</h2><p>Research consistently identifies several nutrients as critical areas of deficiency for women. Iron deficiency affects up to 10% of women of reproductive age globally. Vitamin D deficiency is nearly epidemic. Magnesium is chronically under-consumed. And omega-3 fatty acids are insufficient in most women's diets.</p>`,
+    content:`<p>For most of the history of nutrition science, the default research subject was a 70-kilogram adult male. The resulting dietary guidelines — applied wholesale to women — have systematically failed to account for the dramatic hormonal variability and unique metabolic characteristics of female physiology. In 2026, a new science of women's nutrition is emerging.</p>
+<img src="https://images.unsplash.com/photo-1490645935967-10de6ba17061?w=900&auto=format&fit=crop&q=80" alt="Colorful healthy foods for women's nutrition" /><p class="img-caption">Whole, nutrient-dense foods are the foundation of women's health at every life stage.</p>
+<h2>The Foundational Nutrients Most Women Are Deficient In</h2>
+<p>Research consistently identifies several nutrients as critical areas of deficiency for women. Iron deficiency affects up to 10% of women of reproductive age globally — contributing to fatigue, cognitive fog, and reduced immune function that millions of women have been told is simply normal tiredness. Vitamin D deficiency is nearly epidemic, affecting over 70% of women in many northern countries. Magnesium and omega-3 fatty acids round out the four most commonly deficient nutrients in women's diets.</p>
+<h2>Eating Across the Hormonal Lifecycle</h2>
+<p>Your nutritional needs are not static — they shift dramatically with hormonal changes. During reproductive years, iron and folate are paramount. In the perimenopause transition, phytoestrogens from soy and flaxseed can help moderate symptoms. Post-menopause, protein requirements increase significantly to maintain muscle mass, and calcium and vitamin D become even more critical for bone density.</p>
+<blockquote>Nourishing your body is not about restriction or perfection. It is about understanding your unique biology and meeting its needs with intelligence, pleasure, and self-respect.</blockquote>
+<img src="https://images.unsplash.com/photo-1512621776951-a57141f2eefd?w=900&auto=format&fit=crop&q=80" alt="Woman preparing healthy nutritious meal" /><p class="img-caption">Food is both medicine and pleasure — the best nutritional approach honors both dimensions equally.</p>
+<h2>Gut Health: The New Frontier of Women's Wellness</h2>
+<p>The gut microbiome — the vast ecosystem of microorganisms in the digestive tract — has profound effects on hormonal balance, mood, immune function, and even cognitive performance. Research published in 2024-2025 suggests that women's microbiomes are meaningfully different from men's, with implications for everything from how we metabolize medications to how we experience depression. Probiotic-rich foods, fiber diversity, and reduced processed food intake are the pillars of microbiome health that every woman can build on.</p>
+<h2>Personalized Nutrition in 2026</h2>
+<p>Continuous glucose monitors, microbiome testing, and AI-powered nutrition apps are bringing genuinely personalized dietary guidance within reach of ordinary women for the first time. Rather than following generic advice, women can now understand their individual metabolic responses to foods and time nutrients to their hormonal cycles for optimal energy, mood, and performance.</p>`,
     stats:[["10%","Women Iron Deficient Globally"],["70%","Women Vitamin D Deficient"],["30","Age of Peak Bone Mass"],["40%","Protein Need Increase Post-50"]],
     takeaways:["Generic dietary advice has historically been calibrated for male bodies — women's nutritional needs are specifically different","Iron, Vitamin D, magnesium, and omega-3 fatty acids are the four most commonly deficient nutrients in women","Bone density built in your 20s and 30s is the most important nutritional investment you will ever make","Menopause is a nutritional transition requiring specific, intentional dietary adjustment","Personalized nutrition technology in 2026 makes genuinely individualized dietary guidance more accessible than ever"],
-    conclusion:"Nourishing your body is not about deprivation or restriction. It is about understanding your unique biological needs at every stage of life and meeting them with intelligence, pleasure, and self-respect. Food is medicine. Food is joy. Begin where you are.",
+    conclusion:"Nourishing your body is not about deprivation or restriction. It is about understanding your unique biological needs at every stage of life and meeting them with intelligence, pleasure, and self-respect. Food is medicine. Food is joy. Begin where you are — and let the science guide you forward.",
     faqs:[["Most important nutrients for women?","Iron, calcium and vitamin D, folate, omega-3 fatty acids, and magnesium are consistently most critical."],["Should women eat differently than men?","Yes — women have different hormonal cycles, body composition, and reproductive demands requiring tailored nutritional guidance."],["What to prioritize during menopause?","Phytoestrogens from soy, omega-3s, increased protein, calcium and vitamin D, and reduced alcohol and processed foods."],["Symptoms of iron deficiency women often miss?","Persistent fatigue, difficulty concentrating, shortness of breath, pale skin, brittle nails, cold hands and feet."],["Is intermittent fasting appropriate for women?","Evidence is mixed and highly individual — consult a physician or registered dietitian before beginning."]]
   },
   {
@@ -897,9 +887,20 @@ const defaultBlogs = [
     title:"Gender Equality in 2026: An Honest Assessment of Where We Stand and the Path Forward",
     excerpt:"The global gender equality movement is at a critical and contested crossroads. Here is the most honest assessment possible of where we genuinely stand — progress, setbacks, and the road that remains.",
     date:"Feb 2, 2026",
-    content:`<p>The pursuit of gender equality is the longest-running, most universal, and most persistently contested social justice movement in human history. In 2026, the picture is simultaneously more promising and more precarious than at any previous moment.</p><h2>Measuring Progress: The Global Gender Gap in 2026</h2><p>The WEF's Global Gender Gap Report measures four dimensions: economic participation, educational attainment, health outcomes, and political empowerment. The overall global gender gap stands at approximately 70% closed — a record high that nonetheless reveals how much remains undone. At current rates, full parity will take over 100 years.</p>`,
+    content:`<p>The pursuit of gender equality is the longest-running, most universal, and most persistently contested social justice movement in human history. In 2026, the picture is simultaneously more promising and more precarious than at any previous moment. Understanding both dimensions with honesty is essential to protecting and extending the gains that have been made.</p>
+<img src="https://images.unsplash.com/photo-1591189824733-5a3b1c5b80eb?w=900&auto=format&fit=crop&q=80" alt="Women marching together for equality" /><p class="img-caption">Progress toward gender equality has been real, documented, and hard-won — and it remains vulnerable.</p>
+<h2>Measuring Progress: The Global Gender Gap in 2026</h2>
+<p>The WEF's Global Gender Gap Report measures four dimensions: economic participation, educational attainment, health outcomes, and political empowerment. The overall global gender gap stands at approximately 70% closed — a record high that nonetheless reveals how much remains undone. Educational parity has been largely achieved in most regions. Health outcomes have converged significantly. Economic and political participation remain the persistent frontiers.</p>
+<h2>Where Progress Is Real</h2>
+<p>Girls now outnumber boys in university enrollment in over 95 countries. Maternal mortality has declined by 34% over two decades. Women-owned businesses generate trillions in economic value. Legal frameworks protecting women from violence, discrimination, and wage inequality exist in more countries than ever before. These gains are real, they are documented, and they matter enormously.</p>
+<blockquote>Progress toward equality is not the inevitable direction of history — it is the direction of deliberate, sustained, organized human effort. And it can be reversed.</blockquote>
+<img src="https://images.unsplash.com/photo-1573164713988-8665fc963095?w=900&auto=format&fit=crop&q=80" alt="Women activists advocating for change" /><p class="img-caption">Every generation must actively choose to protect and advance what came before — progress is never automatic.</p>
+<h2>The Backlash Is Real and Organized</h2>
+<p>Anti-gender movements — coordinated, funded, and strategically sophisticated — have successfully rolled back reproductive rights, restricted gender studies curricula, and created legal frameworks that explicitly limit women's autonomy in multiple countries. This backlash is not random. It is a systematic response to the progress of the past five decades, and it demands an equally organized and sustained response from those who value equality.</p>
+<h2>Intersectionality Cannot Be Optional</h2>
+<p>Gains that don't reach all women are incomplete gains. In 2026, the data is clear: Black women, Indigenous women, disabled women, LGBTQ+ women, and women in the Global South face compounded disadvantages that single-axis feminist frameworks do not adequately address. An equality movement that centers only the most privileged women will never achieve the equity it claims to seek.</p>`,
     stats:[["70%","Global Gender Gap Now Closed"],["95+","Countries Women Lead in Education"],["100+","Years to Full Economic Parity at Current Rate"],["34%","Decline in Maternal Mortality (20 Years)"]],
-    takeaways:["Progress toward gender equality is real, documented, and in some dimensions historic — but also reversible and fragile","Educational parity has largely been achieved — economic and political parity are the remaining frontiers","Anti-gender backlash is organized, funded, and strategically sophisticated","Intersectionality is not optional in 2026: gains that don't reach all women are incomplete","Sustaining progress requires every generation to actively choose to protect and advance what came before"],
+    takeaways:["Progress toward gender equality is real, documented, and in some dimensions historic — but also reversible and fragile","Educational parity has largely been achieved — economic and political parity are the remaining frontiers","Anti-gender backlash is organized, funded, and strategically sophisticated — and must be met with equal organization","Intersectionality is not optional in 2026: gains that don't reach all women are incomplete","Sustaining progress requires every generation to actively choose to protect and advance what came before"],
     conclusion:"Gender equality is not the inevitable direction of history — it is the direction of deliberate, sustained, organized human effort. The gains of the past century were hard won, are under genuine threat, and can be lost. This Women's Day 2026, be a guardian: vote, advocate, speak, support, and refuse absolutely to normalize regression.",
     faqs:[["What does 'gender equality' mean in practice?","People of all genders having the same rights, responsibilities, and genuine opportunities — gender does not determine life outcomes."],["How long will full global gender parity take?","The WEF suggests over 100 years at current progress rates — making acceleration a moral imperative."],["What is intersectional feminism?","It recognizes that gender inequality intersects with race, class, sexuality, disability to create compounded disadvantages."],["Most effective strategies for advancing gender equality?","Girls' education investment, women's economic empowerment, legal protections, representation measures, and engaged male allyship — pursued simultaneously."],["Why is International Women's Day on March 8th?","It commemorates 1917 strikes by Russian women garment workers demanding better conditions, subsequently adopted by socialist movements internationally."]]
   },
@@ -908,10 +909,21 @@ const defaultBlogs = [
     title:"Women in Tech 2026: Coding a More Equitable and Intelligent Future",
     excerpt:"Women were the original programmers. Today, they are dramatically underrepresented in the industry they helped found. Here is what is changing, what remains broken, and how to be part of the solution.",
     date:"Jan 30, 2026",
-    content:`<p>Ada Lovelace wrote the world's first computer algorithm in 1843. Grace Hopper invented the first compiler in 1952. The women of ENIAC programmed one of the world's first electronic general-purpose computers. And yet: in 2026, women hold fewer than 26% of technology industry jobs in the United States.</p><h2>The Leaky Pipeline</h2><p>The gender gap in technology is not primarily a pipeline problem — it is a retention problem. Girls demonstrate equal interest and aptitude in mathematics and computer science through elementary school. By middle school, a combination of stereotype threat and hostile coding culture begins eroding girls' confidence.</p>`,
+    content:`<p>Ada Lovelace wrote the world's first computer algorithm in 1843. Grace Hopper invented the first compiler in 1952. The women of ENIAC programmed one of the world's first electronic general-purpose computers. And yet: in 2026, women hold fewer than 26% of technology industry jobs in the United States. The industry that women helped found has systematically excluded the people who founded it.</p>
+<img src="https://images.unsplash.com/photo-1461749280684-dccba630e2f6?w=900&auto=format&fit=crop&q=80" alt="Computer code representing women in tech" /><p class="img-caption">Women were the original programmers — their exclusion from computing is the aberration, not the norm.</p>
+<h2>The Leaky Pipeline</h2>
+<p>The gender gap in technology is not primarily a pipeline problem — it is a retention problem. Girls demonstrate equal interest and aptitude in mathematics and computer science through elementary school. By middle school, a combination of stereotype threat and hostile coding culture begins eroding girls' confidence. By the time they enter the workforce, many have already been pushed out of STEM trajectories they were perfectly capable of pursuing.</p>
+<h2>The Real Cost of Homogeneous Tech Teams</h2>
+<p>When technology is built by homogeneous teams, the products reflect their blind spots. AI facial recognition systems trained predominantly on male faces show error rates up to 34 times higher on dark-skinned women's faces. Health monitoring algorithms calibrated on male data fail women. Navigation apps built without women's safety concerns in mind route women through dangerous areas without considering the safety implications. The cost of exclusion is not abstract — it is embedded in the technology shaping daily life.</p>
+<blockquote>The technology that shapes every dimension of human life in 2026 is being built disproportionately by men. When women are excluded from building our digital infrastructure, all of us live with the consequences of its blind spots.</blockquote>
+<img src="https://images.unsplash.com/photo-1573497019940-1c28c88b4f3e?w=900&auto=format&fit=crop&q=80" alt="Woman working in technology field" /><p class="img-caption">Women in tech are not just filling seats — they are building products, leading teams, and rewriting the rules.</p>
+<h2>What Is Changing in 2026</h2>
+<p>Organizations like Girls Who Code, Black Girls Code, and Women Who Code have now reached millions of young women and girls. Coding bootcamps with specific programs for women returnees are re-entering the pipeline. Companies with genuine pay equity audits, blind hiring processes, and inclusive team cultures are showing measurably better retention of women in technical roles. The change is real — but it requires sustained institutional commitment, not just inspirational rhetoric.</p>
+<h2>Non-Traditional Paths into Tech</h2>
+<p>In 2026, a computer science degree is one of many valid pathways into the technology industry. UX design, product management, technical writing, cybersecurity, data analysis, and AI prompt engineering are all growing fields where women are entering, thriving, and leading. The tech industry needs diverse perspectives at every level — and there are now more pathways than ever to bring those perspectives in.</p>`,
     stats:[["26%","Women Hold Tech Jobs in 2026"],["2x","Women's Attrition Rate from Tech"],["670K","Girls Who Code Has Reached"],["34x","AI Error Rate for Dark-Skinned Women"]],
-    takeaways:["Women were the original programmers — the exclusion of women from computing is the aberration, not the norm","The leaky pipeline is primarily a retention and culture problem, not a talent or interest problem","Homogeneous tech teams build products with dangerous, documented blind spots that harm real people","In 2026, more organizations support women in tech than at any previous time","Changing tech culture requires active allyship from men in positions of power and influence"],
-    conclusion:"The technology that shapes every dimension of human life in 2026 is being built disproportionately by men. When women are excluded from building our digital infrastructure, all of us live with the consequences of its blind spots. Closing the gender gap in technology is not optional. It is urgent.",
+    takeaways:["Women were the original programmers — the exclusion of women from computing is the aberration, not the norm","The leaky pipeline is primarily a retention and culture problem, not a talent or interest problem","Homogeneous tech teams build products with dangerous, documented blind spots that harm real people","In 2026, more organizations and communities support women in tech than at any previous time","Changing tech culture requires active allyship from men in positions of power and influence"],
+    conclusion:"The technology that shapes every dimension of human life in 2026 is being built disproportionately by men. When women are excluded from building our digital infrastructure, all of us live with the consequences of its blind spots. Closing the gender gap in technology is not optional. It is urgent — and every woman who enters this field makes it more equitable for the next.",
     faqs:[["Who were the first women in computer science?","Ada Lovelace, Grace Hopper, the ENIAC programmers, Katherine Johnson, and Dorothy Vaughan are among the founding figures of computing."],["Programs that help women enter tech?","Girls Who Code, Black Girls Code, Women Who Code, Code First Girls, Lesbians Who Tech."],["Tech careers without a CS degree?","UX/UI design, product management, technical writing, data analysis, cybersecurity certifications, digital marketing, AI prompt engineering."],["What can men in tech do to be genuine allies?","Amplify women's contributions, advocate for their promotion, refuse to tolerate sexist jokes, mentor and sponsor junior women, call out hiring bias."],["How do companies most effectively increase gender diversity?","Blind resume screening, structured interviews, diversity goals with executive accountability, transparent pay bands, and actively inclusive team cultures."]]
   },
   {
@@ -919,18 +931,26 @@ const defaultBlogs = [
     title:"Goal Setting for Women in 2026: The Art of Ambitious, Sustainable, Whole-Life Dreams",
     excerpt:"Women have been told to dream big their entire lives — but handed goal-setting frameworks designed for lives they don't live. Here is a science-backed, reality-grounded approach that actually works.",
     date:"Jan 28, 2026",
-    content:`<p>We have been exhorted our entire lives to dream bigger, aim higher, set stretch goals. The motivational industry generates billions of dollars annually selling the conviction that the primary obstacle is insufficient ambition. For women navigating caregiving responsibilities, hormonal variability, and systemic barriers — this framework is not just unhelpful. It is actively damaging.</p><h2>Why Conventional Goal-Setting Frameworks Fail Women</h2><p>The dominant "goal-crushing" culture assumes a model of adult life with uninterrupted blocks of focused work time, a support infrastructure that handles logistics, and a body that performs consistently regardless of cyclical hormonal variation. This is not the reality of most women's lives.</p>`,
+    content:`<p>We have been exhorted our entire lives to dream bigger, aim higher, set stretch goals. The motivational industry generates billions of dollars annually selling the conviction that the primary obstacle is insufficient ambition. For women navigating caregiving responsibilities, hormonal variability, and systemic barriers — this framework is not just unhelpful. It is actively damaging.</p>
+<img src="https://images.unsplash.com/photo-1484480974693-6ca0a78fb36b?w=900&auto=format&fit=crop&q=80" alt="Woman planning and setting goals in a notebook" /><p class="img-caption">Effective goal-setting begins with clarity about your values — not the goals you think you should want.</p>
+<h2>Why Conventional Goal-Setting Frameworks Fail Women</h2>
+<p>The dominant "goal-crushing" culture assumes a model of adult life with uninterrupted blocks of focused work time, a support infrastructure that handles logistics, and a body that performs consistently regardless of cyclical hormonal variation. This is not the reality of most women's lives. Goals built on this assumption are not aspirational — they are setups for the kind of "failure" that has nothing to do with capability and everything to do with inadequate framework design.</p>
+<h2>The WISE Framework: A Better Approach</h2>
+<p>The WISE framework — Whole-life aligned, Intrinsically motivated, Seasonally adaptable, and Evidence-based — offers women a goal-setting approach that honors the full complexity of their lives. Whole-life alignment means your goals reflect your actual values, not the values you've been told to have. Intrinsic motivation means pursuing what genuinely matters to you, not what will impress others. Seasonal adaptability means adjusting ambition and intensity with hormonal cycles, life seasons, and energy availability rather than treating every week as identical.</p>
+<blockquote>Your dreams are not too big. The frameworks you have been handed are too small. Design a goal-setting practice as intelligent, nuanced, and ambitious as you actually are.</blockquote>
+<img src="https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=900&auto=format&fit=crop&q=80" alt="Women celebrating achievement and success together" /><p class="img-caption">Accountability partnerships increase goal achievement rates by over 33% — investing in them is one of the highest-leverage decisions you can make.</p>
+<h2>The Power of Accountability</h2>
+<p>Research consistently shows that sharing a goal with a specific person who will hold you accountable increases your probability of success by 65%. Meeting regularly with an accountability partner raises that to 95%. In 2026, accountability partnerships can be found in peer coaching circles, mastermind groups, professional coaching relationships, and intentional friendships with other goal-oriented women. The community you build around your goals matters as much as the goals themselves.</p>
+<h2>Celebrating Progress, Not Just Completion</h2>
+<p>One of the most self-defeating patterns in women's goal-setting culture is the binary between achievement and failure. The long middle of any goal — where the initial excitement has faded and the finish line isn't yet visible — is where most goals die. Building deliberate celebrations of progress, not just completion, is what sustains motivation through this territory. Every milestone matters. Every step forward is worth marking.</p>`,
     stats:[["76%","Goals Achieved with Accountability Partner"],["43%","Goals Achieved Without Accountability"],["3x","Success Rate with Written Goals"],["1 in 3","Women Abandon Goals Within 3 Weeks"]],
     takeaways:["Conventional goal-setting frameworks were designed for lives most women don't live — adapt them deliberately","The WISE framework adds whole-life alignment and sustainability to standard SMART goal criteria","Seasonal and cyclical goal-setting works with women's natural rhythms rather than fighting them","An accountability partner is the single most powerful goal-success tool available","Celebrating progress, not just completion, is what sustains motivation through the long middle of any goal"],
-    conclusion:"Your dreams are not too big. The frameworks you have been handed are too small. In 2026, design a goal-setting practice that is as intelligent, nuanced, and ambitious as you are — one that honors the full complexity of your life while refusing to use that complexity as a ceiling.",
+    conclusion:"Your dreams are not too big. The frameworks you have been handed are too small. In 2026, design a goal-setting practice that is as intelligent, nuanced, and ambitious as you are — one that honors the full complexity of your life while refusing to use that complexity as a ceiling. Begin. Adjust. Persist. Celebrate. Repeat.",
     faqs:[["Most evidence-based approach to goal-setting?","Write goals down. Share with an accountability partner. Break into weekly actions. Review monthly."],["How to set goals when life feels overwhelming?","Begin with values — the 3-5 principles that matter most. From those, one goal per domain becomes visible."],["What to do when I fail to achieve a goal?","Treat failure as data. Ask: What interfered? Was the timeline too aggressive? Was this what I actually wanted? Then adjust and recommit."],["How many goals to focus on at once?","Maximum 1-3 goals in active pursuit at any given time, with no more than one per major life domain."],["Relationship between daily habits and long-term goals?","Goals are the destination; habits are the daily vehicle. Small, consistent habits are more reliable than sporadic motivation bursts."]]
   }
 ];
 
-// ============================================================
-// INITIALIZE blogs from localStorage (or use defaults)
-// ============================================================
-let blogs = loadBlogsFromStorage() || defaultBlogs;
+let blogs = defaultBlogs;
 let displayedBlogs = [...blogs];
 
 // ============================================================
@@ -966,10 +986,9 @@ function openEditModal(sectionName, fields, onSaveCallback) {
       fieldsHTML += `<input type="text" id="ef_${f.id}" value="${val}">`;
     }
   });
-
   document.getElementById('editModalContent').innerHTML = `
     <h3>✏️ Edit ${sectionName}</h3>
-    <span class="em-label">🔐 Admin Mode — changes saved automatically to browser storage</span>
+    <span class="em-label">🔐 Admin Mode — changes are active for this session</span>
     ${fieldsHTML}
     <div class="edit-modal-btns">
       <button class="edit-save-btn" id="editSaveBtn">💾 Save Changes</button>
@@ -994,24 +1013,23 @@ function getVal(id) {
   return el.value;
 }
 
-// ---- RIBBON ----
+function showSaveIndicator() {
+  const el = document.getElementById('saveIndicator');
+  if(el){ el.classList.add('show'); setTimeout(() => el.classList.remove('show'), 2000); }
+}
+
 function editRibbon() {
   const el = document.querySelector('.ribbon-bar');
-  const btn = el.querySelector('.edit-btn');
-  if (btn) btn.style.display = 'none';
-  const html = el.innerHTML.trim();
-  if (btn) btn.style.display = '';
   openEditModal('Ribbon Bar', [
-    {label: 'Ribbon Content (HTML)', id: 'ribbon', type: 'textarea', value: html.replace(/<button class="edit-btn"[^>]*>[\s\S]*?<\/button>/g,'').trim()}
+    {label: 'Ribbon Content (HTML)', id: 'ribbon', type: 'textarea', value: el.innerHTML.replace(/<button class="edit-btn"[^>]*>[\s\S]*?<\/button>/g,'').trim()}
   ], function() {
     const editBtn = document.querySelector('.ribbon-bar .edit-btn');
     document.querySelector('.ribbon-bar').innerHTML = getVal('ribbon');
-    document.querySelector('.ribbon-bar').appendChild(editBtn);
+    if(editBtn) document.querySelector('.ribbon-bar').appendChild(editBtn);
     closeEditModal();
   });
 }
 
-// ---- HERO ----
 function editHero() {
   const badge = document.querySelector('.hero-badge').innerText;
   const title = document.querySelector('.hero-title').innerHTML;
@@ -1040,7 +1058,6 @@ function editHero() {
   });
 }
 
-// ---- QUOTE ----
 function editQuote() {
   openEditModal('Quote Banner', [
     {label:'Quote Text', id:'qt', type:'textarea', value: document.querySelector('.quote-text').innerText},
@@ -1052,7 +1069,6 @@ function editQuote() {
   });
 }
 
-// ---- CATEGORIES HEADER ----
 function editCategoriesHeader() {
   openEditModal('Categories Section Header', [
     {label:'Section Label', id:'fl', type:'text', value: document.querySelector('.features .section-label').innerText},
@@ -1066,7 +1082,6 @@ function editCategoriesHeader() {
   });
 }
 
-// ---- CATEGORY CARDS ----
 function editCategoryCard(index) {
   const cards = document.querySelectorAll('.feature-card');
   const card = cards[index];
@@ -1083,7 +1098,6 @@ function editCategoryCard(index) {
   });
 }
 
-// ---- BLOGS SECTION HEADER ----
 function editBlogsHeader() {
   openEditModal('Blogs Section Header', [
     {label:'Section Label', id:'bl', type:'text', value: document.querySelector('#blogs .section-label').innerText},
@@ -1097,7 +1111,6 @@ function editBlogsHeader() {
   });
 }
 
-// ---- BLOG CARD EDIT ----
 function editBlogCard(id, event) {
   if (event) event.stopPropagation();
   const b = blogs.find(x=>x.id===id);
@@ -1110,7 +1123,7 @@ function editBlogCard(id, event) {
     {label:'Date', id:'bd', type:'text', value: b.date},
     {label:'Excerpt (shown on card)', id:'bex', type:'textarea', value: b.excerpt},
     {label:'Full Content (HTML)', id:'bcont', type:'textarea', value: b.content},
-    {label:'Conclusion Paragraph', id:'bcon', type:'textarea', value: b.conclusion},
+    {label:'Conclusion Paragraph', id:'bcon', type:'textarea', value: b.conclusion||''},
   ], function() {
     b.title = getVal('bt');
     b.cat = getVal('bc');
@@ -1122,7 +1135,6 @@ function editBlogCard(id, event) {
     b.conclusion = getVal('bcon');
     displayedBlogs = [...blogs];
     renderBlogGrid(displayedBlogs);
-    saveBlogsToStorage(); // ✅ SAVE after editing
     closeEditModal();
   });
 }
@@ -1132,15 +1144,9 @@ function deleteBlogPost(id, event) {
   const b = blogs.find(x=>x.id===id);
   if (!confirm(`Delete "${b ? b.title : 'this blog'}"\n\nThis cannot be undone.`)) return;
   const idx = blogs.findIndex(x=>x.id===id);
-  if (idx > -1) {
-    blogs.splice(idx, 1);
-    displayedBlogs = [...blogs];
-    renderBlogGrid(displayedBlogs);
-    saveBlogsToStorage(); // ✅ SAVE after deleting
-  }
+  if (idx > -1) { blogs.splice(idx, 1); displayedBlogs = [...blogs]; renderBlogGrid(displayedBlogs); }
 }
 
-// ---- CONTACT SECTION ----
 function editContactSection() {
   openEditModal('Contact Section', [
     {label:'Section Label', id:'cl', type:'text', value: document.querySelector('.contact-section .section-label').innerText},
@@ -1154,7 +1160,6 @@ function editContactSection() {
   });
 }
 
-// ---- CONTACT CARDS ----
 function editContactCard(index) {
   const cards = document.querySelectorAll('.contact-card');
   const card = cards[index];
@@ -1175,7 +1180,6 @@ function editContactCard(index) {
   });
 }
 
-// ---- NEWSLETTER ----
 function editNewsletter() {
   openEditModal('Newsletter Section', [
     {label:'Section Label', id:'nl', type:'text', value: document.querySelector('.newsletter .section-label').innerText},
@@ -1189,7 +1193,6 @@ function editNewsletter() {
   });
 }
 
-// ---- FOOTER ----
 function editFooter() {
   openEditModal('Footer', [
     {label:'Brand Description', id:'fa', type:'textarea', value: document.querySelector('.footer-brand p').innerText},
@@ -1210,6 +1213,7 @@ function getCatColor(cat){
 
 function renderBlogGrid(data){
   const grid = document.getElementById('blogGrid');
+  if(!grid) return;
   grid.innerHTML = data.map(b=>`
     <div class="blog-card" onclick="openBlog(${b.id})">
       <button class="edit-btn" onclick="editBlogCard(${b.id},event)" style="top:8px;right:90px;padding:4px 10px;font-size:0.68rem;">✏️ Edit</button>
@@ -1260,8 +1264,8 @@ function openBlog(id){
   document.getElementById('modalHero').style.background = `linear-gradient(135deg,${getCatColor(b.cat)})`;
 
   const infographic = `<div class="infographic"><div class="infographic-title">Key Statistics &amp; Data</div><div class="infographic-grid">${b.stats.map(s=>`<div class="infographic-stat"><div class="num">${s[0]}</div><div class="lbl">${s[1]}</div></div>`).join('')}</div></div>`;
-  const takeaways = `<div class="takeaways"><div class="takeaways-title">Key Takeaways</div><ul>${b.takeaways.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
-  const conclusion = `<div class="conclusion"><div class="conclusion-title">✦ Conclusion</div><p>${b.conclusion}</p></div>`;
+  const takeaways = b.takeaways && b.takeaways.length ? `<div class="takeaways"><div class="takeaways-title">Key Takeaways</div><ul>${b.takeaways.map(t=>`<li>${t}</li>`).join('')}</ul></div>` : '';
+  const conclusion = b.conclusion ? `<div class="conclusion"><div class="conclusion-title">✦ Conclusion</div><p>${b.conclusion}</p></div>` : '';
   const faq = `<div class="faq"><div class="faq-title">Frequently Asked Questions</div>${b.faqs.map((f,i)=>`<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">${f[0]}<span class="faq-icon">+</span></div><div class="faq-a">${f[1]}</div></div>`).join('')}</div>`;
   const author = `<div class="author-cta"><div class="author-cta-avatar">MK</div><div class="author-cta-info"><h4>Maria Kanwal</h4><div class="author-title">Women's Empowerment Writer · Advocate · Content Strategist</div><a href="mailto:medrankseo@gmail.com" class="author-email">✉ medrankseo@gmail.com</a><br><a href="mailto:medrankseo@gmail.com" class="cta-btn">Get in Touch ✦</a></div></div>`;
 
@@ -1275,7 +1279,10 @@ function closeModal(){
   document.getElementById('modalOverlay').classList.remove('open');
   document.body.style.overflow = '';
 }
-function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+
+function closeModalOutside(e){
+  if(e.target===document.getElementById('modalOverlay')) closeModal();
+}
 
 function toggleFaq(el){
   const wasOpen = el.classList.contains('open');
@@ -1295,7 +1302,7 @@ function switchTab(tabId, btn){
 }
 
 // ============================================================
-// ADMIN — Password check activates edit mode
+// ADMIN
 // ============================================================
 const ADMIN_PASS = 'hervoice2026admin';
 
@@ -1321,43 +1328,27 @@ function publishBlog(){
   const excerpt = document.getElementById('newExcerpt').value.trim();
   const content = document.getElementById('newContent').value.trim();
   const statsRaw = document.getElementById('newStats').value.trim();
-  const takeawaysRaw = document.getElementById('newTakeaways').value.trim();
-  const conclusion = document.getElementById('newConclusion').value.trim();
+  const takeawaysRaw = document.getElementById('newTakeaways') ? document.getElementById('newTakeaways').value.trim() : '';
+  const conclusion = document.getElementById('newConclusion') ? document.getElementById('newConclusion').value.trim() : '';
   const faqsRaw = document.getElementById('newFaqs').value.trim();
   if(!title||!excerpt||!content){alert('Please fill in Title, Excerpt, and Content at minimum.');return;}
   const stats = statsRaw ? statsRaw.split('\n').filter(Boolean).map(s=>{const p=s.split('|');return[p[0]||'✓',p[1]||''];}) : [['✦','Key Insight'],['★','Important'],['→','Action Item'],['✓','Verified']];
-  const takeaways = takeawaysRaw ? takeawaysRaw.split('\n').filter(Boolean) : ['A key insight from this article worth remembering'];
+  const takeaways = takeawaysRaw ? takeawaysRaw.split('\n').filter(Boolean) : [];
   const faqs = faqsRaw ? faqsRaw.split('\n').filter(Boolean).map(f=>{const[q,...a]=f.split('||');return[q,a.join('||')];}) : [["What is the main topic?","This blog explores important themes related to women's empowerment."],["Why does this matter?","The landscape for women continues to evolve rapidly."],["How can I apply this?","Start with one concrete action today."],["Who is this for?","Any woman ready to invest in herself."],["How do I contact the author?","Connect with Maria Kanwal at medrankseo@gmail.com"]];
   const newBlog = {
     id:Date.now(), cat, emoji, readTime, title, excerpt,
     date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
     content:content.includes('<p>')?content:content.split('\n\n').filter(Boolean).map(p=>`<p>${p}</p>`).join(''),
-    stats, takeaways,
-    conclusion:conclusion||'Thank you for reading. Every insight absorbed and every action taken is a step toward the life you deserve.',
-    faqs
+    stats, takeaways, conclusion, faqs
   };
   blogs.unshift(newBlog);
   displayedBlogs=[...blogs];
   renderBlogGrid(displayedBlogs);
-  saveBlogsToStorage(); // ✅ SAVE after publishing
-  ['newTitle','newExcerpt','newContent','newStats','newTakeaways','newConclusion','newFaqs'].forEach(id=>{document.getElementById(id).value='';});
+  ['newTitle','newExcerpt','newContent','newStats','newFaqs'].forEach(id=>{const el=document.getElementById(id);if(el)el.value='';});
   document.getElementById('newEmoji').value='🌸';
   document.getElementById('newReadTime').value='8 min read';
   const suc=document.getElementById('publishSuccess');
-  suc.style.display='block';
-  setTimeout(()=>suc.style.display='none',5000);
-}
-
-// ============================================================
-// RESET BLOGS (admin utility — clears localStorage)
-// ============================================================
-function resetBlogsToDefault(){
-  if(!confirm('Reset ALL blogs to defaults? This will delete all custom blogs and edits.')) return;
-  localStorage.removeItem(STORAGE_KEY);
-  blogs = [...defaultBlogs];
-  displayedBlogs = [...blogs];
-  renderBlogGrid(displayedBlogs);
-  showSaveIndicator();
+  if(suc){suc.style.display='block';setTimeout(()=>suc.style.display='none',5000);}
 }
 
 // ============================================================
@@ -1371,10 +1362,48 @@ function subscribeNewsletter(){
 }
 
 // ============================================================
+// TOGGLE MENU
+// ============================================================
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ============================================================
+// EXPOSE ALL FUNCTIONS TO WINDOW (fixes onclick not defined errors)
+// ============================================================
+window.toggleMenu = toggleMenu;
+window.filterBlogs = filterBlogs;
+window.openBlog = openBlog;
+window.closeModal = closeModal;
+window.closeModalOutside = closeModalOutside;
+window.toggleFaq = toggleFaq;
+window.switchTab = switchTab;
+window.checkAdmin = checkAdmin;
+window.publishBlog = publishBlog;
+window.subscribeNewsletter = subscribeNewsletter;
+window.activateAdminMode = activateAdminMode;
+window.deactivateAdminMode = deactivateAdminMode;
+window.closeEditModal = closeEditModal;
+window.handleEditOverlayClick = handleEditOverlayClick;
+window.editRibbon = editRibbon;
+window.editHero = editHero;
+window.editQuote = editQuote;
+window.editCategoriesHeader = editCategoriesHeader;
+window.editCategoryCard = editCategoryCard;
+window.editBlogsHeader = editBlogsHeader;
+window.editBlogCard = editBlogCard;
+window.deleteBlogPost = deleteBlogPost;
+window.editContactSection = editContactSection;
+window.editContactCard = editContactCard;
+window.editNewsletter = editNewsletter;
+window.editFooter = editFooter;
+
+// ============================================================
 // PETALS ANIMATION
 // ============================================================
 (function(){
   const c=document.getElementById('petals');
+  if(!c) return;
   const colors=['#C8405A','#F2A7B5','#C9923F','rgba(255,255,255,0.8)','#FDE8EC'];
   for(let i=0;i<22;i++){
     const p=document.createElement('div');p.className='petal';
@@ -1385,22 +1414,20 @@ function subscribeNewsletter(){
 })();
 
 // ============================================================
-// READING BAR + NAV
+// READING BAR
 // ============================================================
 window.addEventListener('scroll',()=>{
   const ws=document.documentElement.scrollTop;
   const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
-  document.getElementById('readingBar').style.width=(ws/h*100)+'%';
+  const bar=document.getElementById('readingBar');
+  if(bar) bar.style.width=(ws/h*100)+'%';
 });
-
-function toggleMenu(){
-  document.getElementById('navLinks').classList.toggle('open');
-}
 
 // ============================================================
 // INIT
 // ============================================================
 renderBlogGrid(blogs);
+
 </script>
 </body>
 </html>

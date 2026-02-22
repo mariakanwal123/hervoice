@@ -1,0 +1,1406 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HerVoice | Celebrating Women Every Day</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;0,900;1,400;1,700&family=DM+Sans:wght@300;400;500;600&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,300;1,600&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+:root{
+  --rose:#C8405A;--rose-light:#F2A7B5;--rose-pale:#FDF0F3;
+  --gold:#C9923F;--gold-light:#F5DEB3;--cream:#FDF8F2;
+  --dark:#1A0A0F;--mid:#4A2030;--text:#2D1420;--text-muted:#7A5060;
+  --white:#FFFFFF;--border:rgba(200,64,90,0.15);
+}
+html{scroll-behavior:smooth}
+body{font-family:'DM Sans',sans-serif;background:var(--cream);color:var(--text);overflow-x:hidden}
+::-webkit-scrollbar{width:6px}::-webkit-scrollbar-track{background:var(--rose-pale)}::-webkit-scrollbar-thumb{background:var(--rose);border-radius:3px}
+
+.reading-bar{position:fixed;top:0;left:0;height:3px;background:linear-gradient(90deg,var(--rose),var(--gold));z-index:9999;width:0%;transition:width .1s}
+
+.ribbon-bar{background:var(--gold);padding:.6rem 5%;text-align:center;font-size:.82rem;font-weight:600;color:var(--dark);letter-spacing:.5px;margin-top:0;position:relative;}
+.ribbon-bar a{color:var(--mid);text-decoration:underline}
+
+nav{position:fixed;top:0;left:0;right:0;z-index:1000;background:rgba(253,248,242,.97);backdrop-filter:blur(20px);border-bottom:1px solid var(--border);padding:0 5%;display:flex;align-items:center;justify-content:space-between;height:72px;transition:all .3s}
+.nav-logo{font-family:'Playfair Display',serif;font-size:1.6rem;font-weight:900;color:var(--rose);text-decoration:none;letter-spacing:-.5px}
+.nav-logo span{color:var(--gold);font-style:italic}
+.nav-links{display:flex;gap:2rem;list-style:none;align-items:center}
+.nav-links a{font-size:.9rem;font-weight:500;color:var(--text);text-decoration:none;letter-spacing:.3px;transition:color .2s;position:relative}
+.nav-links a::after{content:'';position:absolute;bottom:-3px;left:0;right:0;height:1.5px;background:var(--rose);transform:scaleX(0);transition:transform .3s}
+.nav-links a:hover{color:var(--rose)}
+.nav-links a:hover::after{transform:scaleX(1)}
+.nav-cta{background:var(--rose)!important;color:var(--white)!important;padding:.5rem 1.4rem!important;border-radius:50px!important;transition:background .2s!important;font-weight:600!important}
+.nav-cta:hover{background:var(--mid)!important}
+.nav-cta::after{display:none!important}
+.hamburger{display:none;flex-direction:column;gap:5px;cursor:pointer;background:none;border:none;padding:.3rem}
+.hamburger span{display:block;width:24px;height:2px;background:var(--rose);transition:all .3s}
+
+.hero{min-height:100vh;background:linear-gradient(135deg,#1A0A0F 0%,#3D1525 40%,#C8405A 100%);display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden;padding:100px 5% 60px}
+.hero-petals{position:absolute;inset:0;pointer-events:none;overflow:hidden}
+.petal{position:absolute;border-radius:50% 10% 50% 10%;animation:floatPetal linear infinite;opacity:.15}
+@keyframes floatPetal{0%{transform:translateY(110vh) rotate(0deg);opacity:0}10%{opacity:.15}90%{opacity:.15}100%{transform:translateY(-10vh) rotate(720deg);opacity:0}}
+.hero-content{text-align:center;position:relative;z-index:2;max-width:900px}
+.hero-badge{display:inline-block;background:rgba(201,146,63,.2);border:1px solid var(--gold);color:var(--gold-light);font-size:.8rem;font-weight:600;letter-spacing:2px;text-transform:uppercase;padding:.4rem 1.4rem;border-radius:50px;margin-bottom:2rem;animation:fadeUp .8s ease forwards}
+.hero-title{font-family:'Playfair Display',serif;font-size:clamp(3rem,8vw,7rem);color:var(--white);line-height:1.05;font-weight:900;letter-spacing:-2px;animation:fadeUp .8s .2s ease forwards;opacity:0}
+.hero-title em{color:var(--rose-light);font-style:italic}
+.hero-subtitle{font-family:'Cormorant Garamond',serif;font-size:clamp(1.1rem,2.5vw,1.5rem);color:rgba(255,255,255,.75);margin:1.5rem auto;max-width:600px;line-height:1.6;font-weight:300;animation:fadeUp .8s .4s ease forwards;opacity:0}
+.hero-btns{animation:fadeUp .8s .6s ease forwards;opacity:0;margin-top:1rem}
+.hero-btn{display:inline-block;background:var(--gold);color:var(--dark);padding:1rem 2.5rem;border-radius:50px;font-weight:700;font-size:.95rem;text-decoration:none;letter-spacing:.5px;transition:all .3s;box-shadow:0 8px 30px rgba(201,146,63,.4)}
+.hero-btn:hover{transform:translateY(-3px);box-shadow:0 12px 40px rgba(201,146,63,.5)}
+.hero-btn-outline{display:inline-block;margin-left:1rem;border:2px solid rgba(255,255,255,.5);color:var(--white);padding:1rem 2.5rem;border-radius:50px;font-weight:600;font-size:.95rem;text-decoration:none;transition:all .3s}
+.hero-btn-outline:hover{border-color:var(--white);background:rgba(255,255,255,.1)}
+.hero-stats{display:flex;gap:3rem;justify-content:center;margin-top:4rem;animation:fadeUp .8s .9s ease forwards;opacity:0}
+.stat{text-align:center}
+.stat-num{font-family:'Playfair Display',serif;font-size:2.2rem;font-weight:900;color:var(--gold-light)}
+.stat-label{font-size:.8rem;color:rgba(255,255,255,.5);text-transform:uppercase;letter-spacing:1px}
+.hero-scroll{position:absolute;bottom:2rem;left:50%;transform:translateX(-50%);display:flex;flex-direction:column;align-items:center;gap:.4rem;color:rgba(255,255,255,.4);font-size:.75rem;letter-spacing:2px;text-transform:uppercase;animation:bounce 2s ease infinite}
+.hero-scroll::before{content:'';display:block;width:1px;height:40px;background:linear-gradient(to bottom,transparent,rgba(255,255,255,.4))}
+@keyframes bounce{0%,100%{transform:translateX(-50%) translateY(0)}50%{transform:translateX(-50%) translateY(8px)}}
+@keyframes fadeUp{from{opacity:0;transform:translateY(30px)}to{opacity:1;transform:translateY(0)}}
+
+.quote-banner{background:var(--rose);color:var(--white);padding:2.5rem 5%;text-align:center;overflow:hidden;position:relative}
+.quote-banner::before{content:'\201C';position:absolute;left:5%;top:-20px;font-family:'Playfair Display',serif;font-size:12rem;opacity:.1;line-height:1}
+.quote-text{font-family:'Cormorant Garamond',serif;font-size:clamp(1.3rem,2.5vw,2rem);font-style:italic;font-weight:300;max-width:800px;margin:0 auto;line-height:1.5}
+.quote-author{margin-top:.8rem;font-size:.85rem;opacity:.8;letter-spacing:2px;text-transform:uppercase}
+
+section{padding:80px 5%}
+.section-label{display:inline-block;font-size:.75rem;font-weight:600;letter-spacing:3px;text-transform:uppercase;color:var(--rose);margin-bottom:.8rem}
+.section-title{font-family:'Playfair Display',serif;font-size:clamp(2rem,4vw,3.2rem);font-weight:900;color:var(--dark);line-height:1.1;letter-spacing:-1px}
+.section-title em{color:var(--rose);font-style:italic}
+.section-sub{font-size:1rem;color:var(--text-muted);margin-top:.8rem;max-width:600px;line-height:1.7}
+
+.features{background:var(--dark);position:relative;}
+.features-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(200px,1fr));gap:1.5rem;margin-top:3rem}
+.feature-card{background:rgba(255,255,255,.05);border:1px solid rgba(255,255,255,.08);border-radius:20px;padding:2rem 1.5rem;text-align:center;transition:all .3s;cursor:pointer;position:relative;}
+.feature-card:hover{background:rgba(200,64,90,.15);border-color:rgba(200,64,90,.3);transform:translateY(-5px)}
+.feature-icon{font-size:2.5rem;margin-bottom:1rem}
+.feature-name{font-family:'Playfair Display',serif;font-size:1.05rem;color:var(--white);font-weight:700;margin-bottom:.5rem}
+.feature-count{font-size:.8rem;color:rgba(255,255,255,.4)}
+
+.tabs-container{max-width:1200px;margin:0 auto}
+.tabs-header{display:flex;gap:0;border-bottom:2px solid var(--border);margin-bottom:3rem;overflow-x:auto}
+.tab-btn{padding:1rem 2rem;font-size:.9rem;font-weight:600;color:var(--text-muted);background:none;border:none;cursor:pointer;position:relative;white-space:nowrap;letter-spacing:.3px;transition:color .2s}
+.tab-btn::after{content:'';position:absolute;bottom:-2px;left:0;right:0;height:2px;background:var(--rose);transform:scaleX(0);transition:transform .3s}
+.tab-btn.active{color:var(--rose)}
+.tab-btn.active::after{transform:scaleX(1)}
+.tab-btn:hover{color:var(--rose)}
+.tab-content{display:none}
+.tab-content.active{display:block}
+
+.blog-grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(340px,1fr));gap:2rem}
+.blog-card{background:var(--white);border-radius:20px;overflow:hidden;box-shadow:0 4px 20px rgba(200,64,90,.08);transition:all .35s cubic-bezier(.34,1.56,.64,1);cursor:pointer;position:relative;}
+.blog-card:hover{transform:translateY(-8px);box-shadow:0 20px 50px rgba(200,64,90,.18)}
+.blog-card-img{width:100%;height:200px;display:flex;align-items:center;justify-content:center;position:relative;overflow:hidden}
+.blog-card-img .cat-badge{position:absolute;top:1rem;left:1rem;background:var(--gold);color:var(--dark);font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.3rem .9rem;border-radius:50px}
+.blog-card-img .emoji-bg{font-size:5rem;opacity:.25;position:absolute;right:-10px;bottom:-10px;transform:rotate(-15deg)}
+.blog-card-body{padding:1.5rem}
+.blog-card-meta{display:flex;align-items:center;gap:1rem;font-size:.78rem;color:var(--text-muted);margin-bottom:.8rem}
+.blog-card-meta .dot{width:3px;height:3px;border-radius:50%;background:var(--rose-light)}
+.blog-card-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;color:var(--dark);line-height:1.35;margin-bottom:.8rem}
+.blog-card-excerpt{font-size:.88rem;color:var(--text-muted);line-height:1.65;margin-bottom:1.2rem}
+.blog-card-footer{display:flex;align-items:center;justify-content:space-between}
+.author-mini{display:flex;align-items:center;gap:.6rem}
+.author-avatar{width:32px;height:32px;border-radius:50%;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:.75rem;font-weight:700}
+.author-name{font-size:.8rem;font-weight:600;color:var(--text)}
+.read-more{display:inline-flex;align-items:center;gap:.4rem;font-size:.82rem;font-weight:600;color:var(--rose);text-decoration:none}
+.read-more svg{transition:transform .2s}
+.blog-card:hover .read-more svg{transform:translateX(4px)}
+
+.modal-overlay{position:fixed;inset:0;z-index:2000;background:rgba(26,10,15,.87);backdrop-filter:blur(8px);display:flex;align-items:flex-start;justify-content:center;padding:2rem 1rem;overflow-y:auto;opacity:0;pointer-events:none;transition:opacity .3s}
+.modal-overlay.open{opacity:1;pointer-events:all}
+.modal{background:var(--cream);max-width:860px;width:100%;border-radius:24px;overflow:hidden;transform:translateY(40px);transition:transform .3s;box-shadow:0 40px 80px rgba(0,0,0,.4)}
+.modal-overlay.open .modal{transform:translateY(0)}
+.modal-hero{padding:3rem 2.5rem 2rem;position:relative;overflow:hidden}
+.modal-hero-emoji{position:absolute;right:2rem;top:50%;transform:translateY(-50%);font-size:6rem;opacity:.18}
+.modal-cat{display:inline-block;background:var(--gold);color:var(--dark);font-size:.7rem;font-weight:700;letter-spacing:1px;text-transform:uppercase;padding:.3rem .9rem;border-radius:50px;margin-bottom:1rem}
+.modal-title{font-family:'Playfair Display',serif;font-size:clamp(1.6rem,4vw,2.4rem);font-weight:900;color:var(--white);line-height:1.15}
+.modal-meta{display:flex;align-items:center;gap:1rem;margin-top:1rem;color:rgba(255,255,255,.75);font-size:.82rem;flex-wrap:wrap}
+.modal-close{position:absolute;top:1.2rem;right:1.2rem;width:36px;height:36px;border-radius:50%;background:rgba(255,255,255,.2);border:none;cursor:pointer;display:flex;align-items:center;justify-content:center;color:white;font-size:1.1rem;transition:background .2s}
+.modal-close:hover{background:rgba(255,255,255,.35)}
+.modal-body{padding:2.5rem}
+.modal-body h2{font-family:'Playfair Display',serif;font-size:1.55rem;color:var(--dark);margin:2.2rem 0 .9rem;font-weight:700;border-left:4px solid var(--rose);padding-left:.9rem}
+.modal-body h3{font-family:'Playfair Display',serif;font-size:1.15rem;color:var(--rose);margin:1.5rem 0 .5rem;font-weight:600}
+.modal-body p{font-size:.96rem;line-height:1.85;color:var(--text);margin-bottom:1.1rem}
+.modal-body ul,.modal-body ol{margin:.8rem 0 1.1rem 1.5rem}
+.modal-body li{font-size:.93rem;line-height:1.75;color:var(--text);margin-bottom:.5rem}
+.modal-body strong{color:var(--dark);font-weight:600}
+.modal-body blockquote{border-left:3px solid var(--rose);padding:.8rem 1.2rem;background:var(--rose-pale);border-radius:0 12px 12px 0;margin:1.2rem 0;font-family:'Cormorant Garamond',serif;font-size:1.05rem;font-style:italic;color:var(--mid)}
+
+.infographic{background:linear-gradient(135deg,var(--rose-pale),#FFF5F7);border:1px solid var(--rose-light);border-radius:16px;padding:1.8rem;margin:2rem 0}
+.infographic-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--rose);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:1rem;display:flex;align-items:center;gap:.5rem}
+.infographic-title::before{content:'📊'}
+.infographic-grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(120px,1fr));gap:1rem}
+.infographic-stat{text-align:center;background:white;border-radius:12px;padding:1rem;box-shadow:0 2px 10px rgba(200,64,90,.08)}
+.infographic-stat .num{font-family:'Playfair Display',serif;font-size:1.8rem;font-weight:900;color:var(--rose)}
+.infographic-stat .lbl{font-size:.75rem;color:var(--text-muted);margin-top:.2rem;line-height:1.3}
+
+.takeaways{background:linear-gradient(135deg,#FFF8E8,#FFFBF0);border:1px solid var(--gold-light);border-left:4px solid var(--gold);border-radius:0 16px 16px 0;padding:1.5rem 1.8rem;margin:2rem 0}
+.takeaways-title{font-family:'Playfair Display',serif;font-size:1rem;color:var(--gold);font-weight:700;text-transform:uppercase;letter-spacing:1px;margin-bottom:.8rem;display:flex;align-items:center;gap:.5rem}
+.takeaways-title::before{content:'✨'}
+.takeaways ul{list-style:none;margin:0}
+.takeaways li{padding:.4rem 0 .4rem 1.4rem;position:relative;font-size:.91rem;color:var(--text)}
+.takeaways li::before{content:'→';position:absolute;left:0;color:var(--gold);font-weight:700}
+
+.faq{margin:2rem 0}
+.faq-title{font-family:'Playfair Display',serif;font-size:1.3rem;color:var(--dark);font-weight:700;margin-bottom:1rem}
+.faq-item{border-bottom:1px solid var(--border)}
+.faq-q{padding:1rem 0;font-weight:600;color:var(--dark);font-size:.94rem;cursor:pointer;display:flex;justify-content:space-between;align-items:center;gap:1rem;transition:color .2s}
+.faq-q:hover{color:var(--rose)}
+.faq-q .faq-icon{color:var(--rose);font-size:1.3rem;flex-shrink:0;transition:transform .3s;font-weight:300}
+.faq-a{max-height:0;overflow:hidden;transition:max-height .4s ease;font-size:.9rem;color:var(--text-muted);line-height:1.75}
+.faq-a.open{max-height:400px;padding-bottom:1rem}
+.faq-q.open .faq-icon{transform:rotate(45deg)}
+
+.conclusion{background:linear-gradient(135deg,var(--mid),var(--rose));color:white;border-radius:16px;padding:2rem;margin:2rem 0;text-align:center}
+.conclusion-title{font-family:'Playfair Display',serif;font-size:1.2rem;font-weight:700;margin-bottom:.8rem}
+.conclusion p{font-size:.94rem;opacity:.92;line-height:1.75}
+
+.author-cta{display:flex;align-items:center;gap:1.5rem;background:var(--white);border:1px solid var(--border);border-radius:16px;padding:1.5rem;margin:2rem 0}
+.author-cta-avatar{width:64px;height:64px;border-radius:50%;flex-shrink:0;background:linear-gradient(135deg,var(--rose),var(--gold));display:flex;align-items:center;justify-content:center;color:white;font-size:1.4rem;font-weight:700;box-shadow:0 4px 16px rgba(200,64,90,.3)}
+.author-cta-info h4{font-family:'Playfair Display',serif;font-size:1.1rem;font-weight:700;color:var(--dark)}
+.author-cta-info .author-title{font-size:.82rem;color:var(--text-muted);margin-top:.15rem}
+.author-cta-info .author-email{display:inline-flex;align-items:center;gap:.4rem;color:var(--rose);text-decoration:none;font-weight:600;font-size:.88rem;margin-top:.4rem}
+.author-cta-info .author-email:hover{color:var(--mid)}
+.cta-btn{display:inline-block;margin-top:.9rem;background:var(--rose);color:white;padding:.65rem 1.6rem;border-radius:50px;font-size:.85rem;font-weight:700;text-decoration:none;transition:all .25s;box-shadow:0 4px 14px rgba(200,64,90,.3)}
+.cta-btn:hover{background:var(--mid);transform:translateY(-2px)}
+
+.newsletter{background:linear-gradient(135deg,var(--rose) 0%,var(--mid) 100%);text-align:center;padding:80px 5%;position:relative;}
+.newsletter .section-title{color:var(--white)}
+.newsletter .section-sub{color:rgba(255,255,255,.8);margin:1rem auto 2.5rem}
+.newsletter-form{display:flex;gap:1rem;max-width:500px;margin:0 auto;flex-wrap:wrap;justify-content:center}
+.newsletter-input{flex:1;min-width:220px;padding:.9rem 1.4rem;border-radius:50px;border:none;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;color:var(--dark)}
+.newsletter-btn{background:var(--gold);color:var(--dark);padding:.9rem 2rem;border-radius:50px;border:none;font-size:.9rem;font-weight:700;cursor:pointer;transition:all .2s;font-family:'DM Sans',sans-serif}
+.newsletter-btn:hover{background:var(--gold-light);transform:scale(1.05)}
+
+.contact-section{background:var(--rose-pale);padding:70px 5%;text-align:center;position:relative;}
+.contact-section .section-title{color:var(--dark)}
+.contact-section .section-sub{color:var(--text-muted);margin:.8rem auto 2.5rem}
+.contact-cards{display:flex;gap:1.5rem;justify-content:center;flex-wrap:wrap;max-width:800px;margin:0 auto}
+.contact-card{background:var(--white);border-radius:18px;padding:2rem 2.5rem;box-shadow:0 4px 24px rgba(200,64,90,.1);min-width:220px;flex:1;max-width:260px;transition:transform .3s;border:1px solid var(--border);position:relative;}
+.contact-card:hover{transform:translateY(-5px)}
+.contact-card .cc-icon{font-size:2.2rem;margin-bottom:.8rem}
+.contact-card h4{font-family:'Playfair Display',serif;font-size:1rem;font-weight:700;color:var(--dark);margin-bottom:.4rem}
+.contact-card a{color:var(--rose);text-decoration:none;font-size:.88rem;font-weight:600;word-break:break-all}
+.contact-card a:hover{color:var(--mid);text-decoration:underline}
+.contact-card p{color:var(--text-muted);font-size:.82rem;margin-top:.3rem}
+
+footer{background:var(--dark);color:rgba(255,255,255,.6);padding:4rem 5% 2rem;position:relative;}
+.footer-grid{display:grid;grid-template-columns:2fr 1fr 1fr 1fr;gap:3rem;margin-bottom:3rem}
+.footer-brand .nav-logo{font-size:2rem}
+.footer-brand p{font-size:.88rem;line-height:1.7;margin-top:1rem;max-width:280px}
+.footer-col h5{font-family:'Playfair Display',serif;font-size:1rem;color:var(--white);font-weight:700;margin-bottom:1rem}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:.5rem}
+.footer-col a{color:rgba(255,255,255,.5);text-decoration:none;font-size:.88rem;transition:color .2s}
+.footer-col a:hover{color:var(--rose-light)}
+.footer-bottom{border-top:1px solid rgba(255,255,255,.08);padding-top:2rem;display:flex;justify-content:space-between;align-items:center;font-size:.82rem;flex-wrap:wrap;gap:1rem}
+.footer-bottom a{color:var(--rose-light);text-decoration:none}
+.social-links{display:flex;gap:.8rem;margin-top:1.5rem}
+.social-link{width:38px;height:38px;border-radius:50%;background:rgba(255,255,255,.08);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,.7);font-size:.82rem;font-weight:700;text-decoration:none;transition:all .2s}
+.social-link:hover{background:var(--rose);color:white}
+
+.admin-panel{background:#0D1117;border-radius:16px;padding:2rem;border:1px solid #30363D}
+.admin-panel h3{font-family:'Playfair Display',serif;font-size:1.5rem;color:#F0F6FC;margin-bottom:.5rem}
+.admin-panel>p{color:#8B949E;font-size:.88rem;margin-bottom:1.5rem}
+.admin-lock{display:flex;gap:.8rem;align-items:center;margin-bottom:1.5rem;flex-wrap:wrap}
+.admin-lock input{background:#161B22;border:1px solid #30363D;color:#F0F6FC;padding:.65rem 1rem;border-radius:8px;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;flex:1;min-width:200px}
+.admin-lock button{background:#238636;color:white;border:none;padding:.65rem 1.4rem;border-radius:8px;font-size:.88rem;font-weight:600;cursor:pointer;transition:background .2s;font-family:'DM Sans',sans-serif}
+.admin-lock button:hover{background:#2EA043}
+.admin-form{display:none}
+.admin-form.visible{display:block}
+.admin-form label{display:block;font-size:.8rem;color:#8B949E;margin-bottom:.4rem;letter-spacing:.5px;text-transform:uppercase}
+.admin-form input,.admin-form textarea,.admin-form select{width:100%;background:#161B22;border:1px solid #30363D;color:#F0F6FC;padding:.7rem 1rem;border-radius:8px;font-size:.9rem;font-family:'DM Sans',sans-serif;outline:none;margin-bottom:1.1rem;transition:border-color .2s}
+.admin-form input:focus,.admin-form textarea:focus{border-color:#1F6FEB}
+.admin-form textarea{min-height:120px;resize:vertical}
+.admin-form .form-row{display:grid;grid-template-columns:1fr 1fr;gap:1rem}
+.admin-code-area{background:#0D1117;border:1px solid #30363D;border-radius:8px;padding:1rem;margin-bottom:1.1rem}
+.admin-code-area p{color:#8B949E;font-size:.8rem;margin-bottom:.5rem}
+.admin-code-area textarea{font-family:'Courier New',monospace;font-size:.84rem;min-height:220px;border-color:#21262D}
+.publish-btn{background:linear-gradient(135deg,var(--rose),var(--mid));color:white;border:none;padding:.85rem 2rem;border-radius:8px;font-size:.95rem;font-weight:700;cursor:pointer;transition:opacity .2s;width:100%;font-family:'DM Sans',sans-serif;margin-top:.5rem}
+.publish-btn:hover{opacity:.9}
+.admin-notice{background:rgba(31,111,235,.1);border:1px solid #1F6FEB;border-radius:8px;padding:.85rem 1rem;color:#58A6FF;font-size:.82rem;margin-bottom:1.5rem}
+.admin-notice strong{color:#79C0FF}
+.admin-success{background:rgba(46,160,67,.15);border:1px solid #2EA043;border-radius:8px;padding:.85rem 1rem;color:#3FB950;font-size:.88rem;margin-bottom:1rem;display:none}
+
+/* ADMIN EDIT SYSTEM */
+.edit-btn {
+  display: none;
+  position: absolute;
+  z-index: 800;
+  background: #1F6FEB;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  padding: 5px 12px;
+  font-size: 0.7rem;
+  font-weight: 700;
+  cursor: pointer;
+  letter-spacing: 0.5px;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 2px 12px rgba(31,111,235,0.45);
+  transition: all 0.2s;
+  white-space: nowrap;
+  align-items: center;
+  gap: 5px;
+  top: 10px;
+  right: 10px;
+}
+.edit-btn:hover { background: #388BFD; transform: scale(1.05); box-shadow: 0 4px 20px rgba(31,111,235,0.6); }
+.edit-btn.delete-btn { background: #DA3633; right: 90px; }
+.edit-btn.delete-btn:hover { background: #F85149; }
+body.admin-mode .edit-btn { display: inline-flex; }
+
+.admin-mode-bar {
+  display: none;
+  position: fixed;
+  bottom: 0; left: 0; right: 0;
+  z-index: 9998;
+  background: linear-gradient(90deg, #1F6FEB 0%, #238636 100%);
+  color: white;
+  text-align: center;
+  padding: 0.6rem 1rem;
+  font-size: 0.78rem;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  font-family: 'DM Sans', sans-serif;
+  box-shadow: 0 -4px 20px rgba(0,0,0,0.3);
+}
+.admin-mode-bar .bar-exit {
+  opacity: 0.8;
+  font-weight: 400;
+  margin-left: 1.5rem;
+  cursor: pointer;
+  text-decoration: underline;
+  font-size: 0.75rem;
+}
+.admin-mode-bar .bar-exit:hover { opacity: 1; }
+body.admin-mode .admin-mode-bar { display: block; }
+
+.edit-modal-overlay {
+  display: none;
+  position: fixed;
+  inset: 0;
+  z-index: 3500;
+  background: rgba(5, 8, 15, 0.93);
+  backdrop-filter: blur(12px);
+  align-items: center;
+  justify-content: center;
+  padding: 1.5rem;
+}
+.edit-modal-overlay.open { display: flex; }
+.edit-modal {
+  background: #0D1117;
+  border: 1px solid #30363D;
+  border-radius: 18px;
+  width: 100%;
+  max-width: 700px;
+  max-height: 90vh;
+  overflow-y: auto;
+  padding: 2rem;
+  position: relative;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.5);
+}
+.edit-modal::-webkit-scrollbar { width: 4px; }
+.edit-modal::-webkit-scrollbar-thumb { background: #30363D; border-radius: 2px; }
+.edit-modal h3 {
+  color: #F0F6FC;
+  font-family: 'Playfair Display', serif;
+  margin-bottom: 0.25rem;
+  font-size: 1.4rem;
+}
+.edit-modal .em-label {
+  color: #58A6FF;
+  font-size: 0.75rem;
+  margin-bottom: 1.5rem;
+  display: block;
+  background: rgba(31,111,235,0.1);
+  border: 1px solid rgba(31,111,235,0.3);
+  padding: 0.4rem 0.8rem;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+.edit-modal label {
+  display: block;
+  font-size: 0.72rem;
+  color: #8B949E;
+  margin-bottom: 0.35rem;
+  letter-spacing: 0.8px;
+  text-transform: uppercase;
+  margin-top: 1rem;
+  font-family: 'DM Sans', sans-serif;
+}
+.edit-modal label:first-of-type { margin-top: 0; }
+.edit-modal input, .edit-modal textarea, .edit-modal select {
+  width: 100%;
+  background: #161B22;
+  border: 1px solid #30363D;
+  color: #F0F6FC;
+  padding: 0.65rem 1rem;
+  border-radius: 8px;
+  font-size: 0.88rem;
+  font-family: 'DM Sans', sans-serif;
+  outline: none;
+  transition: border-color 0.2s;
+  margin-bottom: 0.1rem;
+}
+.edit-modal input:focus, .edit-modal textarea:focus, .edit-modal select:focus { border-color: #1F6FEB; }
+.edit-modal textarea { min-height: 90px; resize: vertical; }
+.edit-modal-btns { display: flex; gap: 0.8rem; margin-top: 1.5rem; }
+.edit-save-btn {
+  flex: 1;
+  background: #238636;
+  color: white;
+  border: none;
+  padding: 0.8rem;
+  border-radius: 8px;
+  font-weight: 700;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: background 0.2s;
+}
+.edit-save-btn:hover { background: #2EA043; }
+.edit-cancel-btn {
+  background: #21262D;
+  color: #8B949E;
+  border: none;
+  padding: 0.8rem 1.5rem;
+  border-radius: 8px;
+  font-weight: 600;
+  cursor: pointer;
+  font-family: 'DM Sans', sans-serif;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+.edit-cancel-btn:hover { background: #30363D; color: #F0F6FC; }
+.edit-close-x {
+  position: absolute;
+  top: 1rem;
+  right: 1rem;
+  width: 32px; height: 32px;
+  border-radius: 50%;
+  background: #21262D;
+  border: none;
+  cursor: pointer;
+  color: #8B949E;
+  font-size: 1rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: all 0.2s;
+}
+.edit-close-x:hover { background: #DA3633; color: white; }
+
+/* Storage save indicator */
+.save-indicator {
+  position: fixed;
+  bottom: 60px;
+  right: 20px;
+  background: #238636;
+  color: white;
+  padding: 0.5rem 1rem;
+  border-radius: 8px;
+  font-size: 0.78rem;
+  font-weight: 700;
+  font-family: 'DM Sans', sans-serif;
+  z-index: 9999;
+  opacity: 0;
+  transition: opacity 0.3s;
+  pointer-events: none;
+}
+.save-indicator.show { opacity: 1; }
+
+@media(max-width:900px){.footer-grid{grid-template-columns:1fr 1fr}}
+@media(max-width:768px){
+  .nav-links{display:none;flex-direction:column;position:absolute;top:72px;left:0;right:0;background:var(--cream);padding:1.5rem 5%;border-bottom:1px solid var(--border);z-index:999;box-shadow:0 10px 40px rgba(0,0,0,.08)}
+  .nav-links.open{display:flex}
+  .hamburger{display:flex}
+  .hero-stats{gap:1.5rem;flex-wrap:wrap}
+  .hero-btn-outline{margin-left:0;margin-top:1rem}
+  .blog-grid{grid-template-columns:1fr}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .author-cta{flex-direction:column;text-align:center}
+  .admin-form .form-row{grid-template-columns:1fr}
+  .modal{border-radius:16px 16px 0 0}
+  .footer-grid{grid-template-columns:1fr 1fr}
+  .contact-cards{flex-direction:column;align-items:center}
+}
+@media(max-width:480px){
+  .footer-grid{grid-template-columns:1fr}
+  .hero-stats{justify-content:space-around}
+  .hero-btn-outline{display:block;margin:1rem auto 0;text-align:center}
+}
+</style>
+</head>
+<body>
+
+<div class="admin-mode-bar">
+  🔐 ADMIN MODE ACTIVE — Edit buttons are visible to you only
+  <span class="bar-exit" onclick="deactivateAdminMode()">✕ Exit Admin Mode</span>
+</div>
+
+<!-- Save indicator toast -->
+<div class="save-indicator" id="saveIndicator">✓ Changes saved</div>
+
+<div class="edit-modal-overlay" id="editModalOverlay" onclick="handleEditOverlayClick(event)">
+  <div class="edit-modal" id="editModalBox">
+    <button class="edit-close-x" onclick="closeEditModal()">✕</button>
+    <div id="editModalContent"></div>
+  </div>
+</div>
+
+<div class="reading-bar" id="readingBar"></div>
+
+<div class="ribbon-bar" style="margin-top:72px">
+  🌹 International Women's Day — March 8, 2026 &nbsp;|&nbsp; <a href="#blogs">Read inspiring stories from women around the world →</a>
+  <button class="edit-btn" onclick="editRibbon()" title="Edit Ribbon">✏️ Edit Ribbon</button>
+</div>
+
+<nav>
+  <a href="#" class="nav-logo">Her<span>Voice</span></a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#hero">Home</a></li>
+    <li><a href="#blogs">Blogs</a></li>
+    <li><a href="#categories">Categories</a></li>
+    <li><a href="#contact">Contact</a></li>
+    <li><a href="#newsletter">Newsletter</a></li>
+    <li><a href="#contact" class="nav-cta">Get in Touch</a></li>
+  </ul>
+  <button class="hamburger" onclick="toggleMenu()" aria-label="Menu">
+    <span></span><span></span><span></span>
+  </button>
+</nav>
+
+<section class="hero" id="hero" style="position:relative;">
+  <div class="hero-petals" id="petals"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ International Women's Day ✦ March 8, 2026</div>
+    <h1 class="hero-title">Celebrate, <em>Inspire,</em><br>Rise Together</h1>
+    <p class="hero-subtitle">Stories, insights, and wisdom celebrating the extraordinary strength, brilliance, and spirit of women everywhere — every single day.</p>
+    <div class="hero-btns">
+      <a href="#blogs" class="hero-btn">Explore Stories</a>
+      <a href="#newsletter" class="hero-btn-outline">Join Community</a>
+    </div>
+    <div class="hero-stats">
+      <div class="stat"><div class="stat-num">15+</div><div class="stat-label">Stories</div></div>
+      <div class="stat"><div class="stat-num">8M+</div><div class="stat-label">Women Worldwide</div></div>
+      <div class="stat"><div class="stat-num">2026</div><div class="stat-label">Year of Change</div></div>
+    </div>
+  </div>
+  <div class="hero-scroll">Scroll</div>
+  <button class="edit-btn" onclick="editHero()" style="top:14px;right:14px;z-index:10;">✏️ Edit Hero</button>
+</section>
+
+<div class="quote-banner" style="position:relative;">
+  <p class="quote-text">"A woman is like a tea bag — you can't tell how strong she is until you put her in hot water."</p>
+  <p class="quote-author">— Eleanor Roosevelt</p>
+  <button class="edit-btn" onclick="editQuote()">✏️ Edit Quote</button>
+</div>
+
+<section class="features" id="categories">
+  <span class="section-label" style="color:var(--gold)">Topics We Cover</span>
+  <h2 class="section-title" style="color:white">Explore by <em style="color:var(--rose-light)">Category</em></h2>
+  <p class="section-sub" style="color:rgba(255,255,255,.55)">Dive deep into topics that matter most to women today and in 2026.</p>
+  <button class="edit-btn" onclick="editCategoriesHeader()" style="top:20px;right:5%;">✏️ Edit Section</button>
+  <div class="features-grid">
+    <div class="feature-card" onclick="filterBlogs('Leadership')">
+      <div class="feature-icon">👑</div>
+      <div class="feature-name">Leadership</div>
+      <div class="feature-count">3 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(0)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+    <div class="feature-card" onclick="filterBlogs('Health')">
+      <div class="feature-icon">💪</div>
+      <div class="feature-name">Health &amp; Wellness</div>
+      <div class="feature-count">3 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(1)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+    <div class="feature-card" onclick="filterBlogs('Career')">
+      <div class="feature-icon">🚀</div>
+      <div class="feature-name">Career &amp; Finance</div>
+      <div class="feature-count">3 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(2)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+    <div class="feature-card" onclick="filterBlogs('Empowerment')">
+      <div class="feature-icon">✊</div>
+      <div class="feature-name">Empowerment</div>
+      <div class="feature-count">3 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(3)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+    <div class="feature-card" onclick="filterBlogs('Mindset')">
+      <div class="feature-icon">🧠</div>
+      <div class="feature-name">Mindset &amp; Growth</div>
+      <div class="feature-count">3 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(4)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+    <div class="feature-card" onclick="filterBlogs('')">
+      <div class="feature-icon">🌹</div>
+      <div class="feature-name">View All</div>
+      <div class="feature-count">15 Articles</div>
+      <button class="edit-btn" onclick="event.stopPropagation();editCategoryCard(5)" style="top:6px;right:6px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+    </div>
+  </div>
+</section>
+
+<section id="blogs" style="position:relative;">
+  <div class="tabs-container">
+    <span class="section-label">HerVoice Journal — 2026</span>
+    <h2 class="section-title">Our Latest <em>Blogs</em></h2>
+    <p class="section-sub">Insightful long-form reads written for women, by women. Every story is a step toward a more empowered you.</p>
+    <button class="edit-btn" onclick="editBlogsHeader()" style="top:0;right:0;">✏️ Edit Section</button>
+
+    <div class="tabs-header" style="margin-top:2rem">
+      <button class="tab-btn active" onclick="switchTab('all-blogs',this)">📚 All Blogs</button>
+      <button class="tab-btn" onclick="switchTab('admin-tab',this)">⚙️ Admin</button>
+    </div>
+
+    <div class="tab-content active" id="all-blogs">
+      <div class="blog-grid" id="blogGrid"></div>
+    </div>
+
+    <div class="tab-content" id="admin-tab">
+      <div class="admin-panel">
+        <h3>🔐 Blog Publisher</h3>
+        <p>This panel is restricted. Enter the admin password to publish new blogs. Visitors cannot access this area without the correct credentials.</p>
+        <div class="admin-notice"><strong>⚠️ Private Access:</strong> Only you with the admin password can publish. Share the URL without the password to keep this exclusive.</div>
+        <div class="admin-lock">
+          <input type="password" id="adminPass" placeholder="Enter admin password..." onkeydown="if(event.key==='Enter')checkAdmin()">
+          <button onclick="checkAdmin()">Unlock →</button>
+        </div>
+        <div class="admin-form" id="adminForm">
+          <div class="admin-success" id="publishSuccess">✅ Blog published successfully! Switch to the "All Blogs" tab to see it live.</div>
+          <div class="form-row">
+            <div><label>Blog Title *</label><input type="text" id="newTitle" placeholder="Enter blog title..."></div>
+            <div><label>Category *</label>
+              <select id="newCat">
+                <option value="Leadership">Leadership</option>
+                <option value="Health">Health &amp; Wellness</option>
+                <option value="Career">Career &amp; Finance</option>
+                <option value="Empowerment">Empowerment</option>
+                <option value="Mindset">Mindset &amp; Growth</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-row">
+            <div><label>Emoji Icon</label><input type="text" id="newEmoji" placeholder="e.g. 💡 🌸 ✊" value="🌸"></div>
+            <div><label>Read Time</label><input type="text" id="newReadTime" placeholder="e.g. 8 min read" value="8 min read"></div>
+          </div>
+          <label>Short Excerpt *</label>
+          <textarea id="newExcerpt" placeholder="2-3 sentence summary shown on the blog card..." style="min-height:80px"></textarea>
+          <div class="admin-code-area">
+            <p>📝 Full Blog Content (HTML supported — use &lt;p&gt;, &lt;h2&gt;, &lt;h3&gt;, &lt;ul&gt;, &lt;li&gt;, &lt;strong&gt;, &lt;blockquote&gt; tags):</p>
+            <textarea id="newContent" placeholder="Paste your full blog HTML here. The system auto-adds infographic, takeaways, conclusion, FAQs, and author CTA."></textarea>
+          </div>
+          <label>Infographic Stats (Number|Label — one per line)</label>
+          <textarea id="newStats" placeholder="72%|Women in workforce&#10;45M|Businesses owned&#10;3x|More productive&#10;$1.8T|Economic impact" style="min-height:80px"></textarea>
+          <label>Key Takeaways (one per line)</label>
+          <textarea id="newTakeaways" placeholder="First key takeaway&#10;Second key takeaway&#10;Third key takeaway" style="min-height:80px"></textarea>
+          <label>Conclusion Paragraph</label>
+          <textarea id="newConclusion" placeholder="2-3 sentence conclusion..." style="min-height:70px"></textarea>
+          <label>FAQs (Question||Answer — one per line)</label>
+          <textarea id="newFaqs" placeholder="What is the main topic?||This blog explores...&#10;Why does this matter?||Because..." style="min-height:100px"></textarea>
+          <button class="publish-btn" onclick="publishBlog()">🚀 Publish Blog Post</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<section class="contact-section" id="contact">
+  <button class="edit-btn" onclick="editContactSection()" style="top:20px;right:5%;">✏️ Edit Section</button>
+  <span class="section-label">Reach Out</span>
+  <h2 class="section-title">Get in <em>Touch</em></h2>
+  <p class="section-sub">Have a story to share, a collaboration in mind, or simply want to connect? We'd love to hear from you. Every message matters.</p>
+  <div class="contact-cards">
+    <div class="contact-card">
+      <button class="edit-btn" onclick="editContactCard(0)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+      <div class="cc-icon">✉️</div>
+      <h4>Email Us</h4>
+      <a href="mailto:medrankseo@gmail.com">medrankseo@gmail.com</a>
+      <p>For blog submissions, collaborations &amp; inquiries</p>
+    </div>
+    <div class="contact-card">
+      <button class="edit-btn" onclick="editContactCard(1)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+      <div class="cc-icon">✍️</div>
+      <h4>Write For Us</h4>
+      <a href="mailto:medrankseo@gmail.com?subject=Write For HerVoice">Submit Your Story</a>
+      <p>Share your voice — we publish women's stories</p>
+    </div>
+    <div class="contact-card">
+      <button class="edit-btn" onclick="editContactCard(2)" style="top:8px;right:8px;padding:3px 8px;font-size:0.62rem;">✏️</button>
+      <div class="cc-icon">🤝</div>
+      <h4>Collaborate</h4>
+      <a href="mailto:medrankseo@gmail.com?subject=Partnership Inquiry">Partner With Us</a>
+      <p>Brands, NGOs &amp; organizations — let's work together</p>
+    </div>
+  </div>
+  <div style="margin-top:2.5rem">
+    <a href="mailto:medrankseo@gmail.com" class="hero-btn" style="background:var(--rose);color:white;box-shadow:0 8px 30px rgba(200,64,90,.3)">
+      📬 Send a Message to Maria Kanwal
+    </a>
+  </div>
+</section>
+
+<section class="newsletter" id="newsletter">
+  <button class="edit-btn" onclick="editNewsletter()" style="top:20px;right:5%;">✏️ Edit Section</button>
+  <span class="section-label" style="color:rgba(255,255,255,.75)">Stay Connected</span>
+  <h2 class="section-title">Join Our <em>Community</em></h2>
+  <p class="section-sub">Get weekly stories, inspiration, and resources delivered to your inbox. No spam — just pure empowerment, every week.</p>
+  <div class="newsletter-form">
+    <input class="newsletter-input" type="email" id="newsletterEmail" placeholder="Your email address...">
+    <button class="newsletter-btn" onclick="subscribeNewsletter()">Subscribe ✦</button>
+  </div>
+  <p style="color:rgba(255,255,255,.4);font-size:.78rem;margin-top:1rem">Join 25,000+ women already subscribed · Unsubscribe anytime</p>
+</section>
+
+<footer>
+  <button class="edit-btn" onclick="editFooter()" style="top:20px;right:5%;">✏️ Edit Footer</button>
+  <div class="footer-grid">
+    <div class="footer-brand">
+      <a href="#" class="nav-logo">Her<span>Voice</span></a>
+      <p>A community-driven platform celebrating the strength, wisdom, and achievements of women everywhere. Every day is Women's Day at HerVoice.</p>
+      <div class="social-links">
+        <a class="social-link" href="#">f</a>
+        <a class="social-link" href="#">in</a>
+        <a class="social-link" href="#">tw</a>
+        <a class="social-link" href="#">ig</a>
+      </div>
+    </div>
+    <div class="footer-col">
+      <h5>Quick Links</h5>
+      <ul>
+        <li><a href="#blogs">All Blogs</a></li>
+        <li><a href="#categories">Categories</a></li>
+        <li><a href="#newsletter">Newsletter</a></li>
+        <li><a href="#contact">Get in Touch</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>Categories</h5>
+      <ul>
+        <li><a href="#" onclick="filterBlogs('Leadership');return false">Leadership</a></li>
+        <li><a href="#" onclick="filterBlogs('Health');return false">Health &amp; Wellness</a></li>
+        <li><a href="#" onclick="filterBlogs('Career');return false">Career &amp; Finance</a></li>
+        <li><a href="#" onclick="filterBlogs('Empowerment');return false">Empowerment</a></li>
+        <li><a href="#" onclick="filterBlogs('Mindset');return false">Mindset &amp; Growth</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h5>About</h5>
+      <ul>
+        <li><a href="#">Our Mission</a></li>
+        <li><a href="mailto:medrankseo@gmail.com?subject=Write For HerVoice">Write For Us</a></li>
+        <li><a href="#">Privacy Policy</a></li>
+        <li><a href="mailto:medrankseo@gmail.com">Advertise</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>© 2026 HerVoice · Made with 🌹 by <a href="mailto:medrankseo@gmail.com">Maria Kanwal</a> · All rights reserved</span>
+    <span style="color:rgba(255,255,255,.4)">Contact: <a href="mailto:medrankseo@gmail.com">medrankseo@gmail.com</a></span>
+  </div>
+</footer>
+
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="blogModal">
+    <div class="modal-hero" id="modalHero">
+      <div class="modal-hero-emoji" id="modalEmoji"></div>
+      <div class="modal-cat" id="modalCat"></div>
+      <h1 class="modal-title" id="modalTitle"></h1>
+      <div class="modal-meta">
+        <span id="modalDate"></span><span>·</span>
+        <span id="modalReadTime"></span><span>·</span>
+        <span>By Maria Kanwal</span>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body" id="modalBody"></div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// STORAGE KEY & PERSISTENCE HELPERS
+// ============================================================
+const STORAGE_KEY = 'hervoice_blogs_v1';
+
+function saveBlogsToStorage() {
+  try {
+    localStorage.setItem(STORAGE_KEY, JSON.stringify(blogs));
+    showSaveIndicator();
+  } catch(e) {
+    console.warn('Could not save to localStorage:', e);
+  }
+}
+
+function loadBlogsFromStorage() {
+  try {
+    const saved = localStorage.getItem(STORAGE_KEY);
+    if (saved) {
+      const parsed = JSON.parse(saved);
+      if (Array.isArray(parsed) && parsed.length > 0) {
+        return parsed;
+      }
+    }
+  } catch(e) {
+    console.warn('Could not load from localStorage:', e);
+  }
+  return null;
+}
+
+function showSaveIndicator() {
+  const el = document.getElementById('saveIndicator');
+  el.classList.add('show');
+  setTimeout(() => el.classList.remove('show'), 2000);
+}
+
+// ============================================================
+// BLOG DATA — Default 15 blogs (used only on first load)
+// ============================================================
+const defaultBlogs = [
+  {
+    id:1, cat:"Leadership", emoji:"👑", readTime:"11 min read",
+    title:"Breaking the Glass Ceiling: Women in Leadership in 2026",
+    excerpt:"From boardrooms to parliaments, women are reshaping the landscape of power and influence. Discover how modern women leaders are rewriting every rule of leadership as we know it.",
+    date:"Feb 28, 2026",
+    content:`<p>The metaphor of the "glass ceiling" has long defined the invisible barrier women face when climbing the corporate and political ladder. Yet in 2026, those ceilings are not just cracking — in many sectors, they are shattering completely. Women today are not simply entering leadership roles; they are fundamentally transforming what leadership looks, sounds, and feels like. The change is seismic, and it is accelerating.</p><h2>The Current State of Women in Leadership</h2><p>According to the World Economic Forum's 2025 Global Gender Gap Report, women now hold approximately 30% of senior leadership positions globally — a significant rise from just 17% a decade ago. While there is still a substantial road ahead, the trajectory is unmistakably upward. In Scandinavia, female representation on corporate boards has crossed 40%, largely due to bold legislation requiring gender parity. Germany, France, and Norway have all passed mandatory board diversity laws that are proving highly effective.</p><p>In politics, 2025 saw a record number of women elected to national parliaments across Africa, Latin America, and Southeast Asia. Countries like Rwanda continue to lead with over 61% female parliamentary representation — a global model that others are beginning to study and replicate. Iceland became the first country in 2025 to close its overall gender gap entirely, a historic milestone that signals what is possible with sustained political will.</p><blockquote>"Leadership is not about being in charge. It's about taking care of those in your charge." — Simon Sinek. Women have embodied this ethos for generations — and the world is finally recognizing it.</blockquote><h2>What Makes Women Exceptional Leaders?</h2><p>Research consistently and overwhelmingly shows that organizations with gender-diverse leadership outperform their peers on virtually every metric. A landmark McKinsey study found that companies in the top quartile for gender diversity are 25% more likely to achieve above-average profitability. Women leaders consistently bring collaborative decision-making, empathetic management, long-term strategic thinking, and a heightened awareness of stakeholder impact — traits increasingly recognized as essential in today's volatile, uncertain business environment.</p><h2>The Structural Barriers That Remain</h2><p>Despite the progress, significant structural barriers persist. The "double bind" dilemma — where women are penalized for being too assertive yet dismissed for being too gentle — continues to create impossible standards for female leaders. Unconscious bias in hiring and promotion processes means equally qualified women are often overlooked for leadership roles.</p>`,
+    stats:[["30%","Hold Leadership Roles (2026)"],["25%","Higher Profit with Gender Diversity"],["61%","Rwanda Parliament Female"],["Iceland","Closed Its Gender Gap"]],
+    takeaways:["Women in leadership deliver measurably better organizational outcomes across all sectors","The double bind and unconscious bias remain the most pervasive daily barriers","Sponsorship — not just mentorship — is the single most powerful career accelerant for women","Intersectional diversity creates the most innovative and resilient leadership teams","The business case for gender-equal leadership is now empirical, not theoretical"],
+    conclusion:"Women in leadership are no longer the exception — they are rapidly becoming the expectation. As we celebrate International Women's Day 2026, let us commit not just to celebrating women who have risen, but to actively clearing the path for every woman still climbing. The future of leadership is diverse, empathetic, and unstoppably powerful.",
+    faqs:[["What percentage of Fortune 500 CEOs are women in 2026?","As of early 2026, approximately 12% of Fortune 500 CEOs are women — a record high, though still far from equal representation."],["What is the single biggest barrier for women in leadership today?","The 'double bind' — where assertive women are labeled aggressive while nurturing women are dismissed as weak — combined with structural pay inequity remain the most pervasive barriers."],["How do organizations benefit from women in leadership?","Companies with gender-diverse leadership show 25% higher profitability, greater innovation outputs, improved employee retention, and stronger ESG scores."],["What is the difference between a sponsor and a mentor?","A mentor advises you from the sidelines. A sponsor actively advocates for you in rooms where decisions are made."],["What can I personally do to support women leaders?","Amplify women's contributions in meetings, nominate qualified women for leadership programs, challenge bias when you witness it."]]
+  },
+  {
+    id:2, cat:"Health", emoji:"💪", readTime:"12 min read",
+    title:"Holistic Women's Health in 2026: Body, Mind & Soul in Complete Harmony",
+    excerpt:"Modern women are reclaiming their health journey — moving far beyond symptom management toward true holistic wellness. Here is your complete, science-backed guide for 2026 and beyond.",
+    date:"Feb 25, 2026",
+    content:`<p>Women's health has historically been an afterthought in medical research, with many foundational studies conducted primarily on male subjects. The consequences of this research gap have been profound — misdiagnosed conditions, undertreated pain, and health guidelines calibrated for the wrong body. In 2026, the tide is turning decisively.</p><h2>Understanding the Female Body's Unique Rhythms</h2><p>The female endocrine system is a masterpiece of biological complexity. From menarche to menopause and every cycle in between, women's bodies undergo rhythmic hormonal shifts that affect everything from mood, energy, and creativity to digestion, immune function, pain sensitivity.</p><h2>Mental Health: Breaking the Silence</h2><p>Women are twice as likely as men to be diagnosed with anxiety and depression. Far from reflecting weakness, this statistic reveals the cumulative weight of the unique stressors women carry: hormonal variability, disproportionate emotional labor, greater exposure to interpersonal violence, systemic economic disadvantage.</p><h2>Nutrition for Women at Every Life Stage</h2><p>Nutritional needs shift dramatically across a woman's lifespan, and the generic nutritional advice dispensed to "adults" often fails women entirely. In your 20s, iron, folate, and calcium are critical. In your 30s, magnesium, B vitamins, and adaptogens support the stress of peak career and family-building years.</p>`,
+    stats:[["2x","Higher Anxiety Diagnosis Rate"],["1 in 5","Women Experience PPD"],["60%","Improvement with Cycle Syncing"],["80%","Under-diagnosed in Chronic Pain"]],
+    takeaways:["Your hormonal cycles are vital signs — learning to read them unlocks profound health insights","Mental health care is physical health care — the mind-body connection is inseparable","Nutritional needs change dramatically at every life stage — generic advice often fails women","Preventive care is the most powerful medicine available, and increasingly accessible in 2026","Advocate loudly and specifically for healthcare that centers and understands women's experience"],
+    conclusion:"Women's health is not a niche topic — it is a fundamental pillar of societal wellbeing. When women are truly healthy — physically, mentally, and spiritually — families, communities, and economies flourish. This Women's Day 2026, let the most significant gift you give yourself be the unwavering commitment to your own holistic wellness.",
+    faqs:[["What is cycle syncing?","Cycle syncing aligns activities with menstrual phases for better wellbeing."],["How often should women see a doctor?","Annual wellness exams are the baseline, with additional screenings at recommended ages."],["What are signs of hormonal imbalance?","Irregular periods, mood swings, fatigue, brain fog, poor sleep, and low libido."],["Is intermittent fasting healthy for women?","Evidence is mixed and highly individual — always consult a healthcare provider."],["What is the most impactful daily habit?","Consistent, quality sleep of 7-9 hours per night."]]
+  },
+  {
+    id:3, cat:"Career", emoji:"🚀", readTime:"13 min read",
+    title:"Financial Freedom for Women in 2026: Your Complete Wealth-Building Guide",
+    excerpt:"Building real wealth, negotiating your worth, and achieving genuine financial independence — this is the comprehensive guide women have needed and never been given. Until now.",
+    date:"Feb 22, 2026",
+    content:`<p>Money is power, and for too long, women have been systematically kept at the margins of financial conversations, financial education, and financial systems. The gender pay gap is well-documented, but the gender wealth gap — which is far larger and more consequential — rarely makes headlines.</p><h2>Understanding the Full Scope of the Gender Wealth Gap</h2><p>It is not just about the pay gap. The gender wealth gap is a compound disadvantage composed of multiple interlocking factors. Women earn less, invest less, receive less inheritance, and carry more unpaid economic labor.</p><h2>The Art and Science of Salary Negotiation</h2><p>Research consistently shows that women negotiate their salaries less frequently than men, and when they do, they often face social backlash. Yet research by Carnegie Mellon economists demonstrates that a single successful salary negotiation can be worth between $500,000 and $1.5 million over the course of a 40-year career.</p><h2>Investing: Closing the Investment Gap</h2><p>Women invest less than men — not because they lack the means or intelligence, but because financial services have historically been designed for, marketed to, and staffed by men. Yet when women do invest, Fidelity's research shows they outperform male investors by an average of 0.4% annually.</p>`,
+    stats:[["$1.5M","Value of 1 Career Negotiation"],["0.4%","Women Outperform Men Investing"],["42%","US Businesses Women-Owned"],["68¢","Wealth Per Male Dollar"]],
+    takeaways:["The gender wealth gap is far larger and more dangerous than the pay gap alone","Negotiating your salary even once can be worth over a million dollars in lifetime value","Women are demonstrably better investors than men — the only barrier is starting","Multiple income streams are the financial resilience strategy for 2026 and beyond","Financial literacy is not just practical — it is the most powerful act of feminist self-determination"],
+    conclusion:"Financial freedom is not a luxury reserved for the privileged — it is a fundamental necessity for every woman's autonomy, safety, and dignity. The tools, information, and communities to achieve it are more accessible in 2026 than at any point in history. Your only job is to begin.",
+    faqs:[["How do I start investing with little money?","Apps like Acorns, Betterment, and Fidelity Go allow you to begin with as little as $1."],["Best salary negotiation strategy?","Research market value, anchor high, frame around data and demonstrated value, always negotiate."],["What financial accounts should every woman have?","Emergency savings account, retirement account (401k or Roth IRA), and investment account."],["How does the pay gap compound?","A woman earning $0.82 per dollar over 40 years loses roughly $530,000+ in direct earnings."],["Best financial communities for women?","Clever Girl Finance, Ellevest, Female Founder World, The Financial Diet, Girls That Invest."]]
+  },
+  {
+    id:4, cat:"Empowerment", emoji:"✊", readTime:"10 min read",
+    title:"The Self-Love Revolution: Reclaiming Your Worth in a World Designed to Diminish It",
+    excerpt:"In a world that profits from your insecurity, radical self-love is the most revolutionary act you can commit. Here is how to begin — and sustain — a genuine self-love practice in 2026.",
+    date:"Feb 20, 2026",
+    content:`<p>We live in a culture that generates trillions of dollars by making women feel insufficient. Not young enough, not thin enough, not beautiful enough, not successful enough. The beauty, diet, fashion, and self-help industries are all, in different ways, predicated on the monetization of female insecurity. Against this backdrop, choosing to love yourself is a political act of the highest order.</p><h2>What Genuine Self-Love Actually Means</h2><p>Self-love is persistently misunderstood as narcissism or complacency. In reality, it means holding yourself with the same unconditional compassion you would instinctively offer your dearest friend — especially on your worst days.</p><h2>Dismantling Comparison Culture</h2><p>In 2026, social media comparison culture has reached a critical mass. We scroll through algorithmically curated highlight reels and unconsciously benchmark our unedited reality against them. The resulting deficit of self-worth is not accidental; it is engineered.</p>`,
+    stats:[["$800B","Beauty Industry Profiting from Insecurity"],["91%","Women Report Body Dissatisfaction"],["3x","More Resilient with Self-Compassion Practice"],["60%","Mood Improvement via Gratitude Practice"]],
+    takeaways:["Choosing self-love in a culture of manufactured insecurity is a radical political act","Self-compassion — not self-criticism — is the proven psychological pathway to growth","Comparison culture is algorithmically engineered — awareness and conscious curation are your defenses","Body neutrality is a more accessible starting point than body positivity for many women","Boundaries are not walls — they are the architecture of healthy, mutual relationships"],
+    conclusion:"The self-love revolution is not about becoming permanently happy or endlessly confident. It is about choosing yourself — again and again — especially when the world tells you you are not enough. You are enough. You always have been.",
+    faqs:[["Self-love vs self-improvement?","Authentic self-love and genuine self-improvement are partners. Self-love provides the stable foundation from which growth is possible."],["How to start with very low self-esteem?","Begin with self-compassion. When you notice self-criticism, ask what you'd say to a dear friend, then say that to yourself."],["Can therapy help?","Absolutely. CBT, ACT, IFS, and somatic therapies are all highly effective for rebuilding a compassionate relationship with yourself."],["How does social media affect self-esteem?","Multiple studies link heavy image-based social media use with measurably increased anxiety and body dissatisfaction."],["Daily practices that build self-love?","Morning journaling, setting one boundary daily, celebrating small wins, speaking kindly to yourself, taking rest without guilt."]]
+  },
+  {
+    id:5, cat:"Mindset", emoji:"🧠", readTime:"10 min read",
+    title:"The Growth Mindset: How Women in 2026 Are Completely Rewriting Their Stories",
+    excerpt:"What separates women who thrive from those who merely endure? More than talent, more than privilege — it is the story they tell themselves. Here is how to rewrite yours.",
+    date:"Feb 18, 2026",
+    content:`<p>The growth mindset — the scientifically validated belief that abilities, intelligence, and character can be developed through dedication, strategy, and learning — has transformed education, business psychology, and personal development since Stanford psychologist Carol Dweck introduced the concept.</p><h2>Fixed vs. Growth Mindset</h2><p>A fixed mindset sounds deceptively like objective observation. "I'm just not naturally analytical." "I'm not a born leader." These statements feel like honest self-assessment, but they are actually beliefs installed by external sources.</p><h2>Imposter Syndrome: The Most Expensive Self-Deception</h2><p>Imposter syndrome — the persistent conviction that you are a fraud who will soon be exposed — affects an estimated 70% of high achievers. Women experience it more chronically and with greater career-limiting consequences than men.</p>`,
+    stats:[["70%","Experience Imposter Syndrome"],["40%","More Achievement with Growth Mindset"],["3x","Resilience with Peer Support"],["90%","Can Shift Fixed to Growth Mindset"]],
+    takeaways:["Mindset is the most powerful variable in human performance — and it is entirely changeable","Imposter syndrome is widely experienced, perfectly normalized, and eminently overcomeable","Adding the word 'yet' to your self-talk is a small change with enormous psychological power","Resilience is a practiced skill, not an innate personality trait","Your story is yours to rewrite — the pen is always in your hand"],
+    conclusion:"The growth mindset is a scientifically documented commitment to human possibility. When women stop asking 'Am I good enough?' and begin asking 'How do I grow?', the entire trajectory of their lives changes. Choose your growth story.",
+    faqs:[["Growth mindset vs positive thinking?","A growth mindset is the evidence-based belief that abilities are developed through effort — not a denial of difficulty."],["Why do women experience imposter syndrome more?","Due to being the only woman in rooms, stereotype threat, attribution of success to luck, and lower rates of explicit positive reinforcement."],["How long to develop a growth mindset?","Neuroscience suggests 8-16 weeks of consistent practice can measurably restructure cognitive patterns."],["Best books on growth mindset for women?","'Mindset' by Carol Dweck, 'Dare to Lead' by Brené Brown, 'Untamed' by Glennon Doyle."],["How to build resilience after a setback?","Give yourself permission to feel the loss. Seek support. Then ask: 'What is this teaching me?' Then act."]]
+  },
+  {
+    id:6, cat:"Leadership", emoji:"🌟", readTime:"12 min read",
+    title:"Women Entrepreneurs in 2026: Building Empires on Their Own Terms",
+    excerpt:"From kitchen tables to global markets, women entrepreneurs are defying every statistical odd and systemic barrier. Here is how they are doing it — and how you can join them.",
+    date:"Feb 16, 2026",
+    content:`<p>The face of entrepreneurship is transforming at an extraordinary rate. Once the near-exclusive domain of men with access to venture capital, the entrepreneurial landscape is being permanently reshaped by women who are building powerful, profitable, and purpose-driven companies.</p><h2>The Scale of Women's Entrepreneurship in 2026</h2><p>Women own approximately 42% of all businesses in the United States — more than 13 million enterprises generating over $2 trillion in annual revenue. And yet, despite these staggering numbers, women receive only 2-3% of venture capital funding.</p>`,
+    stats:[["42%","US Businesses Women-Owned"],["$2T","Annual Revenue Generated"],["2-3%","VC Funding Women Receive"],["3x","Higher Revenue per Dollar Invested"]],
+    takeaways:["Women-owned businesses generate massive economic value while receiving almost none of institutional investment","The alternative funding ecosystem for women is multiplying rapidly","Women build businesses that integrate profit and purpose","Your credibility gap is real but closeable through brand, proof, and radical visibility","The world needs businesses built by women who understand underserved needs"],
+    conclusion:"Women entrepreneurs are not waiting for permission — they are creating their own economies on their own terms. In 2026, the barriers are real but the support ecosystem is unprecedented. Take one concrete step toward your entrepreneurial dream today.",
+    faqs:[["First step to starting a business?","Validate your idea with at least 10-15 real potential customers before building anything."],["Funding options for women entrepreneurs?","SBA Women's Business Centers, Amber Grant, Tory Burch Foundation, iFundWomen crowdfunding."],["Do I need a formal business plan?","A one-page business model canvas is sufficient to begin and often more practical."],["How to build credibility as a female founder?","Publish thought leadership content, collect testimonials, seek media coverage, build a personal brand."],["Best communities for women entrepreneurs?","Female Founder Collective, WBENC, Female Founder World, She Builds, SCORE."]]
+  },
+  {
+    id:7, cat:"Health", emoji:"🧘", readTime:"11 min read",
+    title:"Women's Mental Health in 2026: Your Complete Guide to Inner Peace",
+    excerpt:"In a world that demands women be everything to everyone simultaneously, protecting your mental health is not a luxury — it is a non-negotiable act of self-preservation and radical courage.",
+    date:"Feb 14, 2026",
+    content:`<p>The global mental health crisis is real, and women are disproportionately at its center. Anxiety, depression, burnout, complex trauma, and perinatal mood disorders all affect women at higher rates than men.</p><h2>The Distinctive Mental Health Landscape for Women</h2><p>Women experience higher rates of anxiety disorders, major depressive disorder, PTSD, and eating disorders. These patterns reflect the accumulated psychological weight of gender-based discrimination, disproportionate emotional labor, and greater lifetime exposure to interpersonal violence.</p>`,
+    stats:[["1 in 3","Women Experience GBV Globally"],["20%","New Mothers Experience PPD"],["2x","Women's Anxiety Rate vs Men"],["35%","Improvement with Exercise Treatment"]],
+    takeaways:["Women's mental health challenges are systemic realities, not personal weaknesses","Postpartum depression is a medical condition — seeking treatment is an act of courage, not failure","Regular exercise is as effective as antidepressants for mild to moderate depression","Boundaries are not the end of relationships — they are the beginning of honest ones","In 2026, telehealth and digital therapy have made mental health support more accessible than ever"],
+    conclusion:"Your mental health is not a luxury to be attended to when everything else is handled — it is the infrastructure upon which your entire life rests. In 2026, more support is available than at any previous moment in history. You do not have to carry everything alone.",
+    faqs:[["Warning signs of burnout?","Persistent exhaustion, emotional detachment, reduced performance, physical symptoms, loss of meaning."],["How to find a therapist who understands women?","Psychology Today's directory allows filtering by specialty including women's issues and trauma."],["Baby blues vs postpartum depression?","Baby blues last up to 2 weeks and resolve naturally. PPD persists beyond 2 weeks and requires treatment."],["Is burnout a real condition?","WHO officially classified burnout as an occupational phenomenon in 2019."],["Most important thing for mental health today?","Contact one person you trust and tell them honestly how you are really doing."]]
+  },
+  {
+    id:8, cat:"Career", emoji:"💼", readTime:"11 min read",
+    title:"Navigating the Modern Workplace in 2026: A Woman's Complete Survival and Thrival Guide",
+    excerpt:"From microaggressions to sponsorship, from pay audits to promotion strategies — this is everything they never taught you about succeeding powerfully in the modern professional world.",
+    date:"Feb 12, 2026",
+    content:`<p>The modern workplace in 2026 has evolved significantly — but it has not evolved equally for everyone. Women navigate a professional landscape that still carries embedded remnants of exclusion, even as every corporate website now displays diversity statements.</p><h2>Microaggressions: Naming, Documenting, and Addressing</h2><p>Microaggressions are the subtle, often unconscious expressions of bias that accumulate into significant psychological damage over time. Being interrupted consistently in meetings. Having your ideas credited to a male colleague. Being called "honey" or "sweetie."</p>`,
+    stats:[["64%","Women Experience Workplace Microaggressions"],["87%","Promotions Linked to Strong Networks"],["3x","Impact of Visibility on Advancement"],["45%","Women Less Likely to Negotiate"]],
+    takeaways:["Microaggressions are real, cumulative, and worth naming — documentation is your professional protection","Your network is your most valuable professional asset — invest in it seriously","Visibility and competence both matter — neither alone is sufficient for advancement","Know your workplace rights and HR policies thoroughly before you ever need to invoke them","Seek sponsors who advocate for you in high-stakes rooms, not just mentors who advise from the sidelines"],
+    conclusion:"The workplace in 2026 may not be a level playing field, but it is one you can navigate with increasing strategy, power, and community. You do not have to accept the rules as they are — but you do need to understand them completely in order to change them effectively.",
+    faqs:[["What to do if I experience workplace discrimination?","Document everything in writing with dates, times, specific language. Report to HR in writing and keep a copy."],["How to network effectively as an introvert?","Focus on depth over breadth. One genuine connection is worth twenty superficial exchanges."],["Most effective promotion strategy?","Have an explicit conversation with your manager about precisely what is required for the next level."],["How to handle being interrupted in meetings?","Keep speaking calmly and finish your point. If chronic, name it one-on-one with your manager."],["Role of personal branding in 2026?","An active, authoritative LinkedIn presence translates directly into professional opportunity."]]
+  },
+  {
+    id:9, cat:"Empowerment", emoji:"🌸", readTime:"12 min read",
+    title:"Women Who Changed History — And the Women of 2026 Who Are Doing It Again",
+    excerpt:"From Marie Curie to Malala, history's most transformative women acted from conviction, not comfort. Their stories are your permission slip, your roadmap, and your fuel.",
+    date:"Feb 10, 2026",
+    content:`<p>History has a persistent and damaging habit of erasing women. The textbooks of the world are overwhelmingly populated with the names of men while the women who worked alongside them have been rendered invisible. But the work of recovering women's history is accelerating in 2026.</p><h2>Marie Curie: Science Without Apology</h2><p>Marie Curie remains the only person in all of human history to have won Nobel Prizes in two different scientific disciplines — physics in 1903 and chemistry in 1911. She accomplished this while navigating relentless institutional sexism.</p><h2>Malala Yousafzai: The Voice That Came Back Stronger</h2><p>In October 2012, a Taliban gunman shot 15-year-old Malala in the head for advocating publicly for girls' education. She survived. And then she became louder, more visible, and more powerful. In 2014, at the age of 17, she became the youngest person in history to receive the Nobel Peace Prize.</p>`,
+    stats:[["2","Marie Curie Nobel Prizes"],["17","Malala's Age at Nobel Prize"],["381","Days Montgomery Boycott Lasted"],["51M","Trees from Wangari's Movement"]],
+    takeaways:["History's most transformative women acted from conviction, not from comfort or perfect conditions","Individual courage embedded in collective organization becomes genuinely unstoppable","Education is the most radical and durable tool for women's liberation anywhere in the world","Environmental and gender justice are the same movement — always have been","Every woman who tells her story makes it slightly easier for the next woman to tell hers"],
+    conclusion:"These women did not wait for safety, permission, or the world to be ready. They acted from the conviction that what they knew to be right was worth more than what they knew to be comfortable. Their legacy lives in every moment you choose courage over comfort.",
+    faqs:[["Who was the first woman to win a Nobel Prize?","Marie Curie won the Nobel Prize in Physics in 1903 — the first Nobel Prize ever awarded to a woman."],["What is the Malala Fund's work in 2026?","Advocating for 12 years of free, quality education for every girl globally, with programs in Pakistan, Afghanistan, Nigeria, Ethiopia, and Brazil."],["What made Rosa Parks historically significant?","Her deliberately strategic act catalyzed the Montgomery Bus Boycott — 381 days of organized action resulting in the Supreme Court ruling bus segregation unconstitutional."],["How did the Green Belt Movement change Kenya?","It created economic income for rural women, built community organizing capacity, challenged government corruption, and gave rural women a political voice."],["Most impactful women trailblazers of 2026?","Gitanjali Rao, Hindou Oumarou Ibrahim, Ngozi Okonjo-Iweala, Leymah Gbowee, and thousands of women running for local office for the first time."]]
+  },
+  {
+    id:10, cat:"Mindset", emoji:"💫", readTime:"10 min read",
+    title:"The Transformative Power of No: How Boundaries Rebuild Women's Lives in 2026",
+    excerpt:"Two letters. One syllable. The most underused word in most women's vocabularies. Here is exactly how learning to say 'no' — with clarity, grace, and firmness — transforms everything.",
+    date:"Feb 8, 2026",
+    content:`<p>The word "no" contains exactly two letters and one syllable. And yet for millions of women around the world, saying it — clearly, without an attached apology, explanation, or guilt-offering — is one of the most psychologically difficult things they ever do. This is not a character flaw. It is the predictable outcome of lifetimes of socialization.</p><h2>Why "No" Carries the Weight of a Thousand Fears</h2><p>From early childhood, girls receive disproportionate rewards for helpfulness, agreeableness, and emotional attunement to others' needs. Boys who assert themselves are called "natural leaders"; girls who assert themselves are called "bossy" or "difficult."</p>`,
+    stats:[["78%","Women Describe Being Chronically Over-committed"],["67%","Burnout Linked to Poor Boundaries"],["3x","Relationship Quality Improves with Boundaries"],["90%","Feel Relief After Saying No Once"]],
+    takeaways:["'No' is a grammatically complete sentence — it requires neither explanation nor apology","The fear of 'no' is almost always disproportionate to the actual consequences","Boundaries protect relationships — they don't end them","Every 'yes' you don't mean is a 'no' to your own life, time, energy, and self-respect","The discomfort of saying no diminishes with practice — the regret of not saying it does not"],
+    conclusion:"Every time you say no to what doesn't serve you, you are saying yes to the life you actually want to live. Your time, energy, and attention are the most precious resources you will ever possess. Guard them with the same ferocity you bring to everything else you love.",
+    faqs:[["How to say no without overwhelming guilt?","Recognize that guilt here is a conditioned response, not a moral indicator. Breathe through it — it diminishes with practice."],["What if someone responds with anger?","Their emotional reaction is about them, not a verdict on your character or your right to limits."],["How to say no to your manager?","Frame around prioritization: 'Could we discuss which of these priorities takes precedence?'"],["Boundary vs ultimatum?","A boundary is a statement about what you will do, grounded in your values. An ultimatum is an attempt to control another person's behavior."],["How many times should I need to state a boundary?","Once — stated clearly and calmly. Repetition needed means the person is choosing not to respect you."]]
+  },
+  {
+    id:11, cat:"Leadership", emoji:"🌍", readTime:"12 min read",
+    title:"Women in Politics 2026: How Female Leadership Is Literally Reshaping Nations",
+    excerpt:"When women lead nations, the data reveals remarkable differences in policy outcomes, governance quality, and social progress. This is not opinion — it is rigorous, reproducible evidence.",
+    date:"Feb 6, 2026",
+    content:`<p>The political arena has historically been the most resistant to women's full participation. Yet wherever women have broken through — into parliaments, presidencies, and policy-making bodies — the effects on governance quality, policy priorities, and social outcomes have been measurable and documented.</p><h2>The Numbers in 2026</h2><p>As of 2026, women hold approximately 28-30% of parliamentary seats worldwide — a meaningful increase from the 12% recorded in 1997, but still less than one-third of the decision-making power in national legislatures.</p>`,
+    stats:[["28-30%","Parliamentary Seats Held by Women 2026"],["24","Women Heads of State Globally"],["40%","Less Corruption with Female Leadership"],["1997","Women Held Just 12% of Seats"]],
+    takeaways:["Female political leadership produces measurably better governance outcomes on multiple dimensions","Representation is not symbolic — it directly determines what policies get prioritized","Organized harassment and funding gaps are the most critical and intentional barriers","Quotas, while politically contested, are the fastest proven mechanism for rapid representation increase","Every woman who runs for office makes it incrementally easier for the next"],
+    conclusion:"Democracy is structurally incomplete without women's full and equal participation. The evidence that female leadership improves governance outcomes is no longer debatable. In 2026, political engagement is not optional for any woman who cares about the future she will live in.",
+    faqs:[["What percentage of world leaders are women in 2026?","Approximately 24 women serve as heads of state globally — roughly 12% of all national leaders."],["Do women actually govern differently?","Yes — research consistently shows women politicians prioritize health, education, and anti-corruption at higher rates."],["What is a gender quota?","Gender quotas reserve a percentage of legislative seats for women and are the fastest proven mechanism for increasing female representation."],["Which country has highest female parliamentary representation?","Rwanda leads with over 61% female parliamentary representation."],["How to support women in politics without running?","Donate early, volunteer, vote deliberately, call out misogynistic coverage, encourage qualified women in your network to run."]]
+  },
+  {
+    id:12, cat:"Health", emoji:"🌿", readTime:"11 min read",
+    title:"Women and Nutrition in 2026: The Science of Fueling Your Body at Every Stage",
+    excerpt:"From your 20s to your 70s and every hormonal transition in between, your nutritional needs change dramatically. Here is the science-backed guide to fueling yourself for lifelong vitality.",
+    date:"Feb 4, 2026",
+    content:`<p>For most of the history of nutrition science, the default research subject was a 70-kilogram adult male. The resulting dietary guidelines — applied wholesale to women — have systematically failed to account for the dramatic hormonal variability and unique metabolic characteristics of female physiology. In 2026, that is beginning to change.</p><h2>The Foundational Nutrients Most Women Are Deficient In</h2><p>Research consistently identifies several nutrients as critical areas of deficiency for women. Iron deficiency affects up to 10% of women of reproductive age globally. Vitamin D deficiency is nearly epidemic. Magnesium is chronically under-consumed. And omega-3 fatty acids are insufficient in most women's diets.</p>`,
+    stats:[["10%","Women Iron Deficient Globally"],["70%","Women Vitamin D Deficient"],["30","Age of Peak Bone Mass"],["40%","Protein Need Increase Post-50"]],
+    takeaways:["Generic dietary advice has historically been calibrated for male bodies — women's nutritional needs are specifically different","Iron, Vitamin D, magnesium, and omega-3 fatty acids are the four most commonly deficient nutrients in women","Bone density built in your 20s and 30s is the most important nutritional investment you will ever make","Menopause is a nutritional transition requiring specific, intentional dietary adjustment","Personalized nutrition technology in 2026 makes genuinely individualized dietary guidance more accessible than ever"],
+    conclusion:"Nourishing your body is not about deprivation or restriction. It is about understanding your unique biological needs at every stage of life and meeting them with intelligence, pleasure, and self-respect. Food is medicine. Food is joy. Begin where you are.",
+    faqs:[["Most important nutrients for women?","Iron, calcium and vitamin D, folate, omega-3 fatty acids, and magnesium are consistently most critical."],["Should women eat differently than men?","Yes — women have different hormonal cycles, body composition, and reproductive demands requiring tailored nutritional guidance."],["What to prioritize during menopause?","Phytoestrogens from soy, omega-3s, increased protein, calcium and vitamin D, and reduced alcohol and processed foods."],["Symptoms of iron deficiency women often miss?","Persistent fatigue, difficulty concentrating, shortness of breath, pale skin, brittle nails, cold hands and feet."],["Is intermittent fasting appropriate for women?","Evidence is mixed and highly individual — consult a physician or registered dietitian before beginning."]]
+  },
+  {
+    id:13, cat:"Empowerment", emoji:"🔥", readTime:"12 min read",
+    title:"Gender Equality in 2026: An Honest Assessment of Where We Stand and the Path Forward",
+    excerpt:"The global gender equality movement is at a critical and contested crossroads. Here is the most honest assessment possible of where we genuinely stand — progress, setbacks, and the road that remains.",
+    date:"Feb 2, 2026",
+    content:`<p>The pursuit of gender equality is the longest-running, most universal, and most persistently contested social justice movement in human history. In 2026, the picture is simultaneously more promising and more precarious than at any previous moment.</p><h2>Measuring Progress: The Global Gender Gap in 2026</h2><p>The WEF's Global Gender Gap Report measures four dimensions: economic participation, educational attainment, health outcomes, and political empowerment. The overall global gender gap stands at approximately 70% closed — a record high that nonetheless reveals how much remains undone. At current rates, full parity will take over 100 years.</p>`,
+    stats:[["70%","Global Gender Gap Now Closed"],["95+","Countries Women Lead in Education"],["100+","Years to Full Economic Parity at Current Rate"],["34%","Decline in Maternal Mortality (20 Years)"]],
+    takeaways:["Progress toward gender equality is real, documented, and in some dimensions historic — but also reversible and fragile","Educational parity has largely been achieved — economic and political parity are the remaining frontiers","Anti-gender backlash is organized, funded, and strategically sophisticated","Intersectionality is not optional in 2026: gains that don't reach all women are incomplete","Sustaining progress requires every generation to actively choose to protect and advance what came before"],
+    conclusion:"Gender equality is not the inevitable direction of history — it is the direction of deliberate, sustained, organized human effort. The gains of the past century were hard won, are under genuine threat, and can be lost. This Women's Day 2026, be a guardian: vote, advocate, speak, support, and refuse absolutely to normalize regression.",
+    faqs:[["What does 'gender equality' mean in practice?","People of all genders having the same rights, responsibilities, and genuine opportunities — gender does not determine life outcomes."],["How long will full global gender parity take?","The WEF suggests over 100 years at current progress rates — making acceleration a moral imperative."],["What is intersectional feminism?","It recognizes that gender inequality intersects with race, class, sexuality, disability to create compounded disadvantages."],["Most effective strategies for advancing gender equality?","Girls' education investment, women's economic empowerment, legal protections, representation measures, and engaged male allyship — pursued simultaneously."],["Why is International Women's Day on March 8th?","It commemorates 1917 strikes by Russian women garment workers demanding better conditions, subsequently adopted by socialist movements internationally."]]
+  },
+  {
+    id:14, cat:"Career", emoji:"💡", readTime:"12 min read",
+    title:"Women in Tech 2026: Coding a More Equitable and Intelligent Future",
+    excerpt:"Women were the original programmers. Today, they are dramatically underrepresented in the industry they helped found. Here is what is changing, what remains broken, and how to be part of the solution.",
+    date:"Jan 30, 2026",
+    content:`<p>Ada Lovelace wrote the world's first computer algorithm in 1843. Grace Hopper invented the first compiler in 1952. The women of ENIAC programmed one of the world's first electronic general-purpose computers. And yet: in 2026, women hold fewer than 26% of technology industry jobs in the United States.</p><h2>The Leaky Pipeline</h2><p>The gender gap in technology is not primarily a pipeline problem — it is a retention problem. Girls demonstrate equal interest and aptitude in mathematics and computer science through elementary school. By middle school, a combination of stereotype threat and hostile coding culture begins eroding girls' confidence.</p>`,
+    stats:[["26%","Women Hold Tech Jobs in 2026"],["2x","Women's Attrition Rate from Tech"],["670K","Girls Who Code Has Reached"],["34x","AI Error Rate for Dark-Skinned Women"]],
+    takeaways:["Women were the original programmers — the exclusion of women from computing is the aberration, not the norm","The leaky pipeline is primarily a retention and culture problem, not a talent or interest problem","Homogeneous tech teams build products with dangerous, documented blind spots that harm real people","In 2026, more organizations support women in tech than at any previous time","Changing tech culture requires active allyship from men in positions of power and influence"],
+    conclusion:"The technology that shapes every dimension of human life in 2026 is being built disproportionately by men. When women are excluded from building our digital infrastructure, all of us live with the consequences of its blind spots. Closing the gender gap in technology is not optional. It is urgent.",
+    faqs:[["Who were the first women in computer science?","Ada Lovelace, Grace Hopper, the ENIAC programmers, Katherine Johnson, and Dorothy Vaughan are among the founding figures of computing."],["Programs that help women enter tech?","Girls Who Code, Black Girls Code, Women Who Code, Code First Girls, Lesbians Who Tech."],["Tech careers without a CS degree?","UX/UI design, product management, technical writing, data analysis, cybersecurity certifications, digital marketing, AI prompt engineering."],["What can men in tech do to be genuine allies?","Amplify women's contributions, advocate for their promotion, refuse to tolerate sexist jokes, mentor and sponsor junior women, call out hiring bias."],["How do companies most effectively increase gender diversity?","Blind resume screening, structured interviews, diversity goals with executive accountability, transparent pay bands, and actively inclusive team cultures."]]
+  },
+  {
+    id:15, cat:"Mindset", emoji:"🎯", readTime:"11 min read",
+    title:"Goal Setting for Women in 2026: The Art of Ambitious, Sustainable, Whole-Life Dreams",
+    excerpt:"Women have been told to dream big their entire lives — but handed goal-setting frameworks designed for lives they don't live. Here is a science-backed, reality-grounded approach that actually works.",
+    date:"Jan 28, 2026",
+    content:`<p>We have been exhorted our entire lives to dream bigger, aim higher, set stretch goals. The motivational industry generates billions of dollars annually selling the conviction that the primary obstacle is insufficient ambition. For women navigating caregiving responsibilities, hormonal variability, and systemic barriers — this framework is not just unhelpful. It is actively damaging.</p><h2>Why Conventional Goal-Setting Frameworks Fail Women</h2><p>The dominant "goal-crushing" culture assumes a model of adult life with uninterrupted blocks of focused work time, a support infrastructure that handles logistics, and a body that performs consistently regardless of cyclical hormonal variation. This is not the reality of most women's lives.</p>`,
+    stats:[["76%","Goals Achieved with Accountability Partner"],["43%","Goals Achieved Without Accountability"],["3x","Success Rate with Written Goals"],["1 in 3","Women Abandon Goals Within 3 Weeks"]],
+    takeaways:["Conventional goal-setting frameworks were designed for lives most women don't live — adapt them deliberately","The WISE framework adds whole-life alignment and sustainability to standard SMART goal criteria","Seasonal and cyclical goal-setting works with women's natural rhythms rather than fighting them","An accountability partner is the single most powerful goal-success tool available","Celebrating progress, not just completion, is what sustains motivation through the long middle of any goal"],
+    conclusion:"Your dreams are not too big. The frameworks you have been handed are too small. In 2026, design a goal-setting practice that is as intelligent, nuanced, and ambitious as you are — one that honors the full complexity of your life while refusing to use that complexity as a ceiling.",
+    faqs:[["Most evidence-based approach to goal-setting?","Write goals down. Share with an accountability partner. Break into weekly actions. Review monthly."],["How to set goals when life feels overwhelming?","Begin with values — the 3-5 principles that matter most. From those, one goal per domain becomes visible."],["What to do when I fail to achieve a goal?","Treat failure as data. Ask: What interfered? Was the timeline too aggressive? Was this what I actually wanted? Then adjust and recommit."],["How many goals to focus on at once?","Maximum 1-3 goals in active pursuit at any given time, with no more than one per major life domain."],["Relationship between daily habits and long-term goals?","Goals are the destination; habits are the daily vehicle. Small, consistent habits are more reliable than sporadic motivation bursts."]]
+  }
+];
+
+// ============================================================
+// INITIALIZE blogs from localStorage (or use defaults)
+// ============================================================
+let blogs = loadBlogsFromStorage() || defaultBlogs;
+let displayedBlogs = [...blogs];
+
+// ============================================================
+// ADMIN EDIT SYSTEM
+// ============================================================
+let adminUnlocked = false;
+
+function activateAdminMode() {
+  adminUnlocked = true;
+  document.body.classList.add('admin-mode');
+}
+
+function deactivateAdminMode() {
+  adminUnlocked = false;
+  document.body.classList.remove('admin-mode');
+  const form = document.getElementById('adminForm');
+  const pass = document.getElementById('adminPass');
+  if (form) form.classList.remove('visible');
+  if (pass) { pass.disabled = false; pass.value = ''; pass.style.borderColor = ''; pass.placeholder = 'Enter admin password...'; }
+}
+
+function openEditModal(sectionName, fields, onSaveCallback) {
+  let fieldsHTML = '';
+  fields.forEach(f => {
+    fieldsHTML += `<label>${f.label}</label>`;
+    if (f.type === 'textarea') {
+      const val = (f.value || '').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      fieldsHTML += `<textarea id="ef_${f.id}">${val}</textarea>`;
+    } else if (f.type === 'select') {
+      fieldsHTML += `<select id="ef_${f.id}">${(f.options||[]).map(o=>`<option value="${o}"${o===f.value?' selected':''}>${o}</option>`).join('')}</select>`;
+    } else {
+      const val = (f.value || '').toString().replace(/"/g,'&quot;').replace(/</g,'&lt;').replace(/>/g,'&gt;');
+      fieldsHTML += `<input type="text" id="ef_${f.id}" value="${val}">`;
+    }
+  });
+
+  document.getElementById('editModalContent').innerHTML = `
+    <h3>✏️ Edit ${sectionName}</h3>
+    <span class="em-label">🔐 Admin Mode — changes saved automatically to browser storage</span>
+    ${fieldsHTML}
+    <div class="edit-modal-btns">
+      <button class="edit-save-btn" id="editSaveBtn">💾 Save Changes</button>
+      <button class="edit-cancel-btn" onclick="closeEditModal()">Cancel</button>
+    </div>
+  `;
+  document.getElementById('editSaveBtn').onclick = onSaveCallback;
+  document.getElementById('editModalOverlay').classList.add('open');
+}
+
+function closeEditModal() {
+  document.getElementById('editModalOverlay').classList.remove('open');
+}
+
+function handleEditOverlayClick(e) {
+  if (e.target === document.getElementById('editModalOverlay')) closeEditModal();
+}
+
+function getVal(id) {
+  const el = document.getElementById('ef_' + id);
+  if (!el) return '';
+  return el.value;
+}
+
+// ---- RIBBON ----
+function editRibbon() {
+  const el = document.querySelector('.ribbon-bar');
+  const btn = el.querySelector('.edit-btn');
+  if (btn) btn.style.display = 'none';
+  const html = el.innerHTML.trim();
+  if (btn) btn.style.display = '';
+  openEditModal('Ribbon Bar', [
+    {label: 'Ribbon Content (HTML)', id: 'ribbon', type: 'textarea', value: html.replace(/<button class="edit-btn"[^>]*>[\s\S]*?<\/button>/g,'').trim()}
+  ], function() {
+    const editBtn = document.querySelector('.ribbon-bar .edit-btn');
+    document.querySelector('.ribbon-bar').innerHTML = getVal('ribbon');
+    document.querySelector('.ribbon-bar').appendChild(editBtn);
+    closeEditModal();
+  });
+}
+
+// ---- HERO ----
+function editHero() {
+  const badge = document.querySelector('.hero-badge').innerText;
+  const title = document.querySelector('.hero-title').innerHTML;
+  const subtitle = document.querySelector('.hero-subtitle').innerText;
+  const statNums = [...document.querySelectorAll('.stat-num')].map(e=>e.innerText);
+  const statLabels = [...document.querySelectorAll('.stat-label')].map(e=>e.innerText);
+  openEditModal('Hero Section', [
+    {label:'Badge Text', id:'badge', type:'text', value: badge},
+    {label:'Title HTML (use <em> for italic)', id:'title', type:'textarea', value: title},
+    {label:'Subtitle Text', id:'subtitle', type:'textarea', value: subtitle},
+    {label:'Stat 1 Number', id:'s1n', type:'text', value: statNums[0]||''},
+    {label:'Stat 1 Label', id:'s1l', type:'text', value: statLabels[0]||''},
+    {label:'Stat 2 Number', id:'s2n', type:'text', value: statNums[1]||''},
+    {label:'Stat 2 Label', id:'s2l', type:'text', value: statLabels[1]||''},
+    {label:'Stat 3 Number', id:'s3n', type:'text', value: statNums[2]||''},
+    {label:'Stat 3 Label', id:'s3l', type:'text', value: statLabels[2]||''},
+  ], function() {
+    document.querySelector('.hero-badge').innerText = getVal('badge');
+    document.querySelector('.hero-title').innerHTML = getVal('title');
+    document.querySelector('.hero-subtitle').innerText = getVal('subtitle');
+    const nums = document.querySelectorAll('.stat-num');
+    const lbls = document.querySelectorAll('.stat-label');
+    [[nums[0],'s1n'],[nums[1],'s2n'],[nums[2],'s3n']].forEach(([el,id])=>{ if(el) el.innerText=getVal(id); });
+    [[lbls[0],'s1l'],[lbls[1],'s2l'],[lbls[2],'s3l']].forEach(([el,id])=>{ if(el) el.innerText=getVal(id); });
+    closeEditModal();
+  });
+}
+
+// ---- QUOTE ----
+function editQuote() {
+  openEditModal('Quote Banner', [
+    {label:'Quote Text', id:'qt', type:'textarea', value: document.querySelector('.quote-text').innerText},
+    {label:'Author (include — dash)', id:'qa', type:'text', value: document.querySelector('.quote-author').innerText},
+  ], function() {
+    document.querySelector('.quote-text').innerText = getVal('qt');
+    document.querySelector('.quote-author').innerText = getVal('qa');
+    closeEditModal();
+  });
+}
+
+// ---- CATEGORIES HEADER ----
+function editCategoriesHeader() {
+  openEditModal('Categories Section Header', [
+    {label:'Section Label', id:'fl', type:'text', value: document.querySelector('.features .section-label').innerText},
+    {label:'Title (use <em> for italic)', id:'ft', type:'textarea', value: document.querySelector('.features .section-title').innerHTML},
+    {label:'Subtitle', id:'fs', type:'textarea', value: document.querySelector('.features .section-sub').innerText},
+  ], function() {
+    document.querySelector('.features .section-label').innerText = getVal('fl');
+    document.querySelector('.features .section-title').innerHTML = getVal('ft');
+    document.querySelector('.features .section-sub').innerText = getVal('fs');
+    closeEditModal();
+  });
+}
+
+// ---- CATEGORY CARDS ----
+function editCategoryCard(index) {
+  const cards = document.querySelectorAll('.feature-card');
+  const card = cards[index];
+  if (!card) return;
+  openEditModal('Category Card #' + (index+1), [
+    {label:'Icon (emoji)', id:'icon', type:'text', value: card.querySelector('.feature-icon').innerText},
+    {label:'Category Name', id:'name', type:'text', value: card.querySelector('.feature-name').innerText},
+    {label:'Article Count Text', id:'count', type:'text', value: card.querySelector('.feature-count').innerText},
+  ], function() {
+    card.querySelector('.feature-icon').innerText = getVal('icon');
+    card.querySelector('.feature-name').innerText = getVal('name');
+    card.querySelector('.feature-count').innerText = getVal('count');
+    closeEditModal();
+  });
+}
+
+// ---- BLOGS SECTION HEADER ----
+function editBlogsHeader() {
+  openEditModal('Blogs Section Header', [
+    {label:'Section Label', id:'bl', type:'text', value: document.querySelector('#blogs .section-label').innerText},
+    {label:'Title (use <em> for italic)', id:'bt2', type:'textarea', value: document.querySelector('#blogs .section-title').innerHTML},
+    {label:'Subtitle', id:'bs', type:'textarea', value: document.querySelector('#blogs .section-sub').innerText},
+  ], function() {
+    document.querySelector('#blogs .section-label').innerText = getVal('bl');
+    document.querySelector('#blogs .section-title').innerHTML = getVal('bt2');
+    document.querySelector('#blogs .section-sub').innerText = getVal('bs');
+    closeEditModal();
+  });
+}
+
+// ---- BLOG CARD EDIT ----
+function editBlogCard(id, event) {
+  if (event) event.stopPropagation();
+  const b = blogs.find(x=>x.id===id);
+  if (!b) return;
+  openEditModal('Blog Post', [
+    {label:'Title', id:'bt', type:'text', value: b.title},
+    {label:'Category', id:'bc', type:'select', value: b.cat, options:['Leadership','Health','Career','Empowerment','Mindset']},
+    {label:'Emoji Icon', id:'be', type:'text', value: b.emoji},
+    {label:'Read Time', id:'br', type:'text', value: b.readTime},
+    {label:'Date', id:'bd', type:'text', value: b.date},
+    {label:'Excerpt (shown on card)', id:'bex', type:'textarea', value: b.excerpt},
+    {label:'Full Content (HTML)', id:'bcont', type:'textarea', value: b.content},
+    {label:'Conclusion Paragraph', id:'bcon', type:'textarea', value: b.conclusion},
+  ], function() {
+    b.title = getVal('bt');
+    b.cat = getVal('bc');
+    b.emoji = getVal('be');
+    b.readTime = getVal('br');
+    b.date = getVal('bd');
+    b.excerpt = getVal('bex');
+    b.content = getVal('bcont');
+    b.conclusion = getVal('bcon');
+    displayedBlogs = [...blogs];
+    renderBlogGrid(displayedBlogs);
+    saveBlogsToStorage(); // ✅ SAVE after editing
+    closeEditModal();
+  });
+}
+
+function deleteBlogPost(id, event) {
+  if (event) event.stopPropagation();
+  const b = blogs.find(x=>x.id===id);
+  if (!confirm(`Delete "${b ? b.title : 'this blog'}"\n\nThis cannot be undone.`)) return;
+  const idx = blogs.findIndex(x=>x.id===id);
+  if (idx > -1) {
+    blogs.splice(idx, 1);
+    displayedBlogs = [...blogs];
+    renderBlogGrid(displayedBlogs);
+    saveBlogsToStorage(); // ✅ SAVE after deleting
+  }
+}
+
+// ---- CONTACT SECTION ----
+function editContactSection() {
+  openEditModal('Contact Section', [
+    {label:'Section Label', id:'cl', type:'text', value: document.querySelector('.contact-section .section-label').innerText},
+    {label:'Title (use <em> for italic)', id:'ct', type:'textarea', value: document.querySelector('.contact-section .section-title').innerHTML},
+    {label:'Subtitle', id:'cs', type:'textarea', value: document.querySelector('.contact-section .section-sub').innerText},
+  ], function() {
+    document.querySelector('.contact-section .section-label').innerText = getVal('cl');
+    document.querySelector('.contact-section .section-title').innerHTML = getVal('ct');
+    document.querySelector('.contact-section .section-sub').innerText = getVal('cs');
+    closeEditModal();
+  });
+}
+
+// ---- CONTACT CARDS ----
+function editContactCard(index) {
+  const cards = document.querySelectorAll('.contact-card');
+  const card = cards[index];
+  if (!card) return;
+  const linkEl = card.querySelector('a');
+  openEditModal('Contact Card #' + (index+1), [
+    {label:'Icon', id:'icon', type:'text', value: card.querySelector('.cc-icon').innerText},
+    {label:'Title', id:'h4', type:'text', value: card.querySelector('h4').innerText},
+    {label:'Link Text', id:'lt', type:'text', value: linkEl ? linkEl.innerText : ''},
+    {label:'Link href (email or URL)', id:'lh', type:'text', value: linkEl ? linkEl.getAttribute('href') : ''},
+    {label:'Description', id:'desc', type:'textarea', value: card.querySelector('p') ? card.querySelector('p').innerText : ''},
+  ], function() {
+    card.querySelector('.cc-icon').innerText = getVal('icon');
+    card.querySelector('h4').innerText = getVal('h4');
+    if (linkEl) { linkEl.innerText = getVal('lt'); linkEl.href = getVal('lh'); }
+    if (card.querySelector('p')) card.querySelector('p').innerText = getVal('desc');
+    closeEditModal();
+  });
+}
+
+// ---- NEWSLETTER ----
+function editNewsletter() {
+  openEditModal('Newsletter Section', [
+    {label:'Section Label', id:'nl', type:'text', value: document.querySelector('.newsletter .section-label').innerText},
+    {label:'Title (use <em> for italic)', id:'nt', type:'textarea', value: document.querySelector('.newsletter .section-title').innerHTML},
+    {label:'Subtitle', id:'ns', type:'textarea', value: document.querySelector('.newsletter .section-sub').innerText},
+  ], function() {
+    document.querySelector('.newsletter .section-label').innerText = getVal('nl');
+    document.querySelector('.newsletter .section-title').innerHTML = getVal('nt');
+    document.querySelector('.newsletter .section-sub').innerText = getVal('ns');
+    closeEditModal();
+  });
+}
+
+// ---- FOOTER ----
+function editFooter() {
+  openEditModal('Footer', [
+    {label:'Brand Description', id:'fa', type:'textarea', value: document.querySelector('.footer-brand p').innerText},
+    {label:'Copyright Text (HTML allowed)', id:'fc', type:'textarea', value: document.querySelector('.footer-bottom span:first-child').innerHTML},
+  ], function() {
+    document.querySelector('.footer-brand p').innerText = getVal('fa');
+    document.querySelector('.footer-bottom span:first-child').innerHTML = getVal('fc');
+    closeEditModal();
+  });
+}
+
+// ============================================================
+// RENDER BLOG CARDS
+// ============================================================
+function getCatColor(cat){
+  return {Leadership:'#3D1525,#C8405A',Health:'#1A3D2A,#2D8A4E',Career:'#1A2D3D,#2D6A8A',Empowerment:'#3D2A1A,#C8703F',Mindset:'#2A1A3D,#6A4BC8'}[cat]||'#1A0A0F,#C8405A';
+}
+
+function renderBlogGrid(data){
+  const grid = document.getElementById('blogGrid');
+  grid.innerHTML = data.map(b=>`
+    <div class="blog-card" onclick="openBlog(${b.id})">
+      <button class="edit-btn" onclick="editBlogCard(${b.id},event)" style="top:8px;right:90px;padding:4px 10px;font-size:0.68rem;">✏️ Edit</button>
+      <button class="edit-btn delete-btn" onclick="deleteBlogPost(${b.id},event)" style="top:8px;right:8px;padding:4px 10px;font-size:0.68rem;">🗑 Delete</button>
+      <div class="blog-card-img" style="background:linear-gradient(135deg,${getCatColor(b.cat)})">
+        <div class="cat-badge">${b.cat}</div>
+        <div class="emoji-bg">${b.emoji}</div>
+        <span style="font-size:3.5rem;position:relative;z-index:1">${b.emoji}</span>
+      </div>
+      <div class="blog-card-body">
+        <div class="blog-card-meta">
+          <span>${b.date}</span><div class="dot"></div><span>${b.readTime}</span>
+        </div>
+        <h3 class="blog-card-title">${b.title}</h3>
+        <p class="blog-card-excerpt">${b.excerpt}</p>
+        <div class="blog-card-footer">
+          <div class="author-mini">
+            <div class="author-avatar">MK</div>
+            <span class="author-name">Maria Kanwal</span>
+          </div>
+          <a href="#" class="read-more" onclick="event.stopPropagation();openBlog(${b.id});return false">
+            Read <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </a>
+        </div>
+      </div>
+    </div>
+  `).join('');
+}
+
+function filterBlogs(cat){
+  displayedBlogs = cat ? blogs.filter(b=>b.cat===cat) : [...blogs];
+  renderBlogGrid(displayedBlogs);
+  switchTab('all-blogs', document.querySelector('.tab-btn'));
+  document.getElementById('blogs').scrollIntoView({behavior:'smooth'});
+}
+
+// ============================================================
+// BLOG MODAL
+// ============================================================
+function openBlog(id){
+  const b = blogs.find(x=>x.id===id);
+  if(!b) return;
+  document.getElementById('modalEmoji').textContent = b.emoji;
+  document.getElementById('modalCat').textContent = b.cat;
+  document.getElementById('modalTitle').textContent = b.title;
+  document.getElementById('modalDate').textContent = b.date;
+  document.getElementById('modalReadTime').textContent = b.readTime;
+  document.getElementById('modalHero').style.background = `linear-gradient(135deg,${getCatColor(b.cat)})`;
+
+  const infographic = `<div class="infographic"><div class="infographic-title">Key Statistics &amp; Data</div><div class="infographic-grid">${b.stats.map(s=>`<div class="infographic-stat"><div class="num">${s[0]}</div><div class="lbl">${s[1]}</div></div>`).join('')}</div></div>`;
+  const takeaways = `<div class="takeaways"><div class="takeaways-title">Key Takeaways</div><ul>${b.takeaways.map(t=>`<li>${t}</li>`).join('')}</ul></div>`;
+  const conclusion = `<div class="conclusion"><div class="conclusion-title">✦ Conclusion</div><p>${b.conclusion}</p></div>`;
+  const faq = `<div class="faq"><div class="faq-title">Frequently Asked Questions</div>${b.faqs.map((f,i)=>`<div class="faq-item"><div class="faq-q" onclick="toggleFaq(this)">${f[0]}<span class="faq-icon">+</span></div><div class="faq-a">${f[1]}</div></div>`).join('')}</div>`;
+  const author = `<div class="author-cta"><div class="author-cta-avatar">MK</div><div class="author-cta-info"><h4>Maria Kanwal</h4><div class="author-title">Women's Empowerment Writer · Advocate · Content Strategist</div><a href="mailto:medrankseo@gmail.com" class="author-email">✉ medrankseo@gmail.com</a><br><a href="mailto:medrankseo@gmail.com" class="cta-btn">Get in Touch ✦</a></div></div>`;
+
+  document.getElementById('modalBody').innerHTML = infographic + b.content + takeaways + conclusion + faq + author;
+  document.getElementById('modalOverlay').classList.add('open');
+  document.body.style.overflow = 'hidden';
+  document.getElementById('blogModal').scrollTop = 0;
+}
+
+function closeModal(){
+  document.getElementById('modalOverlay').classList.remove('open');
+  document.body.style.overflow = '';
+}
+function closeModalOutside(e){if(e.target===document.getElementById('modalOverlay'))closeModal();}
+
+function toggleFaq(el){
+  const wasOpen = el.classList.contains('open');
+  document.querySelectorAll('.faq-q.open').forEach(q=>{q.classList.remove('open');q.nextElementSibling.classList.remove('open');});
+  if(!wasOpen){el.classList.add('open');el.nextElementSibling.classList.add('open');}
+}
+
+// ============================================================
+// TABS
+// ============================================================
+function switchTab(tabId, btn){
+  document.querySelectorAll('.tab-content').forEach(t=>t.classList.remove('active'));
+  document.querySelectorAll('.tab-btn').forEach(b=>b.classList.remove('active'));
+  const tab = document.getElementById(tabId);
+  if(tab) tab.classList.add('active');
+  if(btn) btn.classList.add('active');
+}
+
+// ============================================================
+// ADMIN — Password check activates edit mode
+// ============================================================
+const ADMIN_PASS = 'hervoice2026admin';
+
+function checkAdmin(){
+  const pass = document.getElementById('adminPass').value;
+  if(pass === ADMIN_PASS){
+    document.getElementById('adminForm').classList.add('visible');
+    document.getElementById('adminPass').style.borderColor = '#2EA043';
+    document.getElementById('adminPass').disabled = true;
+    activateAdminMode();
+  } else {
+    document.getElementById('adminPass').style.borderColor = '#F85149';
+    document.getElementById('adminPass').value = '';
+    document.getElementById('adminPass').placeholder = '❌ Incorrect password. Try again.';
+  }
+}
+
+function publishBlog(){
+  const title = document.getElementById('newTitle').value.trim();
+  const cat = document.getElementById('newCat').value;
+  const emoji = document.getElementById('newEmoji').value.trim() || '🌸';
+  const readTime = document.getElementById('newReadTime').value.trim() || '8 min read';
+  const excerpt = document.getElementById('newExcerpt').value.trim();
+  const content = document.getElementById('newContent').value.trim();
+  const statsRaw = document.getElementById('newStats').value.trim();
+  const takeawaysRaw = document.getElementById('newTakeaways').value.trim();
+  const conclusion = document.getElementById('newConclusion').value.trim();
+  const faqsRaw = document.getElementById('newFaqs').value.trim();
+  if(!title||!excerpt||!content){alert('Please fill in Title, Excerpt, and Content at minimum.');return;}
+  const stats = statsRaw ? statsRaw.split('\n').filter(Boolean).map(s=>{const p=s.split('|');return[p[0]||'✓',p[1]||''];}) : [['✦','Key Insight'],['★','Important'],['→','Action Item'],['✓','Verified']];
+  const takeaways = takeawaysRaw ? takeawaysRaw.split('\n').filter(Boolean) : ['A key insight from this article worth remembering'];
+  const faqs = faqsRaw ? faqsRaw.split('\n').filter(Boolean).map(f=>{const[q,...a]=f.split('||');return[q,a.join('||')];}) : [["What is the main topic?","This blog explores important themes related to women's empowerment."],["Why does this matter?","The landscape for women continues to evolve rapidly."],["How can I apply this?","Start with one concrete action today."],["Who is this for?","Any woman ready to invest in herself."],["How do I contact the author?","Connect with Maria Kanwal at medrankseo@gmail.com"]];
+  const newBlog = {
+    id:Date.now(), cat, emoji, readTime, title, excerpt,
+    date:new Date().toLocaleDateString('en-US',{month:'short',day:'numeric',year:'numeric'}),
+    content:content.includes('<p>')?content:content.split('\n\n').filter(Boolean).map(p=>`<p>${p}</p>`).join(''),
+    stats, takeaways,
+    conclusion:conclusion||'Thank you for reading. Every insight absorbed and every action taken is a step toward the life you deserve.',
+    faqs
+  };
+  blogs.unshift(newBlog);
+  displayedBlogs=[...blogs];
+  renderBlogGrid(displayedBlogs);
+  saveBlogsToStorage(); // ✅ SAVE after publishing
+  ['newTitle','newExcerpt','newContent','newStats','newTakeaways','newConclusion','newFaqs'].forEach(id=>{document.getElementById(id).value='';});
+  document.getElementById('newEmoji').value='🌸';
+  document.getElementById('newReadTime').value='8 min read';
+  const suc=document.getElementById('publishSuccess');
+  suc.style.display='block';
+  setTimeout(()=>suc.style.display='none',5000);
+}
+
+// ============================================================
+// RESET BLOGS (admin utility — clears localStorage)
+// ============================================================
+function resetBlogsToDefault(){
+  if(!confirm('Reset ALL blogs to defaults? This will delete all custom blogs and edits.')) return;
+  localStorage.removeItem(STORAGE_KEY);
+  blogs = [...defaultBlogs];
+  displayedBlogs = [...blogs];
+  renderBlogGrid(displayedBlogs);
+  showSaveIndicator();
+}
+
+// ============================================================
+// NEWSLETTER
+// ============================================================
+function subscribeNewsletter(){
+  const inp=document.getElementById('newsletterEmail');
+  if(!inp.value||!inp.value.includes('@')){inp.style.outline='2px solid rgba(255,255,255,0.5)';inp.focus();return;}
+  inp.style.outline='none'; inp.value='';
+  inp.placeholder='✓ Subscribed! Welcome to HerVoice. 🌹';
+}
+
+// ============================================================
+// PETALS ANIMATION
+// ============================================================
+(function(){
+  const c=document.getElementById('petals');
+  const colors=['#C8405A','#F2A7B5','#C9923F','rgba(255,255,255,0.8)','#FDE8EC'];
+  for(let i=0;i<22;i++){
+    const p=document.createElement('div');p.className='petal';
+    const s=Math.random()*18+8;
+    p.style.cssText=`width:${s}px;height:${s*1.5}px;left:${Math.random()*100}%;background:${colors[Math.floor(Math.random()*colors.length)]};animation-duration:${Math.random()*14+12}s;animation-delay:${Math.random()*12}s;`;
+    c.appendChild(p);
+  }
+})();
+
+// ============================================================
+// READING BAR + NAV
+// ============================================================
+window.addEventListener('scroll',()=>{
+  const ws=document.documentElement.scrollTop;
+  const h=document.documentElement.scrollHeight-document.documentElement.clientHeight;
+  document.getElementById('readingBar').style.width=(ws/h*100)+'%';
+});
+
+function toggleMenu(){
+  document.getElementById('navLinks').classList.toggle('open');
+}
+
+// ============================================================
+// INIT
+// ============================================================
+renderBlogGrid(blogs);
+</script>
+</body>
+</html>
